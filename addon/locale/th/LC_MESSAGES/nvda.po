@@ -1,0 +1,2951 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: wordDocAssistant\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-01 15:37+0700\n"
+"PO-Revision-Date: 2026-11-01 15:40+0700\n"
+"Last-Translator: Peera Pilarit\n"
+"Language-Team: Thai\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#. Translators: Help shown with H in navigation mode. Keep the key names in the translation.
+msgid ""
+"Word Document Assistant: navigation mode keys\n"
+"\n"
+"Enter and leave the mode: NVDA+Shift+F8\n"
+"\n"
+"Move to an element type (Shift with the letter moves to the previous one):\n"
+"S  spelling errors\n"
+"G  grammar issues\n"
+"C  comments\n"
+"F  footnotes\n"
+"E  endnotes\n"
+"R  revisions (tracked changes)\n"
+"O  headings\n"
+"U  tables\n"
+"M  pictures and their alternative text\n"
+"K  links\n"
+"X  cross-references\n"
+"I  citations\n"
+"B  bookmarks\n"
+"D  fields\n"
+"L  text marked with the wrong language\n"
+"A  accessibility problems\n"
+"Z  Thai word check with the offline word lists (commonly misspelled words "
+"and words not in the list)\n"
+"\n"
+"Inside the mode:\n"
+"Down arrow / Up arrow  next or previous item of the current type\n"
+"Left arrow / Right arrow  change the element type\n"
+"Home / End  first or last item\n"
+"Space  list of all items of the current type, with separate details and copy "
+"buttons\n"
+"Applications or Shift+F10  actions for the current item\n"
+"Control+C  copy the text of the current item\n"
+"Control+Shift+C  copy all details of the current item\n"
+"\n"
+"Commands:\n"
+"T  report Track Changes status, Shift+T turns Track Changes on or off\n"
+"N  read the footnote or endnote at the caret\n"
+"P  report page, section, line and heading\n"
+"Q  document summary\n"
+"W  AI check of the current paragraph, Shift+W AI check of the text selected "
+"before the mode started\n"
+"J  format the document with AI (official letter, memo, letter, report, "
+"article and more)\n"
+"V  AI tools: summarize, rewrite, translate, summarize comments, check "
+"consistency\n"
+"Y  Thai tools: Thai and Arabic digits, Buddhist and Christian era years\n"
+"H  this help\n"
+"\n"
+"Anywhere: NVDA+Control+Shift+F8 sets up or updates the AI service and API "
+"key\n"
+"\n"
+"Leaving the mode:\n"
+"Enter  leave the mode at the current item, ready to edit\n"
+"Escape  leave the mode, the caret stays at the current item\n"
+"Backspace  go back to where the caret was when the mode started, and leave "
+"the mode\n"
+"Any other key leaves the mode and does its normal job in Word."
+msgstr ""
+"ผู้ช่วยเอกสาร Word: คีย์ในโหมดนำทาง\n"
+"\n"
+"เข้าและออกจากโหมด: NVDA+Shift+F8\n"
+"\n"
+"ไปยังชนิดองค์ประกอบ (กด Shift พร้อมตัวอักษรเพื่อย้อนไปรายการก่อนหน้า):\n"
+"S  คำสะกดผิด\n"
+"G  ปัญหาไวยากรณ์\n"
+"C  ข้อคิดเห็น\n"
+"F  เชิงอรรถ\n"
+"E  อ้างอิงท้ายเรื่อง (endnote)\n"
+"R  การแก้ไขที่ติดตาม (Track Changes)\n"
+"O  หัวเรื่อง\n"
+"U  ตาราง\n"
+"M  รูปภาพและข้อความแสดงแทน\n"
+"K  ลิงก์\n"
+"X  การอ้างอิงโยง\n"
+"I  การอ้างอิง (citation)\n"
+"B  บุ๊กมาร์ก\n"
+"D  ฟิลด์\n"
+"L  ข้อความที่กำหนดภาษาผิด\n"
+"A  ปัญหาการเข้าถึงได้\n"
+"Z  ตรวจคำภาษาไทยด้วยรายการคำแบบออฟไลน์ (คำที่มักเขียนผิดและคำที่ไม่มีในรายการคำ)\n"
+"\n"
+"ภายในโหมด:\n"
+"ลูกศรลง / ลูกศรขึ้น  รายการถัดไปหรือก่อนหน้าของชนิดปัจจุบัน\n"
+"ลูกศรซ้าย / ลูกศรขวา  เปลี่ยนชนิดองค์ประกอบ\n"
+"Home / End  รายการแรกหรือรายการสุดท้าย\n"
+"Space  รายการทั้งหมดของชนิดปัจจุบัน แยกรายละเอียดแต่ละส่วนและมีปุ่มคัดลอก\n"
+"Applications หรือ Shift+F10  คำสั่งของรายการปัจจุบัน\n"
+"Control+C  คัดลอกข้อความของรายการปัจจุบัน\n"
+"Control+Shift+C  คัดลอกรายละเอียดทั้งหมดของรายการปัจจุบัน\n"
+"\n"
+"คำสั่ง:\n"
+"T  รายงานสถานะ Track Changes, Shift+T เปิดหรือปิด Track Changes\n"
+"N  อ่านเชิงอรรถหรือ endnote ที่เคอร์เซอร์\n"
+"P  รายงานหน้า ส่วน (section) บรรทัด และหัวเรื่อง\n"
+"Q  สรุปเอกสาร\n"
+"W  ให้ AI ตรวจย่อหน้าปัจจุบัน, Shift+W ให้ AI ตรวจข้อความที่เลือกไว้ก่อนเข้าโหมด\n"
+"J  จัดรูปแบบเอกสารด้วย AI (หนังสือราชการ บันทึกข้อความ จดหมาย รายงาน บทความ และอื่นๆ)\n"
+"V  เครื่องมือ AI: สรุป เรียบเรียงใหม่ แปล สรุปข้อคิดเห็น ตรวจความสอดคล้อง\n"
+"Y  เครื่องมือภาษาไทย: เลขไทยและเลขอารบิก ปี พ.ศ. และ ค.ศ.\n"
+"H  ความช่วยเหลือนี้\n"
+"\n"
+"ใช้ได้ทุกที่: NVDA+Control+Shift+F8 ตั้งค่าหรืออัปเดตบริการ AI และ API key\n"
+"\n"
+"การออกจากโหมด:\n"
+"Enter  ออกจากโหมดที่รายการปัจจุบัน พร้อมแก้ไขได้ทันที\n"
+"Escape  ออกจากโหมด เคอร์เซอร์อยู่ที่รายการปัจจุบัน\n"
+"Backspace  กลับไปตำแหน่งเดิมก่อนเข้าโหมด แล้วออกจากโหมด\n"
+"คีย์อื่นๆ จะออกจากโหมดและทำงานตามปกติของ Word"
+
+#. Translators: Category of the add-on commands in the Input Gestures dialog.
+#. Translators: Title of the add-on settings panel.
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
+msgid "Word Document Assistant"
+msgstr "ผู้ช่วยเอกสาร Word"
+
+msgid "Update Thai word lists (Word Document Assistant)..."
+msgstr "อัปเดตรายการคำภาษาไทย (ผู้ช่วยเอกสาร Word)..."
+
+#. Translators: Description of the command in the Input Gestures dialog.
+msgid "Turns document navigation mode on or off in Microsoft Word"
+msgstr "เปิดหรือปิดโหมดนำทางเอกสารใน Microsoft Word"
+
+#. Translators: Reported when navigation mode ends.
+msgid "Navigation mode off"
+msgstr "ออกจากโหมดนำทาง"
+
+#. Translators: Description of the command in the Input Gestures dialog.
+msgid ""
+"Sets up or updates the AI service and API key of Word Document Assistant"
+msgstr "ตั้งค่าหรืออัปเดตบริการ AI และ API key ของ ผู้ช่วยเอกสาร Word"
+
+#. Translators: Reported when Word does not answer a request.
+msgid "Word did not respond, please try again"
+msgstr "Word ไม่ตอบสนอง กรุณาลองอีกครั้ง"
+
+#. Translators: Reported when navigation mode starts; {kind} is the current element type.
+#, python-brace-format
+msgid "Navigation mode, {kind}"
+msgstr "โหมดนำทาง, {kind}"
+
+#. Translators: Reported while a slow list, such as spelling errors, is collected.
+#, python-brace-format
+msgid "Collecting {kind}..."
+msgstr "กำลังรวบรวม{kind}..."
+
+#. Translators: Reported when the document has no items of a type, for example "No Comments".
+#, python-brace-format
+msgid "No {kind}"
+msgstr "ไม่พบ{kind}"
+
+#. Translators: Position of the item, for example "3 of 12".
+#, python-brace-format
+msgid "{number} of {total}"
+msgstr "{number} จาก {total}"
+
+#. Translators: Reported when navigation wraps around the document.
+msgid "Wrapped"
+msgstr "วนกลับ"
+
+#. Translators: Reported when the element type changes, for example "Comments, 5".
+#, python-brace-format
+msgid "{kind}, {count}"
+msgstr "{kind}, {count} รายการ"
+
+#. Translators: Reported when there is no footnote or endnote at the caret.
+msgid "No footnote or endnote at the caret"
+msgstr "ไม่มีเชิงอรรถหรือ endnote ที่เคอร์เซอร์"
+
+#. Translators: Reported while the document summary is being collected.
+msgid "Counting..."
+msgstr "กำลังนับ..."
+
+#. Translators: Title of the help window.
+msgid "Word Document Assistant help"
+msgstr "ความช่วยเหลือ ผู้ช่วยเอกสาร Word"
+
+#. Translators: Reported when Enter leaves navigation mode.
+msgid "Ready to edit"
+msgstr "พร้อมแก้ไข"
+
+#. Translators: Reported when Backspace returns the caret to where the mode started.
+msgid "Back at the starting position"
+msgstr "กลับมาที่ตำแหน่งเดิมแล้ว"
+
+#. Translators: Reported when a command needs a current item but none is selected yet.
+msgid "No current item, use the arrow keys first"
+msgstr "ยังไม่มีรายการปัจจุบัน กรุณาใช้ลูกศรเลือกก่อน"
+
+#. Translators: Reported when Word refuses a change, for example in a protected document.
+msgid "Word could not complete this action"
+msgstr "Word ไม่สามารถทำคำสั่งนี้ได้"
+
+#. Translators: Reported after text was copied to the clipboard.
+msgid "Copied"
+msgstr "คัดลอกแล้ว"
+
+#. Nothing is set up yet: open the setup dialog straight away.
+#. Translators: Reported when AI is used before it was set up.
+msgid "AI is not set up yet. Opening the AI setup"
+msgstr "ยังไม่ได้ตั้งค่า AI กำลังเปิดหน้าตั้งค่า AI"
+
+#. Translators: Title of the question before text is first sent to an online AI service.
+msgid "Send text to the AI service"
+msgstr "ส่งข้อความไปยังบริการ AI"
+
+msgid ""
+"The text you check will be sent to the online AI service chosen in the "
+"settings. Free services may use it to improve their products. Do not use "
+"this for confidential documents. Continue?"
+msgstr ""
+"ข้อความที่ตรวจจะถูกส่งไปยังบริการ AI ออนไลน์ที่เลือกไว้ในการตั้งค่า "
+"บริการแบบฟรีอาจนำข้อมูลไปใช้ปรับปรุงผลิตภัณฑ์ ห้ามใช้กับเอกสารที่เป็นความลับ ดำเนินการต่อหรือไม่"
+
+#. Translators: Title of the question offered when the API key does not work.
+msgid "API key"
+msgstr "API key"
+
+#. Translators: Question offered when the API key is missing or rejected.
+#, python-brace-format
+msgid "{message}. Open the AI setup to get or update the API key now?"
+msgstr "{message} ต้องการเปิดหน้าตั้งค่าเพื่อขอหรืออัปเดต API key ตอนนี้หรือไม่"
+
+#. Translators: Reported while waiting for the AI service.
+msgid "Asking AI, please wait..."
+msgstr "กำลังขอคำแนะนำจาก AI กรุณารอสักครู่..."
+
+#. Translators: Reported when Shift+W is used without selected text.
+msgid "Select text before entering navigation mode, then press Shift+W"
+msgstr "เลือกข้อความก่อนเข้าโหมดนำทาง แล้วจึงกด Shift+W"
+
+#. Translators: Reported when there is no text to check.
+msgid "There is no text to check"
+msgstr "ไม่มีข้อความให้ตรวจ"
+
+#. Translators: Reported when AI finds nothing to correct.
+msgid "AI found nothing to correct"
+msgstr "AI ไม่พบสิ่งที่ต้องแก้ไข"
+
+#. Translators: Labels of the detail fields in the AI suggestion dialog.
+msgid "Original"
+msgstr "ข้อความเดิม"
+
+#. Translators: Labels of the detail fields in the AI suggestion dialog.
+msgid "Suggestion"
+msgstr "คำแนะนำ"
+
+msgid "Reason"
+msgstr "เหตุผล"
+
+#. Translators: One AI correction in the list, for example "teh to the".
+#, python-brace-format
+msgid "{original} to {suggestion}"
+msgstr "{original} เป็น {suggestion}"
+
+#. Translators: Title of the AI correction dialog; {count} is a number.
+#, python-brace-format
+msgid "AI suggestions: {count}"
+msgstr "คำแนะนำจาก AI: {count} รายการ"
+
+#. Translators: Label of the AI correction list.
+msgid "Check the corrections to use with the Space bar:"
+msgstr "เลือกรายการที่จะใช้โดยกด Space เพื่อทำเครื่องหมาย:"
+
+#. Translators: Button that applies the checked AI corrections.
+msgid "&Apply checked"
+msgstr "ใช้รายการที่เลือก(&A)"
+
+#. Translators: Name of the undo step for AI corrections.
+msgid "AI corrections"
+msgstr "แก้ไขตามคำแนะนำ AI"
+
+#. Translators: Reported after AI corrections were applied.
+#, python-brace-format
+msgid "{applied} of {total} corrections applied"
+msgstr "แก้ไขแล้ว {applied} จาก {total} รายการ"
+
+#. Translators: Added when some corrections could not be applied.
+msgid "Some text had already changed and was skipped"
+msgstr "บางข้อความถูกเปลี่ยนไปแล้วจึงข้ามไป"
+
+#. Translators: Reported when AI has no suggestions.
+msgid "AI has no suggestions"
+msgstr "AI ไม่มีคำแนะนำ"
+
+#. Translators: Title of the dialog with AI suggestions for one word.
+#, python-brace-format
+msgid "AI suggestions for {word}"
+msgstr "คำแนะนำจาก AI สำหรับ {word}"
+
+#. Translators: Label of the list of AI suggestions for one word.
+msgid "Suggestions:"
+msgstr "คำแนะนำ:"
+
+#. Translators: Button that replaces the word with the chosen AI suggestion.
+msgid "&Replace"
+msgstr "แทนที่(&R)"
+
+#. Translators: Title of the dialog with AI reply drafts.
+msgid "AI reply drafts"
+msgstr "ร่างคำตอบจาก AI"
+
+#. Translators: Label of the list of AI reply drafts.
+msgid "Choose a draft, you can edit it before it is posted:"
+msgstr "เลือกร่างคำตอบ แก้ไขได้ก่อนส่ง:"
+
+#. Translators: Button that takes the chosen AI reply draft for editing.
+msgid "&Use this draft"
+msgstr "ใช้ร่างนี้(&U)"
+
+#. Translators: Title and label of the dialog for replying to a comment.
+msgid "Reply to comment"
+msgstr "ตอบกลับข้อคิดเห็น"
+
+#, python-brace-format
+msgid "Reply to {author}:"
+msgstr "ตอบกลับ {author}:"
+
+#, python-brace-format
+msgid "Only the first {count} paragraphs will be formatted"
+msgstr "จะจัดรูปแบบเฉพาะ {count} ย่อหน้าแรก"
+
+#. Translators: Reported while AI looks at the paragraphs; {count} is a number.
+#, python-brace-format
+msgid "AI is reading {count} paragraphs, please wait..."
+msgstr "AI กำลังอ่าน {count} ย่อหน้า กรุณารอสักครู่..."
+
+#. Translators: Progress while AI reads the paragraphs.
+#, python-brace-format
+msgid "{done} of {total} paragraphs"
+msgstr "{done} จาก {total} ย่อหน้า"
+
+#. Translators: Reported while the document is being formatted.
+msgid "Formatting..."
+msgstr "กำลังจัดรูปแบบ..."
+
+#. Translators: Reported after formatting; {formatted} and {removed} are numbers.
+#, python-brace-format
+msgid "Formatted {formatted} paragraphs as {name}"
+msgstr "จัดรูปแบบ {formatted} ย่อหน้าเป็น {name} แล้ว"
+
+#. Translators: Added after formatting when empty paragraphs were removed.
+#, python-brace-format
+msgid "{removed} empty paragraphs removed"
+msgstr "ลบย่อหน้าว่าง {removed} ย่อหน้า"
+
+#. Translators: Added after formatting, telling how to undo.
+msgid "Control+Z undoes it"
+msgstr "กด Control+Z เพื่อย้อนกลับ"
+
+#. Translators: What a tool works on.
+msgid "selected text"
+msgstr "ข้อความที่เลือก"
+
+#. Translators: What a tool works on.
+msgid "whole document"
+msgstr "ทั้งเอกสาร"
+
+#. Translators: What a tool works on.
+msgid "current paragraph"
+msgstr "ย่อหน้าปัจจุบัน"
+
+#. Translators: AI tool.
+msgid "Summarize (short)"
+msgstr "สรุปแบบสั้น"
+
+#. Translators: AI tool.
+msgid "Summarize section by section"
+msgstr "สรุปทีละตอน"
+
+#. Translators: AI tool.
+msgid "Key points, dates and actions"
+msgstr "ประเด็นสำคัญ วันที่ และสิ่งที่ต้องดำเนินการ"
+
+#. Translators: AI tool.
+msgid "Rewrite in official Thai style"
+msgstr "เรียบเรียงใหม่เป็นภาษาราชการ"
+
+#. Translators: AI tool.
+msgid "Rewrite more politely"
+msgstr "เรียบเรียงใหม่ให้สุภาพขึ้น"
+
+#. Translators: AI tool.
+msgid "Rewrite shorter and clearer"
+msgstr "เรียบเรียงใหม่ให้กระชับและชัดเจนขึ้น"
+
+#. Translators: AI tool.
+msgid "Rewrite in easy-to-read language"
+msgstr "เรียบเรียงใหม่เป็นภาษาง่าย"
+
+#. Translators: AI tool.
+msgid "Correct spelling and grammar only"
+msgstr "แก้เฉพาะคำผิดและไวยากรณ์"
+
+#. Translators: AI tool.
+msgid "Translate to English"
+msgstr "แปลเป็นภาษาอังกฤษ"
+
+#. Translators: AI tool.
+msgid "Translate to Thai"
+msgstr "แปลเป็นภาษาไทย"
+
+#. Translators: AI tool.
+msgid "Summarize all comments"
+msgstr "สรุปข้อคิดเห็นทั้งหมด"
+
+#. Translators: AI tool.
+msgid "Check consistency (spellings, digits, years, dates)"
+msgstr "ตรวจความสอดคล้อง (การสะกด ตัวเลข ปี วันที่)"
+
+msgid "AI tools"
+msgstr "เครื่องมือ AI"
+
+msgid "Tool (summaries use the selected text, or the whole document):"
+msgstr "เครื่องมือ (การสรุปใช้ข้อความที่เลือก หรือทั้งเอกสาร):"
+
+#. Translators: Title of the summary dialog; {where} is what was summarized.
+#, python-brace-format
+msgid "Summary of the {where}"
+msgstr "สรุป{where}"
+
+#. Translators: Reported after AI text was put in the document.
+msgid "Done. Control+Z undoes it"
+msgstr "เรียบร้อย กด Control+Z เพื่อย้อนกลับ"
+
+#. Translators: Title of the rewrite dialog; {where} is what was rewritten.
+#, python-brace-format
+msgid "Rewrite the {where}"
+msgstr "เรียบเรียง{where}ใหม่"
+
+#. Translators: Title of the translation dialog; {where} is what was translated.
+#, python-brace-format
+msgid "Translate the {where}"
+msgstr "แปล{where}"
+
+#. Translators: Title of the comment summary dialog.
+msgid "Summary of the comments"
+msgstr "สรุปข้อคิดเห็น"
+
+#. Translators: Title of the consistency check dialog; {where} is what was checked.
+#, python-brace-format
+msgid "Consistency of the {where}"
+msgstr "ความสอดคล้องของ{where}"
+
+#, python-brace-format
+msgid "Arabic digits to Thai digits ({count})"
+msgstr "เลขอารบิกเป็นเลขไทย ({count})"
+
+#, python-brace-format
+msgid "Thai digits to Arabic digits ({count})"
+msgstr "เลขไทยเป็นเลขอารบิก ({count})"
+
+#. Translators: Thai tool.
+msgid "Christian era years (ค.ศ.) to Buddhist era (พ.ศ.)"
+msgstr "ปี ค.ศ. เป็น พ.ศ."
+
+#. Translators: Thai tool.
+msgid "Buddhist era years (พ.ศ.) to Christian era (ค.ศ.)"
+msgstr "ปี พ.ศ. เป็น ค.ศ."
+
+msgid "Thai tools"
+msgstr "เครื่องมือภาษาไทย"
+
+#, python-brace-format
+msgid "Tool, works on the {where}:"
+msgstr "เครื่องมือ ใช้กับ{where}:"
+
+#. Translators: Reported after digits were changed; {count} is a number.
+#, python-brace-format
+msgid "{count} digits changed"
+msgstr "เปลี่ยนตัวเลขแล้ว {count} ตัว"
+
+msgid "Nothing to change"
+msgstr "ไม่มีสิ่งที่ต้องเปลี่ยน"
+
+#. Translators: Reported after years were changed; {count} is a number.
+#, python-brace-format
+msgid "{count} years changed"
+msgstr "เปลี่ยนปีแล้ว {count} รายการ"
+
+#. Translators: Name of a proofing language.
+msgid "Thai"
+msgstr "ไทย"
+
+#. Translators: Name of a proofing language.
+msgid "English (United States)"
+msgstr "อังกฤษ (สหรัฐอเมริกา)"
+
+#. Translators: Name of a proofing language.
+msgid "English (United Kingdom)"
+msgstr "อังกฤษ (สหราชอาณาจักร)"
+
+#. Translators: Name of a proofing language.
+msgid "no proofing"
+msgstr "ไม่ตรวจการสะกด"
+
+#. Translators: Name of a proofing language.
+msgid "no language"
+msgstr "ไม่กำหนดภาษา"
+
+#. Translators: Name of the language of text that mixes several languages.
+msgid "mixed languages"
+msgstr "หลายภาษา"
+
+#. Translators: Name of a language Word reports by number.
+#, python-brace-format
+msgid "language {number}"
+msgstr "ภาษารหัส {number}"
+
+#. Translators: Reported when the add-on cannot read the picture.
+msgid "Cannot read this picture from the document"
+msgstr "อ่านรูปภาพนี้จากเอกสารไม่ได้"
+
+#, python-brace-format
+msgid ""
+"This picture is a drawing format AI cannot read ({type}). Save it as PNG or "
+"JPEG first"
+msgstr "รูปภาพนี้เป็นรูปแบบภาพวาดที่ AI อ่านไม่ได้ ({type}) กรุณาบันทึกเป็น PNG หรือ JPEG ก่อน"
+
+#. Translators: Name of the undo step for changing alternative text.
+#. Translators: Title of the dialog for alternative text.
+#. Translators: Section label in the picture details.
+#. Translators: Section label in the table details.
+#. Translators: Name of the undo step for changing alternative text.
+msgid "Alternative text"
+msgstr "ข้อความแสดงแทน (alt text)"
+
+#. Translators: Reported after alternative text was saved.
+msgid "Alternative text saved"
+msgstr "บันทึกข้อความแสดงแทนแล้ว"
+
+#. Translators: Label of the alternative text field.
+msgid "Describe the picture for people who cannot see it:"
+msgstr "อธิบายรูปภาพสำหรับผู้ที่มองไม่เห็น:"
+
+#. Translators: Label of the field with the AI description, which the user can edit.
+msgid "AI description, edit it before saving:"
+msgstr "คำอธิบายจาก AI แก้ไขได้ก่อนบันทึก:"
+
+#. Translators: Reported when this version of Word cannot mark pictures as decorative.
+msgid "This version of Word cannot mark pictures as decorative"
+msgstr "Word รุ่นนี้ทำเครื่องหมายรูปเป็นภาพตกแต่งไม่ได้"
+
+#. Translators: Reported after a picture was marked as decorative.
+msgid "Marked as decorative"
+msgstr "ทำเครื่องหมายเป็นภาพตกแต่งแล้ว"
+
+#. Translators: Action that edits the alternative text of a picture.
+#. Translators: Action that edits the alternative text of a table.
+msgid "Edit alternative text..."
+msgstr "แก้ไขข้อความแสดงแทน..."
+
+#. Translators: Action that asks AI for short alternative text of a picture.
+msgid "Describe with AI (short alternative text)..."
+msgstr "ให้ AI อธิบาย (ข้อความแสดงแทนแบบสั้น)..."
+
+#. Translators: Action that asks AI for a detailed description of a picture.
+msgid "Describe with AI (detailed description)..."
+msgstr "ให้ AI อธิบาย (คำอธิบายละเอียด)..."
+
+#. Translators: Action that marks a picture as decorative, so screen readers skip it.
+msgid "Mark as decorative"
+msgstr "ทำเครื่องหมายเป็นภาพตกแต่ง"
+
+#. Translators: Kind of picture.
+msgid "Chart"
+msgstr "แผนภูมิ"
+
+#. Translators: Kind of picture.
+msgid "SmartArt or graphic"
+msgstr "SmartArt หรือกราฟิก"
+
+#. Translators: Kind of picture.
+msgid "Group of shapes"
+msgstr "กลุ่มรูปร่าง"
+
+#. Translators: Kind of picture.
+msgid "Floating picture"
+msgstr "รูปภาพลอย"
+
+#. Translators: Kind of picture.
+msgid "Picture"
+msgstr "รูปภาพ"
+
+#. Translators: Element type name.
+msgid "Pictures"
+msgstr "รูปภาพ"
+
+#. Translators: Column headers in the picture list.
+#. Translators: Section label in the picture details.
+msgid "Kind"
+msgstr "ชนิด"
+
+#. Translators: Section label in the picture details.
+msgid "Nearby text"
+msgstr "ข้อความใกล้เคียง"
+
+#. Translators: Shown when a picture has no alternative text.
+msgid "no alternative text"
+msgstr "ไม่มีข้อความแสดงแทน"
+
+#. Translators: Element type name.
+msgid "Language problems"
+msgstr "ปัญหาการกำหนดภาษา"
+
+#. Translators: Column headers in the language problem list.
+#. Translators: Section label in the language problem details.
+#. Translators: Column headers in the accessibility problem list.
+#. Translators: Section label in the accessibility problem details.
+#. Translators: Section label in the Thai word check details.
+msgid "Problem"
+msgstr "ปัญหา"
+
+#. Translators: Section label in the language problem details.
+msgid "Marked as"
+msgstr "กำหนดเป็น"
+
+#. Translators: Section label in the language problem details.
+#. Translators: Column header in the grammar issue list.
+#. Translators: Column header in the revision list.
+#. Translators: Column headers in the link list.
+#. Translators: Section label in the link details.
+msgid "Text"
+msgstr "ข้อความ"
+
+#. Translators: Language problem.
+msgid "Thai text not marked as Thai"
+msgstr "ข้อความไทยไม่ได้กำหนดเป็นภาษาไทย"
+
+#. Translators: Language problem.
+msgid "English text marked as Thai"
+msgstr "ข้อความอังกฤษกำหนดเป็นภาษาไทย"
+
+#. Translators: Language problem.
+msgid "Some words marked with the wrong language"
+msgstr "บางคำกำหนดภาษาผิด"
+
+#. Translators: Name of the undo step for fixing the language of text.
+msgid "Fix language"
+msgstr "แก้การกำหนดภาษา"
+
+#. Translators: Reported after the language was fixed; {count} is a number of words.
+#, python-brace-format
+msgid "Language fixed for {count} words"
+msgstr "แก้ภาษาแล้ว {count} คำ"
+
+#, python-brace-format
+msgid "Language fixed in {paragraphs} paragraphs, {count} words"
+msgstr "แก้ภาษาแล้ว {paragraphs} ย่อหน้า {count} คำ"
+
+#. Translators: Reported after the language of a paragraph was set.
+#, python-brace-format
+msgid "Paragraph marked as {language}"
+msgstr "กำหนดย่อหน้าเป็น{language}แล้ว"
+
+#. Translators: Action that marks Thai words as Thai and English words as English in one paragraph.
+msgid "Fix this paragraph (Thai words Thai, English words English)"
+msgstr "แก้ย่อหน้านี้ (คำไทยเป็นไทย คำอังกฤษเป็นอังกฤษ)"
+
+#. Translators: Action that marks a whole paragraph as Thai.
+msgid "Mark whole paragraph as Thai"
+msgstr "กำหนดทั้งย่อหน้าเป็นภาษาไทย"
+
+#. Translators: Action that marks a whole paragraph as English.
+#, python-brace-format
+msgid "Mark whole paragraph as {language}"
+msgstr "กำหนดทั้งย่อหน้าเป็น{language}"
+
+#. Translators: Action that fixes every language problem in the document.
+msgid "Fix all language problems in the document"
+msgstr "แก้ปัญหาภาษาทั้งเอกสาร"
+
+#. Translators: Accessibility problem.
+msgid "Picture without alternative text"
+msgstr "รูปภาพไม่มีข้อความแสดงแทน"
+
+#. Translators: Accessibility problem.
+msgid "Table without a header row"
+msgstr "ตารางไม่มีแถวหัวตาราง"
+
+#. Translators: Accessibility problem.
+msgid "Heading level skipped"
+msgstr "หัวเรื่องข้ามระดับ"
+
+#. Translators: Accessibility problem.
+msgid "Empty paragraphs used for spacing"
+msgstr "ใช้ย่อหน้าว่างเว้นระยะ"
+
+#. Translators: Accessibility problem.
+msgid "Link text does not say where it goes"
+msgstr "ข้อความลิงก์ไม่บอกว่าไปที่ใด"
+
+#. Translators: Accessibility problem.
+msgid "Document has no title"
+msgstr "เอกสารไม่มีชื่อเรื่อง"
+
+#. Translators: Accessibility problem.
+msgid "Long document without headings"
+msgstr "เอกสารยาวแต่ไม่มีหัวเรื่อง"
+
+#. Translators: Accessibility problem.
+msgid "Text marked with the wrong language"
+msgstr "ข้อความกำหนดภาษาผิด"
+
+#. Translators: How to fix an accessibility problem.
+msgid ""
+"Screen reader users only hear that there is a picture. Add alternative text "
+"that says what it shows, or mark it as decorative."
+msgstr ""
+"ผู้ใช้โปรแกรมอ่านหน้าจอจะได้ยินเพียงว่ามีรูปภาพ ควรเพิ่มข้อความแสดงแทนที่บอกว่าภาพแสดงอะไร "
+"หรือทำเครื่องหมายเป็นภาพตกแต่ง"
+
+#. Translators: How to fix an accessibility problem.
+msgid ""
+"Mark the first row as a header row so screen readers announce the column "
+"names."
+msgstr "กำหนดแถวแรกเป็นแถวหัวตาราง เพื่อให้โปรแกรมอ่านหน้าจออ่านชื่อคอลัมน์"
+
+#. Translators: How to fix an accessibility problem.
+msgid ""
+"Headings should go down one level at a time, for example from level 1 to "
+"level 2."
+msgstr "หัวเรื่องควรลดระดับทีละขั้น เช่น จากระดับ 1 ไประดับ 2"
+
+#. Translators: How to fix an accessibility problem.
+msgid ""
+"Screen readers read every empty line as blank. Use space after paragraphs "
+"instead."
+msgstr "โปรแกรมอ่านหน้าจออ่านทุกบรรทัดว่างว่า ว่าง ควรใช้ระยะหลังย่อหน้าแทน"
+
+#. Translators: How to fix an accessibility problem.
+msgid ""
+"Link text such as click here makes no sense in a list of links. Say where "
+"the link goes."
+msgstr "ข้อความลิงก์อย่าง คลิกที่นี่ ไม่มีความหมายเมื่ออ่านในรายการลิงก์ ควรบอกว่าลิงก์ไปที่ใด"
+
+#. Translators: How to fix an accessibility problem.
+msgid "The title is read first when the document or its PDF is opened."
+msgstr "ชื่อเรื่องจะถูกอ่านเป็นอันดับแรกเมื่อเปิดเอกสารหรือไฟล์ PDF ของเอกสาร"
+
+#. Translators: How to fix an accessibility problem.
+msgid ""
+"Real Word headings let screen reader users jump through the document. Format "
+"it with J."
+msgstr ""
+"หัวเรื่องจริงของ Word ช่วยให้ผู้ใช้โปรแกรมอ่านหน้าจอข้ามไปตามหัวข้อได้ จัดรูปแบบได้ด้วยปุ่ม J"
+
+#. Translators: How to fix an accessibility problem.
+msgid ""
+"Wrong language stops spell checking and makes screen readers use the wrong "
+"voice. Use L to fix it."
+msgstr "การกำหนดภาษาผิดทำให้ตรวจคำผิดไม่ได้และโปรแกรมอ่านหน้าจอใช้เสียงผิด แก้ได้ด้วยปุ่ม L"
+
+#, python-brace-format
+msgid "Table {number}"
+msgstr "ตารางที่ {number}"
+
+#. Translators: Describes a run of empty paragraphs; {count} is a number.
+#, python-brace-format
+msgid "{count} empty paragraphs in a row"
+msgstr "ย่อหน้าว่างติดกัน {count} ย่อหน้า"
+
+#. Translators: Describes a skipped heading level.
+#, python-brace-format
+msgid "Level {level} after level {previous}: {text}"
+msgstr "ระดับ {level} ต่อจากระดับ {previous}: {text}"
+
+#. Translators: Describes a document without headings; {count} is a number.
+#, python-brace-format
+msgid "{count} paragraphs, no headings"
+msgstr "{count} ย่อหน้า ไม่มีหัวเรื่อง"
+
+#. Translators: Detail of the missing title problem.
+msgid "File, Info, Properties, Title is empty"
+msgstr "ช่อง ชื่อเรื่อง ใน ไฟล์ > ข้อมูล > คุณสมบัติ ยังว่าง"
+
+#. Translators: Element type name.
+msgid "Accessibility problems"
+msgstr "ปัญหาการเข้าถึงได้"
+
+#. Translators: Section label in the accessibility problem details.
+msgid "Where"
+msgstr "ตำแหน่ง"
+
+#. Translators: Section label in the accessibility problem details.
+msgid "Why and how to fix it"
+msgstr "สาเหตุและวิธีแก้"
+
+#. Translators: Name of the undo step for setting a table header row.
+#. Translators: Section label in the table details.
+msgid "Header row"
+msgstr "แถวหัวตาราง"
+
+#. Translators: Reported after the first row became a header row.
+msgid "The first row is now a header row"
+msgstr "แถวแรกเป็นแถวหัวตารางแล้ว"
+
+#. Translators: Action that makes the first row of a table a header row.
+msgid "Make the first row a header row"
+msgstr "กำหนดแถวแรกเป็นแถวหัวตาราง"
+
+#. Translators: Name of the undo step for changing a heading level.
+msgid "Heading level"
+msgstr "ระดับหัวเรื่อง"
+
+#. Translators: Reported after a heading level changed.
+#, python-brace-format
+msgid "Changed to heading level {level}"
+msgstr "เปลี่ยนเป็นหัวเรื่องระดับ {level} แล้ว"
+
+#. Translators: Action that changes a heading to the expected level.
+#, python-brace-format
+msgid "Change to heading level {level}"
+msgstr "เปลี่ยนเป็นหัวเรื่องระดับ {level}"
+
+#. Translators: Name of the undo step for removing empty paragraphs.
+msgid "Remove empty paragraphs"
+msgstr "ลบย่อหน้าว่าง"
+
+#, python-brace-format
+msgid "{count} empty paragraphs removed, space after the paragraph added"
+msgstr "ลบย่อหน้าว่าง {count} ย่อหน้า และเพิ่มระยะหลังย่อหน้าแล้ว"
+
+#. Translators: Action that removes empty paragraphs and adds space after the previous paragraph.
+msgid "Remove them and use space after the paragraph"
+msgstr "ลบออก และใช้ระยะหลังย่อหน้าแทน"
+
+#. Translators: Title of the dialog for changing link text.
+#. Translators: Name of the undo step for changing link text.
+msgid "Link text"
+msgstr "ข้อความลิงก์"
+
+#. Translators: Label of the link text field; {address} is the link address.
+#, python-brace-format
+msgid "Text that says where the link goes ({address}):"
+msgstr "ข้อความที่บอกว่าลิงก์ไปที่ใด ({address}):"
+
+#. Translators: Reported after the link text changed.
+msgid "Link text changed"
+msgstr "เปลี่ยนข้อความลิงก์แล้ว"
+
+#. Translators: Action that changes the text of a link.
+msgid "Change link text..."
+msgstr "เปลี่ยนข้อความลิงก์..."
+
+#. Translators: Title of the dialog for the document title.
+msgid "Document title"
+msgstr "ชื่อเรื่องของเอกสาร"
+
+#. Translators: Label of the document title field.
+#. Translators: Label of the source title field.
+msgid "Title:"
+msgstr "ชื่อเรื่อง:"
+
+#. Translators: Reported after the document title was set.
+msgid "Document title set"
+msgstr "ตั้งชื่อเรื่องของเอกสารแล้ว"
+
+#. Translators: Action that sets the document title.
+msgid "Set the document title..."
+msgstr "ตั้งชื่อเรื่องของเอกสาร..."
+
+#. Translators: Action that opens formatting with AI.
+msgid "Format the document with AI..."
+msgstr "จัดรูปแบบเอกสารด้วย AI..."
+
+#. Translators: AI provider name in the settings panel.
+msgid "Google Gemini (free tier, or paid with billing turned on)"
+msgstr "Google Gemini (ใช้ฟรีได้ หรือแบบเสียเงินเมื่อเปิดการเรียกเก็บเงิน)"
+
+#. Translators: AI provider name in the settings panel.
+msgid "Anthropic Claude (paid, needs an API key)"
+msgstr "Anthropic Claude (เสียเงิน ต้องใช้ API key)"
+
+#. Translators: AI provider name in the settings panel.
+msgid "OpenAI (paid, needs an API key)"
+msgstr "OpenAI (เสียเงิน ต้องใช้ API key)"
+
+#. Translators: AI provider name in the settings panel.
+msgid "OpenAI compatible service (enter the address)"
+msgstr "บริการที่รองรับรูปแบบ OpenAI (ระบุที่อยู่เอง)"
+
+#. Translators: AI provider name in the settings panel.
+msgid "Ollama on this computer (offline, text stays here)"
+msgstr "Ollama ในเครื่องนี้ (ออฟไลน์ ข้อความไม่ออกจากเครื่อง)"
+
+msgid ""
+"Google did not accept this kind of key for your account. Create a new key in "
+"Google AI Studio, or use Ollama on this computer instead"
+msgstr ""
+"Google ไม่รับ key ชนิดนี้สำหรับบัญชีของคุณ กรุณาสร้าง key ใหม่ใน Google AI Studio หรือใช้ "
+"Ollama ในเครื่องนี้แทน"
+
+msgid ""
+"The AI service does not have this model. Leave the model empty to choose one "
+"automatically"
+msgstr "บริการ AI ไม่มีโมเดลนี้ เว้นช่องโมเดลว่างไว้เพื่อให้เลือกโมเดลอัตโนมัติ"
+
+#. Translators: Reported when the AI service rejects the API key.
+msgid "The AI service rejected the API key. Check it in the settings"
+msgstr "บริการ AI ไม่ยอมรับ API key กรุณาตรวจสอบในการตั้งค่า"
+
+#. Translators: Reported when the AI service is overloaded and retries did not help.
+msgid "The AI service is busy right now. Wait a minute and try again"
+msgstr "บริการ AI มีผู้ใช้มากในขณะนี้ กรุณารอสักครู่แล้วลองใหม่"
+
+#. Translators: Reported when the free quota of the AI service is used up.
+msgid "The AI service limit was reached. Wait a moment and try again"
+msgstr "ใช้งานบริการ AI ครบโควตาแล้ว รอสักครู่แล้วลองใหม่"
+
+#. Translators: Reported when the AI service returns an error; {code} is the HTTP status.
+#, python-brace-format
+msgid "The AI service returned error {code}"
+msgstr "บริการ AI แจ้งข้อผิดพลาด {code}"
+
+msgid ""
+"Cannot reach the AI service. Check the internet connection and the address"
+msgstr "ติดต่อบริการ AI ไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ตและที่อยู่บริการ"
+
+#. Translators: Reported when the AI service sends an answer the add-on cannot read.
+msgid "The AI service sent an answer that could not be read"
+msgstr "บริการ AI ส่งคำตอบที่อ่านไม่ได้"
+
+#. Translators: Reported when the AI API key has not been entered.
+msgid "Enter an API key in the Word Document Assistant settings first"
+msgstr "กรุณาใส่ API key ในการตั้งค่า ผู้ช่วยเอกสาร Word ก่อน"
+
+#. Translators: Reported when the AI address or model has not been entered.
+msgid "Enter the AI service address and model in the settings first"
+msgstr "กรุณาใส่ที่อยู่บริการ AI และชื่อโมเดลในการตั้งค่าก่อน"
+
+#. Translators: Reported when the AI request fails for an unknown reason.
+msgid "The AI request failed"
+msgstr "การขอคำแนะนำจาก AI ล้มเหลว"
+
+#. Translators: Reported when the key cannot use any text model.
+msgid "No text model is available for this key. Enter a model in the settings"
+msgstr "ไม่มีโมเดลข้อความที่ key นี้ใช้ได้ กรุณาระบุโมเดลในการตั้งค่า"
+
+#. Translators: Reported when AI could not recommend a format.
+msgid "AI could not recommend a format. Choose one from the list"
+msgstr "AI แนะนำรูปแบบไม่ได้ กรุณาเลือกจากรายการ"
+
+msgid ""
+"Ollama was not found on this computer. Install it, then start it and try "
+"again"
+msgstr "ไม่พบ Ollama ในเครื่องนี้ กรุณาติดตั้งและเปิดใช้งานก่อน แล้วลองใหม่"
+
+#. Translators: Reported when the AI connection test works; {model} is the model name.
+#, python-brace-format
+msgid "The AI service is working, model {model}"
+msgstr "บริการ AI ใช้งานได้ โมเดล {model}"
+
+#. Translators: Reported when the AI connection test works.
+msgid "The AI service is working"
+msgstr "บริการ AI ใช้งานได้"
+
+#. Translators: Hint under the text field of the input dialog.
+msgid "Press Control+Enter to confirm."
+msgstr "กด Control+Enter เพื่อยืนยัน"
+
+#. Translators: Title of the element list dialog, for example "Comments list".
+#, python-brace-format
+msgid "{kind} list"
+msgstr "รายการ{kind}"
+
+#. Translators: Label of the filter field in the element list dialog.
+msgid "&Filter:"
+msgstr "ตัวกรอง(&F):"
+
+#. Translators: Label of the list in the element list dialog.
+msgid "&Items:"
+msgstr "รายการ(&I):"
+
+#. Translators: Button that moves the caret to the selected item.
+msgid "&Go to"
+msgstr "ไปยัง(&G)"
+
+#. Translators: Button that opens the actions for the selected item.
+msgid "&Actions..."
+msgstr "คำสั่ง(&A)..."
+
+#. Translators: Button that copies the main text of the selected item.
+msgid "&Copy text"
+msgstr "คัดลอกข้อความ(&C)"
+
+#. Translators: Button that copies all details of the selected item.
+msgid "Copy all &details"
+msgstr "คัดลอกรายละเอียดทั้งหมด(&D)"
+
+#. Translators: Button that closes the element list dialog.
+#. Translators: Button that closes a dialog.
+msgid "Clo&se"
+msgstr "ปิด(&S)"
+
+#. Translators: Button that copies the selected AI suggestion.
+msgid "&Copy suggestion"
+msgstr "คัดลอกคำแนะนำ(&C)"
+
+#. Translators: Button that closes the AI suggestion dialog without changing anything.
+msgid "Close without changes"
+msgstr "ปิดโดยไม่เปลี่ยนแปลง"
+
+#. Translators: Reported when no AI suggestion was checked.
+msgid "Check the suggestions to use with the Space bar first"
+msgstr "กรุณากด Space ทำเครื่องหมายรายการที่จะใช้ก่อน"
+
+#. Translators: Action that copies the main text of the current item.
+msgid "Copy text"
+msgstr "คัดลอกข้อความ"
+
+#. Translators: Action that copies all details of the current item.
+msgid "Copy all details"
+msgstr "คัดลอกรายละเอียดทั้งหมด"
+
+#. Translators: Element type name.
+msgid "Spelling errors"
+msgstr "คำสะกดผิด"
+
+#. Translators: Column headers in the spelling error list.
+#. Translators: Column headers in the Thai word check list.
+#. Translators: Section label in the Thai word check details.
+msgid "Word"
+msgstr "คำ"
+
+#. Translators: Section label in the spelling error details.
+#. Translators: Section label in the Thai word check details.
+msgid "Context"
+msgstr "บริบท"
+
+#. Translators: Section label in the spelling error details.
+msgid "Misspelled word"
+msgstr "คำที่สะกดผิด"
+
+#. Translators: Section label in the spelling error details.
+#. Translators: Section label in the Thai word check details.
+msgid "Suggestions"
+msgstr "คำแนะนำ"
+
+#. Translators: Spoken after a misspelled word, followed by the text around it.
+#, python-brace-format
+msgid "in context: {context}"
+msgstr "ในบริบท: {context}"
+
+#. Translators: Shown when Word has no suggestions for a misspelled word.
+#. Translators: Disabled menu item shown when Word has no suggestions.
+#. Translators: Shown when there are no suggestions.
+msgid "No suggestions"
+msgstr "ไม่มีคำแนะนำ"
+
+#. Translators: Reported after Enter on a misspelled word; the word is selected.
+#, python-brace-format
+msgid "{word} selected, type to replace it"
+msgstr "เลือก {word} แล้ว พิมพ์เพื่อแทนที่ได้ทันที"
+
+#. Translators: Action that replaces a misspelled word with a suggestion.
+#, python-brace-format
+msgid "Replace with {suggestion}"
+msgstr "แทนที่ด้วย {suggestion}"
+
+#. Translators: Action that lets the user type a replacement for a misspelled word.
+msgid "Type a replacement..."
+msgstr "พิมพ์คำที่ใช้แทน..."
+
+#. Translators: Action that asks AI for corrections of a misspelled word.
+msgid "AI suggestions..."
+msgstr "คำแนะนำจาก AI..."
+
+#. Translators: Name of the undo step for replacing a word.
+#. Translators: Title of the dialog for typing a replacement word.
+#. Translators: Name of the undo step for replacing a word.
+msgid "Replace word"
+msgstr "แทนที่คำ"
+
+#. Translators: Reported after a misspelled word was replaced.
+#, python-brace-format
+msgid "Replaced with {text}"
+msgstr "แทนที่ด้วย {text} แล้ว"
+
+#. Translators: Label of the edit field for a replacement word.
+#, python-brace-format
+msgid "Replace {word} with:"
+msgstr "แทนที่ {word} ด้วย:"
+
+#. Translators: Element type name.
+msgid "Grammar issues"
+msgstr "ปัญหาไวยากรณ์"
+
+#. Translators: Section label in the grammar issue details.
+msgid "Text with the issue"
+msgstr "ข้อความที่มีปัญหา"
+
+#. Translators: Element type name.
+msgid "Comments"
+msgstr "ข้อคิดเห็น"
+
+#. Translators: Column header in the comment list.
+#. Translators: Section label in the comment details.
+#. Translators: Column header in the revision list.
+#. Translators: Section label in the revision details.
+msgid "Author"
+msgstr "ผู้เขียน"
+
+#. Translators: Column header in the comment list.
+#. Translators: Section label in the comment details.
+msgid "Comment"
+msgstr "ข้อคิดเห็น"
+
+#. Translators: Column header in the comment list.
+#. Translators: Section label in the comment details.
+msgid "Commented text"
+msgstr "ข้อความที่แสดงความคิดเห็น"
+
+#. Translators: Column header in the comment list.
+#. Translators: Section label in the comment details.
+#. Translators: Section label in the link details.
+#. Translators: Section label in the field details.
+#. Translators: Section label in the cross-reference details.
+msgid "Status"
+msgstr "สถานะ"
+
+#. Translators: Column header in the comment list.
+#. Translators: Section label in the comment details.
+msgid "Replies"
+msgstr "การตอบกลับ"
+
+#. Translators: Section label in the comment details.
+#. Translators: Column header in the revision list.
+#. Translators: Section label in the revision details.
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Date"
+msgstr "วันที่"
+
+#. Translators: Status of a resolved comment.
+msgid "Resolved"
+msgstr "แก้ไขแล้ว"
+
+#. Translators: Status of an open comment.
+msgid "Open"
+msgstr "ยังไม่แก้ไข"
+
+#. Translators: Spoken after a comment that has replies.
+#, python-brace-format
+msgid "{count} replies"
+msgstr "ตอบกลับ {count} รายการ"
+
+#. Translators: Shown when a comment is not attached to any text.
+msgid "(no text selected)"
+msgstr "(ไม่ได้เลือกข้อความ)"
+
+#. Translators: Shown when a comment has no replies.
+msgid "No replies"
+msgstr "ไม่มีการตอบกลับ"
+
+#. Translators: Action that replies to a comment.
+msgid "Reply..."
+msgstr "ตอบกลับ..."
+
+#. Translators: Action that asks AI to draft replies to a comment.
+msgid "Draft a reply with AI..."
+msgstr "ร่างคำตอบด้วย AI..."
+
+#. Translators: Action that edits the text of a comment.
+msgid "Edit comment..."
+msgstr "แก้ไขข้อคิดเห็น..."
+
+#. Translators: Action that reopens a resolved comment.
+msgid "Reopen"
+msgstr "เปิดใหม่"
+
+#. Translators: Action that marks a comment as resolved.
+msgid "Resolve"
+msgstr "ทำเครื่องหมายว่าแก้ไขแล้ว"
+
+#. Translators: Action that deletes a comment.
+#. Translators: Confirmation before deleting a comment.
+#. Translators: Name of the undo step for deleting a comment.
+msgid "Delete comment"
+msgstr "ลบข้อคิดเห็น"
+
+#. Translators: Action that copies the text the comment is attached to.
+msgid "Copy commented text"
+msgstr "คัดลอกข้อความที่แสดงความคิดเห็น"
+
+#. Translators: Action that adds a new comment where the caret was before navigation.
+msgid "New comment at the starting position..."
+msgstr "เพิ่มข้อคิดเห็นใหม่ที่ตำแหน่งเดิม..."
+
+msgid ""
+"Word did not accept the reply. It was copied; paste it as a reply in the "
+"comment Word opened"
+msgstr "Word ไม่รับคำตอบ คัดลอกไว้ให้แล้ว วางเป็นคำตอบในข้อคิดเห็นที่ Word เปิดไว้"
+
+#. Translators: Reported after a reply was added.
+msgid "Reply added"
+msgstr "เพิ่มการตอบกลับแล้ว"
+
+#. Translators: Title and label of the dialog for editing a comment.
+msgid "Edit comment"
+msgstr "แก้ไขข้อคิดเห็น"
+
+msgid "Comment text:"
+msgstr "ข้อความข้อคิดเห็น:"
+
+msgid ""
+"Word did not accept the change. The new text was copied; paste it into the "
+"comment Word opened"
+msgstr "Word ไม่รับการแก้ไข คัดลอกข้อความใหม่ไว้ให้แล้ว วางลงในข้อคิดเห็นที่ Word เปิดไว้"
+
+#. Translators: Reported after a comment was changed.
+msgid "Comment updated"
+msgstr "แก้ไขข้อคิดเห็นแล้ว"
+
+#. Translators: Reported after a comment was resolved or reopened.
+msgid "Comment resolved"
+msgstr "ทำเครื่องหมายว่าแก้ไขแล้ว"
+
+msgid "Comment reopened"
+msgstr "เปิดข้อคิดเห็นใหม่แล้ว"
+
+msgid "Delete this comment and its replies?"
+msgstr "ลบข้อคิดเห็นนี้และการตอบกลับทั้งหมดหรือไม่"
+
+#. Translators: Reported after a comment was deleted.
+msgid "Comment deleted"
+msgstr "ลบข้อคิดเห็นแล้ว"
+
+#. Translators: Reported when a comment cannot be added at the starting position.
+msgid "A comment can only be added in the main text"
+msgstr "เพิ่มข้อคิดเห็นได้เฉพาะในเนื้อหาหลัก"
+
+#. Translators: Title and label of the dialog for a new comment.
+#. Translators: Name of the undo step for adding a comment.
+msgid "New comment"
+msgstr "ข้อคิดเห็นใหม่"
+
+#. Translators: Reported after a comment was added.
+msgid "Comment added"
+msgstr "เพิ่มข้อคิดเห็นแล้ว"
+
+#. Translators: Column header in the footnote and endnote lists.
+#. Translators: Section label in the footnote and endnote details.
+#. Translators: Column headers in the table list.
+msgid "Number"
+msgstr "หมายเลข"
+
+#. Translators: Column header in the footnote and endnote lists.
+#. Translators: Section label in the footnote and endnote details.
+msgid "Note text"
+msgstr "ข้อความบันทึก"
+
+#. Translators: Column header in the footnote and endnote lists.
+#. Translators: Section label in the footnote and endnote details.
+msgid "Text before the reference"
+msgstr "ข้อความก่อนเครื่องหมายอ้างอิง"
+
+#. Translators: Reported after Enter moves the caret into a footnote or endnote.
+#, python-brace-format
+msgid "In {note} {number}, ready to edit"
+msgstr "อยู่ใน{note} {number} พร้อมแก้ไข"
+
+#. Translators: Action that edits the text of a footnote or endnote.
+msgid "Edit note text..."
+msgstr "แก้ไขข้อความบันทึก..."
+
+#. Translators: Action that deletes a footnote or endnote.
+#. Translators: Name of the undo step for deleting a note.
+msgid "Delete note"
+msgstr "ลบบันทึก"
+
+#. Translators: Title and label of the dialog for editing a footnote or endnote.
+#. Translators: Name of the undo step for editing a note.
+msgid "Edit note"
+msgstr "แก้ไขบันทึก"
+
+msgid "Note text:"
+msgstr "ข้อความบันทึก:"
+
+#. Translators: Reported after a footnote or endnote was changed.
+msgid "Note updated"
+msgstr "แก้ไขบันทึกแล้ว"
+
+#, python-brace-format
+msgid "Delete {note} {number}?"
+msgstr "ลบ{note} {number} หรือไม่"
+
+#. Translators: Reported after a footnote or endnote was deleted.
+msgid "Note deleted"
+msgstr "ลบบันทึกแล้ว"
+
+#. Translators: Name of the undo step for converting a note.
+msgid "Convert note"
+msgstr "แปลงบันทึก"
+
+#. Translators: Reported after a footnote or endnote was converted.
+msgid "Converted"
+msgstr "แปลงแล้ว"
+
+#. Translators: Reported when a note cannot be inserted at the starting position.
+msgid "A note can only be inserted in the main text"
+msgstr "แทรกบันทึกได้เฉพาะในเนื้อหาหลัก"
+
+#. Translators: Reported after a footnote or endnote was inserted.
+#, python-brace-format
+msgid "{note} {number} inserted"
+msgstr "แทรก{note} {number} แล้ว"
+
+#. Translators: Element type name.
+msgid "Footnotes"
+msgstr "เชิงอรรถ"
+
+#. Translators: Name of a footnote when it is reported.
+#. Translators: Kind of item a cross-reference can point to.
+#. Translators: Name of a footnote when it is reported.
+msgid "Footnote"
+msgstr "เชิงอรรถ"
+
+#. Translators: Action that converts a footnote to an endnote.
+msgid "Convert to endnote"
+msgstr "แปลงเป็น endnote"
+
+#. Translators: Action that inserts a new footnote.
+msgid "Insert footnote at the starting position..."
+msgstr "แทรกเชิงอรรถที่ตำแหน่งเดิม..."
+
+#. Translators: Element type name.
+msgid "Endnotes"
+msgstr "endnote"
+
+#. Translators: Name of an endnote when it is reported.
+#. Translators: Kind of item a cross-reference can point to.
+#. Translators: Name of an endnote when it is reported.
+msgid "Endnote"
+msgstr "endnote"
+
+#. Translators: Action that converts an endnote to a footnote.
+msgid "Convert to footnote"
+msgstr "แปลงเป็นเชิงอรรถ"
+
+#. Translators: Action that inserts a new endnote.
+msgid "Insert endnote at the starting position..."
+msgstr "แทรก endnote ที่ตำแหน่งเดิม..."
+
+#. Translators: Type of a tracked change.
+msgid "Insertion"
+msgstr "แทรก"
+
+#. Translators: Type of a tracked change.
+msgid "Deletion"
+msgstr "ลบ"
+
+#. Translators: Type of a tracked change.
+msgid "Formatting"
+msgstr "จัดรูปแบบ"
+
+#. Translators: Type of a tracked change.
+msgid "Paragraph numbering"
+msgstr "ลำดับเลขย่อหน้า"
+
+#. Translators: Type of a tracked change.
+msgid "Field display"
+msgstr "การแสดงฟิลด์"
+
+#. Translators: Type of a tracked change.
+msgid "Reconciled"
+msgstr "กระทบยอด"
+
+#. Translators: Type of a tracked change.
+msgid "Conflict"
+msgstr "ขัดแย้ง"
+
+#. Translators: Type of a tracked change.
+#. Translators: Section label in the heading details.
+msgid "Style"
+msgstr "สไตล์"
+
+#. Translators: Type of a tracked change.
+msgid "Replacement"
+msgstr "แทนที่"
+
+#. Translators: Type of a tracked change.
+msgid "Paragraph formatting"
+msgstr "รูปแบบย่อหน้า"
+
+#. Translators: Type of a tracked change.
+msgid "Table formatting"
+msgstr "รูปแบบตาราง"
+
+#. Translators: Type of a tracked change.
+msgid "Section formatting"
+msgstr "รูปแบบส่วน"
+
+#. Translators: Type of a tracked change.
+msgid "Style definition"
+msgstr "นิยามสไตล์"
+
+#. Translators: Type of a tracked change.
+msgid "Moved from"
+msgstr "ย้ายจาก"
+
+#. Translators: Type of a tracked change.
+msgid "Moved to"
+msgstr "ย้ายไป"
+
+#. Translators: Type of a tracked change.
+msgid "Table cell inserted"
+msgstr "แทรกเซลล์ตาราง"
+
+#. Translators: Type of a tracked change.
+msgid "Table cell deleted"
+msgstr "ลบเซลล์ตาราง"
+
+#. Translators: Type of a tracked change.
+msgid "Table cells merged"
+msgstr "ผสานเซลล์ตาราง"
+
+#. Translators: Type of a tracked change.
+msgid "Table cell split"
+msgstr "แยกเซลล์ตาราง"
+
+#. Translators: Type of a tracked change that the add-on does not know.
+msgid "Change"
+msgstr "การเปลี่ยนแปลง"
+
+#. Translators: Element type name.
+msgid "Revisions"
+msgstr "การแก้ไขที่ติดตาม"
+
+#. Translators: Column header in the revision list.
+#. Translators: Section label in the revision details.
+#. Translators: Column headers in the field list.
+#. Translators: Section label in the field details.
+msgid "Type"
+msgstr "ชนิด"
+
+#. Translators: Section label in the revision details.
+msgid "Changed text"
+msgstr "ข้อความที่เปลี่ยน"
+
+#. Translators: Section label in the revision details.
+msgid "Formatting change"
+msgstr "การเปลี่ยนรูปแบบ"
+
+#. Translators: Action that accepts one tracked change.
+msgid "Accept"
+msgstr "ยอมรับ"
+
+#. Translators: Action that rejects one tracked change.
+msgid "Reject"
+msgstr "ปฏิเสธ"
+
+#. Translators: Action that accepts every tracked change by one author.
+#, python-brace-format
+msgid "Accept all by {author}"
+msgstr "ยอมรับทั้งหมดของ {author}"
+
+#. Translators: Action that rejects every tracked change by one author.
+#, python-brace-format
+msgid "Reject all by {author}"
+msgstr "ปฏิเสธทั้งหมดของ {author}"
+
+#. Translators: Action that accepts every tracked change in the document.
+msgid "Accept all in document..."
+msgstr "ยอมรับทั้งหมดในเอกสาร..."
+
+#. Translators: Action that rejects every tracked change in the document.
+msgid "Reject all in document..."
+msgstr "ปฏิเสธทั้งหมดในเอกสาร..."
+
+#. Translators: Reported after a tracked change was accepted or rejected.
+msgid "Accepted"
+msgstr "ยอมรับแล้ว"
+
+msgid "Rejected"
+msgstr "ปฏิเสธแล้ว"
+
+#. Translators: Name of the undo step for accepting or rejecting changes by one author.
+#, python-brace-format
+msgid "Review changes by {author}"
+msgstr "ตรวจการแก้ไขของ {author}"
+
+#. Translators: Reported after accepting changes; {count} is a number.
+#, python-brace-format
+msgid "{count} changes accepted"
+msgstr "ยอมรับ {count} รายการแล้ว"
+
+#. Translators: Reported after rejecting changes; {count} is a number.
+#, python-brace-format
+msgid "{count} changes rejected"
+msgstr "ปฏิเสธ {count} รายการแล้ว"
+
+#. Translators: Confirmation before accepting every change; {count} is a number.
+#, python-brace-format
+msgid "Accept all {count} changes in the document?"
+msgstr "ยอมรับการแก้ไขทั้งหมด {count} รายการในเอกสารหรือไม่"
+
+#. Translators: Confirmation before rejecting every change; {count} is a number.
+#, python-brace-format
+msgid "Reject all {count} changes in the document?"
+msgstr "ปฏิเสธการแก้ไขทั้งหมด {count} รายการในเอกสารหรือไม่"
+
+#. Translators: Title of the dialog for formatting a document with AI.
+msgid "Format document with AI"
+msgstr "จัดรูปแบบเอกสารด้วย AI"
+
+#. Translators: Label of the list of document formats.
+msgid "&Format:"
+msgstr "รูปแบบ(&F):"
+
+#. Translators: Label of the field that describes the selected format.
+msgid "What this format does:"
+msgstr "รายละเอียดของรูปแบบนี้:"
+
+#. Translators: Label of the field with the format AI recommends.
+msgid "AI recommendation:"
+msgstr "คำแนะนำจาก AI:"
+
+#. Translators: Label of the choice of what to format.
+msgid "Format"
+msgstr "จัดรูปแบบ"
+
+#. Translators: Choice to format the whole document.
+msgid "&Whole document"
+msgstr "ทั้งเอกสาร(&W)"
+
+#. Translators: Choice to format only the text selected before navigation mode.
+msgid "Selected &text only"
+msgstr "เฉพาะข้อความที่เลือก(&T)"
+
+#. Translators: Check box in the format dialog.
+msgid "Set &paper size and margins (whole document only)"
+msgstr "ตั้งขนาดกระดาษและระยะขอบ (เฉพาะทั้งเอกสาร)(&P)"
+
+#. Translators: Check box in the format dialog.
+msgid "Set fo&nts and sizes"
+msgstr "ตั้งแบบอักษรและขนาด(&N)"
+
+#. Translators: Check box in the format dialog.
+msgid "Remove &empty paragraphs used for spacing"
+msgstr "ลบย่อหน้าว่างที่ใช้เว้นระยะ(&E)"
+
+#. Translators: Note in the format dialog.
+msgid ""
+"AI only decides what each paragraph is, such as subject, body or signature. "
+"The words are not changed. You can check and correct the result before "
+"anything is formatted."
+msgstr ""
+"AI ทำหน้าที่ระบุว่าแต่ละย่อหน้าคืออะไร เช่น เรื่อง เนื้อความ หรือลงชื่อ เท่านั้น "
+"ถ้อยคำในเอกสารจะไม่ถูกเปลี่ยน และตรวจแก้ผลได้ก่อนจัดรูปแบบจริง"
+
+#. Translators: Button that lets AI analyse the document and shows a preview.
+msgid "&Analyse and preview"
+msgstr "วิเคราะห์และดูตัวอย่าง(&A)"
+
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#. Translators: Shown while AI looks at the document.
+msgid "Asking AI which format fits this document..."
+msgstr "กำลังถาม AI ว่าเอกสารนี้ควรใช้รูปแบบใด..."
+
+#. Translators: Shown when no recommendation is requested.
+msgid "Choose a format from the list"
+msgstr "เลือกรูปแบบจากรายการ"
+
+#. Translators: AI recommendation, for example "Thai official letter: starts with ที่ and เรื่อง".
+#, python-brace-format
+msgid "{name}: {reason}"
+msgstr "{name}: {reason}"
+
+#. Translators: Spoken when AI recommends a format.
+#, python-brace-format
+msgid "AI recommends {text}"
+msgstr "AI แนะนำ {text}"
+
+#. Translators: Title of the format preview dialog; {name} is the format.
+#, python-brace-format
+msgid "Preview: {name}"
+msgstr "ตัวอย่าง: {name}"
+
+#. Translators: Label of the list of paragraphs in the format preview.
+msgid "&Paragraphs and their roles:"
+msgstr "ย่อหน้าและหน้าที่ของแต่ละย่อหน้า(&P):"
+
+#. Translators: Column headers in the format preview.
+msgid "No."
+msgstr "ลำดับ"
+
+msgid "Role"
+msgstr "หน้าที่"
+
+#. Translators: Shown for a paragraph without text.
+msgid "(empty)"
+msgstr "(ว่าง)"
+
+#. Translators: Label of the choice that changes the role of the selected paragraph.
+msgid "&Role of the selected paragraph:"
+msgstr "หน้าที่ของย่อหน้าที่เลือก(&R):"
+
+#. Translators: Label of the field with the full text of the selected paragraph.
+msgid "Text of the selected paragraph:"
+msgstr "ข้อความของย่อหน้าที่เลือก:"
+
+#. Translators: Button that formats the document as shown in the preview.
+msgid "&Format now"
+msgstr "จัดรูปแบบเลย(&F)"
+
+#. Translators: Summary at the top of the format preview; {count} is a number.
+#, python-brace-format
+msgid "{count} paragraphs: {parts}"
+msgstr "{count} ย่อหน้า: {parts}"
+
+#. Translators: Title of the AI key setup dialog.
+msgid "AI service and API key"
+msgstr "บริการ AI และ API key"
+
+#. Translators: Instructions at the top of the AI key setup dialog.
+msgid ""
+"Choose a service, then press Get an API key. The service's page opens in "
+"your browser; sign in with your own account, create a key and copy it. When "
+"you come back to this dialog the key is found on the clipboard, tested and "
+"filled in. Google Gemini has a free tier; Anthropic Claude and OpenAI are "
+"paid and need billing set up on their website. Leave the model empty to "
+"choose one automatically, or press Find models. Ollama runs on this computer "
+"for free; no key is needed and text stays here."
+msgstr ""
+"เลือกบริการ แล้วกดปุ่ม ขอ API key หน้าเว็บของบริการจะเปิดในเบราว์เซอร์ "
+"ให้ลงชื่อเข้าใช้ด้วยบัญชีของคุณเอง สร้าง key แล้วคัดลอก เมื่อกลับมาที่หน้าต่างนี้ ระบบจะพบ key "
+"ในคลิปบอร์ด ทดสอบ และใส่ให้เอง\n"
+"Google Gemini ใช้ฟรีได้ ส่วน Anthropic Claude และ OpenAI เป็นแบบเสียเงิน "
+"ต้องตั้งค่าการชำระเงินที่เว็บไซต์ของผู้ให้บริการก่อน\n"
+"เว้นช่องโมเดลว่างเพื่อเลือกอัตโนมัติ หรือกดปุ่ม ค้นหาโมเดล\n"
+"Ollama ทำงานในเครื่องนี้ฟรี ไม่ต้องใช้ key และข้อความไม่ออกจากเครื่อง"
+
+#. Translators: Label of the AI provider choice.
+msgid "AI &service:"
+msgstr "บริการ AI(&S):"
+
+#. Translators: Button that opens the page where the user gets a free API key or Ollama.
+msgid "&Get a free API key (opens the browser)"
+msgstr "ขอ API key ฟรี (เปิดเบราว์เซอร์)(&G)"
+
+#. Translators: Label of the API key field.
+msgid "API &key:"
+msgstr "API key(&K):"
+
+#. Translators: Button that pastes the API key from the clipboard.
+msgid "&Paste key from clipboard and test"
+msgstr "วาง key จากคลิปบอร์ดและทดสอบ(&P)"
+
+#. Translators: Label of the AI address field.
+msgid "Service &address (empty for the default):"
+msgstr "ที่อยู่บริการ (เว้นว่างเพื่อใช้ค่าเริ่มต้น)(&A):"
+
+#. Translators: Label of the AI model field.
+msgid "M&odel (empty for the default):"
+msgstr "โมเดล (เว้นว่างเพื่อใช้ค่าเริ่มต้น)(&O):"
+
+#. Translators: Button that looks for Ollama on this computer and lists its models.
+msgid "Find &models"
+msgstr "ค้นหาโมเดล(&M)"
+
+#. Translators: Button that tests the AI connection.
+msgid "&Test connection"
+msgstr "ทดสอบการเชื่อมต่อ(&T)"
+
+#. Translators: Label of the read-only field that shows the last result.
+msgid "Status:"
+msgstr "สถานะ:"
+
+#. Translators: Button that saves the AI settings and turns AI suggestions on.
+msgid "&Save and turn on AI"
+msgstr "บันทึกและเปิดใช้ AI(&S)"
+
+#. Translators: Label of the button that opens the Ollama download page.
+msgid "&Get Ollama for free (opens the browser)"
+msgstr "ดาวน์โหลด Ollama ฟรี (เปิดเบราว์เซอร์)(&G)"
+
+#. Translators: Label of the button that opens the page to create a paid API key.
+msgid "&Get an API key (opens the browser)"
+msgstr "ขอ API key (เปิดเบราว์เซอร์)(&G)"
+
+#. Translators: Reported when the browser cannot be opened; the address was copied instead.
+#, python-brace-format
+msgid "Cannot open the browser. The address was copied: {url}"
+msgstr "เปิดเบราว์เซอร์ไม่ได้ คัดลอกที่อยู่ไว้ให้แล้ว: {url}"
+
+#. Translators: Reported after the page for creating a key was opened.
+msgid "Browser opened. Create a key, copy it, then come back to this dialog"
+msgstr "เปิดเบราว์เซอร์แล้ว สร้าง key คัดลอก แล้วกลับมาที่หน้าต่างนี้"
+
+#. Translators: Reported when neither the clipboard nor the field has an API key.
+msgid ""
+"No API key on the clipboard or in the API key field. Copy or type the key "
+"first"
+msgstr "ไม่พบ API key ทั้งในคลิปบอร์ดและในช่อง API key กรุณาคัดลอกหรือพิมพ์ key ก่อน"
+
+#. Translators: Reported when an API key was taken from the clipboard.
+msgid "API key found on the clipboard"
+msgstr "พบ API key ในคลิปบอร์ด"
+
+#. Translators: Reported while the AI connection is tested.
+msgid "Testing..."
+msgstr "กำลังทดสอบ..."
+
+#. Translators: Reported when saving without an API key.
+msgid "Enter or paste an API key first"
+msgstr "กรุณาพิมพ์หรือวาง API key ก่อน"
+
+#. Translators: Reported while the list of models is fetched.
+msgid "Looking for models..."
+msgstr "กำลังค้นหาโมเดล..."
+
+msgid ""
+"Ollama is running but has no models. Install one, for example: ollama pull "
+"qwen2.5:7b"
+msgstr "Ollama ทำงานอยู่แต่ยังไม่มีโมเดล ติดตั้งก่อน เช่น ollama pull qwen2.5:7b"
+
+#. Translators: Reported when the service lists no text models for the key.
+msgid "The service did not list any text model for this key"
+msgstr "บริการไม่ได้แสดงโมเดลข้อความสำหรับ key นี้"
+
+#, python-brace-format
+msgid ""
+"{count} models found, {model} selected. Use the Model box to choose another"
+msgstr "พบ {count} โมเดล เลือก {model} ไว้ เปลี่ยนได้ที่ช่องโมเดล"
+
+#. Translators: Reported after the AI settings were saved.
+msgid "AI settings saved"
+msgstr "บันทึกการตั้งค่า AI แล้ว"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Title"
+msgstr "ชื่อเรื่องหลัก"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Subtitle or author"
+msgstr "ชื่อรอง หรือผู้เขียน"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Heading level 1"
+msgstr "หัวเรื่องระดับ 1"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Heading level 2"
+msgstr "หัวเรื่องระดับ 2"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Heading level 3"
+msgstr "หัวเรื่องระดับ 3"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Body text"
+msgstr "เนื้อความ"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "List item"
+msgstr "รายการ"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Quotation"
+msgstr "ข้อความอ้างอิงยกมา"
+
+#. Translators: Role of a paragraph when formatting a document (Thai letters: ที่ ...).
+msgid "Reference number"
+msgstr "ที่ (เลขที่หนังสือ)"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Sender name and address"
+msgstr "ส่วนราชการหรือผู้ส่งและที่อยู่"
+
+#. Translators: Role of a paragraph when formatting a document (เรื่อง ...).
+msgid "Subject"
+msgstr "เรื่อง"
+
+#. Translators: Role of a paragraph when formatting a document (เรียน ..., To ...).
+msgid "Recipient"
+msgstr "เรียน (ผู้รับ)"
+
+#. Translators: Role of a paragraph when formatting a document (อ้างถึง ...).
+msgid "Reference to earlier letter"
+msgstr "อ้างถึง"
+
+#. Translators: Role of a paragraph when formatting a document (สิ่งที่ส่งมาด้วย ...).
+msgid "Enclosures"
+msgstr "สิ่งที่ส่งมาด้วย"
+
+#. Translators: Role of a paragraph when formatting a document (Dear ...).
+msgid "Salutation"
+msgstr "คำขึ้นต้น"
+
+#. Translators: Role of a paragraph when formatting a document (ขอแสดงความนับถือ, Yours sincerely).
+msgid "Closing"
+msgstr "คำลงท้าย"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Signature, name or position"
+msgstr "ลงชื่อ ชื่อ หรือตำแหน่ง"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Contact details of the office"
+msgstr "ส่วนราชการเจ้าของเรื่องและการติดต่อ"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Abstract"
+msgstr "บทคัดย่อ"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Keywords"
+msgstr "คำสำคัญ"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Bibliography entry"
+msgstr "รายการบรรณานุกรม"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Caption of a table or figure"
+msgstr "คำบรรยายตารางหรือภาพ"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Meeting details (date, place, attendees)"
+msgstr "รายละเอียดการประชุม (วัน สถานที่ ผู้เข้าร่วม)"
+
+#. Translators: Role of a paragraph when formatting a document.
+msgid "Empty paragraph used for spacing"
+msgstr "ย่อหน้าว่างที่ใช้เว้นระยะ"
+
+#. Translators: Name of a document format.
+msgid "Thai official letter (หนังสือภายนอก)"
+msgstr "หนังสือราชการภายนอก"
+
+msgid ""
+"A4, margins 2.5 top, 2 bottom, 3 left, 2 right cm; TH SarabunIT๙ 16 pt. ที่, "
+"ส่วนราชการ, วันที่, เรื่อง, เรียน, อ้างถึง, สิ่งที่ส่งมาด้วย, body indented 2.5 cm, "
+"ขอแสดงความนับถือ and signature block in their usual places."
+msgstr ""
+"กระดาษ A4 ระยะขอบบน 2.5 ล่าง 2 ซ้าย 3 ขวา 2 ซม. แบบอักษร TH SarabunIT๙ 16 พอยต์ "
+"จัด ที่ ส่วนราชการ วันที่ เรื่อง เรียน อ้างถึง สิ่งที่ส่งมาด้วย ไว้ตามตำแหน่งปกติ เนื้อความย่อหน้า "
+"2.5 ซม. คำลงท้ายและลงชื่ออยู่ตำแหน่งตามแบบหนังสือราชการ"
+
+#. Translators: Name of a document format.
+msgid "Internal memo (บันทึกข้อความ)"
+msgstr "บันทึกข้อความ"
+
+msgid ""
+"บันทึกข้อความ title in bold 29 pt; ส่วนราชการ, ที่, วันที่, เรื่อง in bold; เรียน, body "
+"indented 2.5 cm and signature block. TH SarabunIT๙ 16 pt."
+msgstr ""
+"คำว่า บันทึกข้อความ ตัวหนา 29 พอยต์ ส่วนราชการ ที่ วันที่ เรื่อง ตัวหนา ตามด้วย เรียน "
+"เนื้อความย่อหน้า 2.5 ซม. และลงชื่อ แบบอักษร TH SarabunIT๙ 16 พอยต์"
+
+#. Translators: Name of a document format.
+msgid "Announcement or order (ประกาศ / คำสั่ง)"
+msgstr "ประกาศ / คำสั่ง"
+
+msgid ""
+"Title and subject centred in bold, body indented 2.5 cm, ประกาศ ณ วันที่ and "
+"signature centred. TH SarabunIT๙ 16 pt."
+msgstr ""
+"ชื่อประกาศและเรื่องอยู่กึ่งกลางตัวหนา เนื้อความย่อหน้า 2.5 ซม. ประกาศ ณ วันที่ "
+"และลงชื่ออยู่กึ่งกลาง แบบอักษร TH SarabunIT๙ 16 พอยต์"
+
+#. Translators: Name of a document format.
+msgid "Formal or business letter"
+msgstr "จดหมายทางการ / จดหมายธุรกิจ"
+
+msgid ""
+"Sender block, date, recipient, subject in bold, salutation, body with space "
+"between paragraphs, closing and signature, all aligned left. TH Sarabun New "
+"16 pt, Calibri 11 pt."
+msgstr ""
+"ผู้ส่ง วันที่ ผู้รับ เรื่องตัวหนา คำขึ้นต้น เนื้อความเว้นระยะระหว่างย่อหน้า คำลงท้ายและลงชื่อ "
+"ชิดซ้ายทั้งหมด TH Sarabun New 16 พอยต์ และ Calibri 11 พอยต์"
+
+#. Translators: Name of a document format.
+msgid "General letter"
+msgstr "จดหมายทั่วไป"
+
+msgid ""
+"Sender address and date at the right, salutation, body indented, closing and "
+"name at the right. TH Sarabun New 16 pt, Calibri 12 pt."
+msgstr ""
+"ที่อยู่ผู้ส่งและวันที่ชิดขวา คำขึ้นต้น เนื้อความย่อหน้า คำลงท้ายและชื่อชิดขวา TH Sarabun New 16 "
+"พอยต์ และ Calibri 12 พอยต์"
+
+#. Translators: Name of a document format.
+msgid "Formal report"
+msgstr "รายงานทางการ"
+
+msgid ""
+"Word Title and Heading styles (so the headings can be listed and navigated), "
+"body justified for Thai, captions centred. Margins 3.81 top and left, 2.54 "
+"bottom and right cm. TH Sarabun New 16 pt, Calibri 11 pt."
+msgstr ""
+"ใช้สไตล์ชื่อเรื่องและหัวเรื่องของ Word (จึงแสดงรายการและนำทางหัวเรื่องได้) "
+"เนื้อความจัดเต็มแบบไทย คำบรรยายภาพอยู่กึ่งกลาง ระยะขอบบนและซ้าย 3.81 ล่างและขวา 2.54 "
+"ซม. TH Sarabun New 16 พอยต์ และ Calibri 11 พอยต์"
+
+#. Translators: Name of a document format.
+msgid "Article"
+msgstr "บทความ"
+
+msgid ""
+"Title and author line, Heading styles for sections, body with 1.15 line "
+"spacing and space between paragraphs, quotations indented. TH Sarabun New 16 "
+"pt, Calibri 11 pt."
+msgstr ""
+"ชื่อเรื่องและผู้เขียน สไตล์หัวเรื่องสำหรับแต่ละตอน เนื้อความระยะบรรทัด 1.15 "
+"และเว้นระยะระหว่างย่อหน้า ข้อความยกมาเยื้องเข้า TH Sarabun New 16 พอยต์ และ Calibri "
+"11 พอยต์"
+
+#. Translators: Name of a document format.
+msgid "Academic paper"
+msgstr "บทความวิชาการ"
+
+msgid ""
+"Centred title and authors, abstract and keywords, Heading styles, body "
+"justified and indented, captions, bibliography with hanging indent. Margins "
+"3.81 top and left, 2.54 bottom and right cm."
+msgstr ""
+"ชื่อเรื่องและผู้เขียนอยู่กึ่งกลาง บทคัดย่อและคำสำคัญ สไตล์หัวเรื่อง เนื้อความจัดเต็มและย่อหน้า "
+"คำบรรยายภาพ บรรณานุกรมแบบย่อหน้าแขวน ระยะขอบบนและซ้าย 3.81 ล่างและขวา 2.54 ซม."
+
+#. Translators: Name of a document format.
+msgid "Meeting minutes (รายงานการประชุม)"
+msgstr "รายงานการประชุม"
+
+msgid ""
+"Centred title and meeting details, attendee lists, each agenda item as a "
+"heading (ระเบียบวาระที่ ...), body indented, recorder and checker signatures at "
+"the right."
+msgstr ""
+"ชื่อและรายละเอียดการประชุมอยู่กึ่งกลาง รายชื่อผู้มาประชุม ระเบียบวาระแต่ละวาระเป็นหัวเรื่อง "
+"เนื้อความย่อหน้า ลงชื่อผู้จดและผู้ตรวจรายงานการประชุมด้านขวา"
+
+#. Translators: Name of a document format.
+msgid "Easy to read and accessible document"
+msgstr "เอกสารอ่านง่ายและเข้าถึงได้"
+
+msgid ""
+"Real Word headings for screen reader navigation, text aligned left (not "
+"justified), 1.5 line spacing, space between paragraphs instead of empty "
+"lines, larger text. Good for people who use screen readers or have low "
+"vision."
+msgstr ""
+"ใช้หัวเรื่องจริงของ Word เพื่อให้โปรแกรมอ่านหน้าจอนำทางได้ ข้อความชิดซ้าย (ไม่จัดเต็ม) "
+"ระยะบรรทัด 1.5 เว้นระยะระหว่างย่อหน้าแทนบรรทัดว่าง ตัวอักษรใหญ่ขึ้น "
+"เหมาะกับผู้ใช้โปรแกรมอ่านหน้าจอและผู้มีสายตาเลือนราง"
+
+#. Translators: Name of the undo step for formatting a document.
+#, python-brace-format
+msgid "Format document: {name}"
+msgstr "จัดรูปแบบเอกสาร: {name}"
+
+#. Translators: Check box in the settings panel.
+msgid "Play &sounds for navigation mode and wrapping"
+msgstr "เล่นเสียงเมื่อเข้า ออกโหมดนำทาง และเมื่อวนกลับ(&S)"
+
+#. Translators: Check box in the settings panel.
+msgid "Report item &position, for example 3 of 12"
+msgstr "รายงานลำดับรายการ เช่น 3 จาก 12(&P)"
+
+#. Translators: Check box in the settings panel.
+msgid "Report the &author of comments and revisions"
+msgstr "รายงานผู้เขียนของข้อคิดเห็นและการแก้ไข(&A)"
+
+#. Translators: Check box in the settings panel.
+msgid "Report the &date of comments and revisions"
+msgstr "รายงานวันที่ของข้อคิดเห็นและการแก้ไข(&D)"
+
+#. Translators: Check box in the settings panel.
+msgid "Speak the &text around misspelled words"
+msgstr "อ่านข้อความรอบคำที่สะกดผิด(&T)"
+
+#. Translators: Label of a number field in the settings panel.
+msgid "&Characters of context on each side:"
+msgstr "จำนวนอักขระของบริบทแต่ละด้าน(&C):"
+
+#. Translators: Label of a number field in the settings panel.
+msgid "&Maximum items collected for each type:"
+msgstr "จำนวนรายการสูงสุดที่รวบรวมต่อชนิด(&M):"
+
+#. Translators: Group of Thai word check settings in the settings panel.
+msgid "Thai word check (Z)"
+msgstr "ตรวจคำภาษาไทย (Z)"
+
+msgid "Also report words that are not in the word list (names may be reported)"
+msgstr "รายงานคำที่ไม่มีในรายการคำด้วย (อาจรายงานชื่อเฉพาะ)"
+
+#. Translators: Check box in the Thai word check settings.
+msgid "Check for new word lists once a week and tell me"
+msgstr "ตรวจหารายการคำรุ่นใหม่สัปดาห์ละครั้งและแจ้งให้ทราบ"
+
+#. Translators: Check box in the Thai word check settings.
+msgid "Download new word lists automatically"
+msgstr "ดาวน์โหลดรายการคำรุ่นใหม่อัตโนมัติ"
+
+msgid ""
+"Also use the LibreOffice Thai dictionary (NECTEC LEXiTRON, LGPL, downloaded)"
+msgstr ""
+"ใช้พจนานุกรมไทยของ LibreOffice ด้วย (NECTEC LEXiTRON สัญญาอนุญาต LGPL ดาวน์โหลดเพิ่ม)"
+
+#. Translators: Label of the address of the organization's list of commonly misspelled words.
+msgid ""
+"Address of the organization's list of commonly misspelled words (optional):"
+msgstr "ที่อยู่ของรายการคำที่มักเขียนผิดขององค์กร (ไม่บังคับ):"
+
+#. Translators: Button that checks for new word lists now.
+msgid "Update word lists &now"
+msgstr "อัปเดตรายการคำตอนนี้(&N)"
+
+#. Translators: Button that opens the user's own word list.
+msgid "Open my &words"
+msgstr "เปิดรายการคำของฉัน(&W)"
+
+#. Translators: Button that opens the user's own list of commonly misspelled words.
+msgid "Open my &misspellings"
+msgstr "เปิดรายการคำผิดของฉัน(&M)"
+
+#. Translators: Group of AI settings in the settings panel.
+msgid "AI suggestions"
+msgstr "คำแนะนำจาก AI"
+
+#. Translators: Check box that turns on AI suggestions.
+msgid "&Use AI to suggest corrections and comment replies"
+msgstr "ใช้ AI แนะนำการแก้ไขและร่างคำตอบข้อคิดเห็น(&U)"
+
+#. Translators: Privacy note in the AI settings.
+msgid ""
+"AI only suggests. Nothing changes in the document until you choose a "
+"suggestion. With an online service the text you check is sent to that "
+"service; free tiers may use it to improve their products. For confidential "
+"documents use Ollama on this computer."
+msgstr ""
+"AI ทำหน้าที่แนะนำเท่านั้น เอกสารจะไม่เปลี่ยนจนกว่าคุณจะเลือกคำแนะนำเอง หากใช้บริการออนไลน์ "
+"ข้อความที่ตรวจจะถูกส่งไปยังบริการนั้น และบริการแบบฟรีอาจนำไปใช้ปรับปรุงผลิตภัณฑ์ "
+"สำหรับเอกสารลับให้ใช้ Ollama ในเครื่องนี้"
+
+#. Translators: Label of the document language choice for AI.
+msgid "Document &language:"
+msgstr "ภาษาของเอกสาร(&L):"
+
+#. Translators: Choices for the document language used by AI.
+msgid "Automatic"
+msgstr "อัตโนมัติ"
+
+msgid "English"
+msgstr "อังกฤษ"
+
+#. Translators: Button that opens the guided AI key setup.
+msgid "Get or &update the API key..."
+msgstr "ขอหรืออัปเดต API key(&U)..."
+
+#. Translators: Status of a field or link.
+msgid "Error"
+msgstr "ผิดพลาด"
+
+msgid "OK"
+msgstr "ปกติ"
+
+#. Translators: Element type name.
+msgid "Headings"
+msgstr "หัวเรื่อง"
+
+#. Translators: Column headers in the heading list.
+#. Translators: Section label in the heading details.
+msgid "Level"
+msgstr "ระดับ"
+
+#. Translators: Section label in the heading details.
+#. Translators: Kind of item a cross-reference can point to.
+msgid "Heading"
+msgstr "หัวเรื่อง"
+
+#. Translators: Spoken for a heading, for example "Level 2: Budget".
+#, python-brace-format
+msgid "Level {level}: {text}"
+msgstr "ระดับ {level}: {text}"
+
+#. Translators: Reported after a heading became body text.
+msgid "Changed to body text"
+msgstr "เปลี่ยนเป็นเนื้อความแล้ว"
+
+#, python-brace-format
+msgid "Promote to level {level}"
+msgstr "เลื่อนขึ้นเป็นระดับ {level}"
+
+#, python-brace-format
+msgid "Demote to level {level}"
+msgstr "ลดลงเป็นระดับ {level}"
+
+#. Translators: Action that changes a heading to body text.
+msgid "Change to body text"
+msgstr "เปลี่ยนเป็นเนื้อความ"
+
+#. Translators: Element type name.
+msgid "Tables"
+msgstr "ตาราง"
+
+#. Translators: Section label in the table details.
+msgid "Size"
+msgstr "ขนาด"
+
+msgid "First row"
+msgstr "แถวแรก"
+
+#. Translators: Section label in the table details.
+msgid "Content"
+msgstr "เนื้อหา"
+
+#. Translators: Size of a table, for example "5 rows, 3 columns".
+#, python-brace-format
+msgid "{rows} rows, {columns} columns"
+msgstr "{rows} แถว {columns} คอลัมน์"
+
+#. Translators: Size of a table with merged cells that Word cannot count by columns.
+#, python-brace-format
+msgid "{rows} rows"
+msgstr "{rows} แถว"
+
+#. Translators: Yes or no.
+msgid "yes"
+msgstr "มี"
+
+msgid "no"
+msgstr "ไม่มี"
+
+#. Translators: Spoken for a table, for example "Table 2: 5 rows, 3 columns, header row yes, Name Age".
+#, python-brace-format
+msgid "Table {number}: {size}, header row {header}, {first}"
+msgstr "ตารางที่ {number}: {size} แถวหัวตาราง{header}, {first}"
+
+#. Translators: Reported after Enter moves into a table.
+#, python-brace-format
+msgid "In table {number}, first cell"
+msgstr "อยู่ในตารางที่ {number} เซลล์แรก"
+
+#. Translators: Reported after the header row was removed.
+msgid "The first row is no longer a header row"
+msgstr "แถวแรกไม่เป็นแถวหัวตารางแล้ว"
+
+msgid "Describe the table for people who cannot see it:"
+msgstr "อธิบายตารางสำหรับผู้ที่มองไม่เห็น:"
+
+#. Translators: Action that removes the header row of a table.
+msgid "Remove header row"
+msgstr "ยกเลิกแถวหัวตาราง"
+
+#. Translators: Action that asks AI to describe a table.
+msgid "Describe the table with AI..."
+msgstr "ให้ AI อธิบายตาราง..."
+
+#. Translators: Element type name.
+msgid "Links"
+msgstr "ลิงก์"
+
+#. Translators: Section label in the link details.
+msgid "Address"
+msgstr "ที่อยู่"
+
+#. Translators: Spoken after a link whose target no longer exists.
+msgid "broken"
+msgstr "ลิงก์เสีย"
+
+msgid "Text:"
+msgstr "ข้อความ:"
+
+#. Translators: Title and label of the dialog for changing a link address.
+#. Translators: Name of the undo step for changing a link address.
+msgid "Link address"
+msgstr "ที่อยู่ลิงก์"
+
+msgid "Address:"
+msgstr "ที่อยู่:"
+
+#. Translators: Reported after a link address changed.
+msgid "Link address changed"
+msgstr "เปลี่ยนที่อยู่ลิงก์แล้ว"
+
+#. Translators: Name of the undo step for removing a link.
+msgid "Remove link"
+msgstr "ลบลิงก์"
+
+#. Translators: Reported after a link was removed; its text stays.
+msgid "Link removed, the text stays"
+msgstr "ลบลิงก์แล้ว ข้อความยังอยู่"
+
+#. Translators: Reported when a link cannot be opened.
+msgid "Cannot open this link"
+msgstr "เปิดลิงก์นี้ไม่ได้"
+
+#. Translators: Action that changes the address of a link.
+msgid "Change address..."
+msgstr "เปลี่ยนที่อยู่..."
+
+#. Translators: Action that opens a link.
+msgid "Open the link"
+msgstr "เปิดลิงก์"
+
+#. Translators: Action that removes a link but keeps its text.
+msgid "Remove link, keep the text"
+msgstr "ลบลิงก์ เก็บข้อความไว้"
+
+#. Translators: Element type name.
+msgid "Bookmarks"
+msgstr "บุ๊กมาร์ก"
+
+#. Translators: Column headers in the bookmark list.
+#. Translators: Section labels in the bookmark details.
+msgid "Name"
+msgstr "ชื่อ"
+
+#. Translators: Action that deletes a bookmark.
+msgid "Delete bookmark"
+msgstr "ลบบุ๊กมาร์ก"
+
+#, python-brace-format
+msgid "Delete bookmark {name}? The text stays."
+msgstr "ลบบุ๊กมาร์ก {name} หรือไม่ ข้อความยังอยู่"
+
+#. Translators: Reported after a bookmark was deleted.
+msgid "Bookmark deleted"
+msgstr "ลบบุ๊กมาร์กแล้ว"
+
+#. Translators: Reported when a bookmark cannot be added at the starting position.
+msgid "A bookmark can only be added in the main text"
+msgstr "เพิ่มบุ๊กมาร์กได้เฉพาะในเนื้อหาหลัก"
+
+#. Translators: Title of the dialog for a new bookmark.
+msgid "New bookmark"
+msgstr "บุ๊กมาร์กใหม่"
+
+#. Translators: Label of the bookmark name field.
+msgid "Name (letters and numbers, no spaces, starting with a letter):"
+msgstr "ชื่อ (ตัวอักษรและตัวเลข ไม่มีช่องว่าง ขึ้นต้นด้วยตัวอักษร):"
+
+msgid ""
+"Not a valid bookmark name. Use letters and numbers without spaces, starting "
+"with a letter"
+msgstr "ชื่อบุ๊กมาร์กไม่ถูกต้อง ใช้ตัวอักษรและตัวเลขโดยไม่มีช่องว่าง และขึ้นต้นด้วยตัวอักษร"
+
+#. Translators: Reported after a bookmark was added.
+#, python-brace-format
+msgid "Bookmark {name} added"
+msgstr "เพิ่มบุ๊กมาร์ก {name} แล้ว"
+
+#. Translators: Action that adds a bookmark where the caret was before navigation mode.
+msgid "Add bookmark at the starting position..."
+msgstr "เพิ่มบุ๊กมาร์กที่ตำแหน่งเดิม..."
+
+#. Translators: Element type name.
+msgid "Fields"
+msgstr "ฟิลด์"
+
+#. Translators: Section label in the field details.
+msgid "Result"
+msgstr "ผลลัพธ์"
+
+#. Translators: Section label in the field details.
+#. Translators: Section label in the cross-reference details.
+#. Translators: Section label in the citation details.
+msgid "Code"
+msgstr "รหัสฟิลด์"
+
+#. Translators: Reported after a field was updated.
+#, python-brace-format
+msgid "Field updated: {result}"
+msgstr "อัปเดตฟิลด์แล้ว: {result}"
+
+#. Translators: Name of the undo step for turning a field into text.
+msgid "Convert to text"
+msgstr "แปลงเป็นข้อความ"
+
+msgid "Replace this field with its current result as plain text?"
+msgstr "แทนที่ฟิลด์นี้ด้วยผลลัพธ์ปัจจุบันเป็นข้อความธรรมดาหรือไม่"
+
+#. Translators: Reported after a field became plain text.
+msgid "Converted to text"
+msgstr "แปลงเป็นข้อความแล้ว"
+
+#. Translators: Action that updates one field.
+msgid "Update this field"
+msgstr "อัปเดตฟิลด์นี้"
+
+#. Translators: Action that copies the code of a field.
+msgid "Copy field code"
+msgstr "คัดลอกรหัสฟิลด์"
+
+#. Translators: Action that turns a field into plain text.
+msgid "Convert to plain text..."
+msgstr "แปลงเป็นข้อความธรรมดา..."
+
+#. Translators: Reported after all fields were updated.
+msgid "All fields and tables of contents updated"
+msgstr "อัปเดตฟิลด์และสารบัญทั้งหมดแล้ว"
+
+#. Translators: Action that updates every field in the document.
+msgid "Update all fields and tables of contents"
+msgstr "อัปเดตฟิลด์และสารบัญทั้งหมด"
+
+#. Translators: Element type name.
+msgid "Cross-references"
+msgstr "การอ้างอิงโยง"
+
+#. Translators: Column headers in the cross-reference list.
+#. Translators: Section label in the cross-reference details.
+#. Translators: Column headers in the citation list.
+#. Translators: Section label in the citation details.
+msgid "Shows"
+msgstr "แสดง"
+
+#. Translators: Section label in the cross-reference details.
+msgid "Points to"
+msgstr "ชี้ไปที่"
+
+#. Translators: Shown when the target of a cross-reference no longer exists.
+msgid "(target not found)"
+msgstr "(ไม่พบปลายทาง)"
+
+#. Translators: Spoken for a cross-reference, for example "3, points to Results".
+#, python-brace-format
+msgid "{shows}, points to {target}"
+msgstr "{shows} ชี้ไปที่ {target}"
+
+#, python-brace-format
+msgid "Target: {text}"
+msgstr "ปลายทาง: {text}"
+
+#. Translators: Action that moves to the target of a cross-reference.
+msgid "Go to the target"
+msgstr "ไปยังปลายทาง"
+
+#. Translators: Action that inserts a cross-reference where the caret was.
+msgid "Insert cross-reference at the starting position..."
+msgstr "แทรกการอ้างอิงโยงที่ตำแหน่งเดิม..."
+
+#. Translators: Reported when a cross-reference cannot be inserted at the starting position.
+msgid "A cross-reference can only be inserted in the main text"
+msgstr "แทรกการอ้างอิงโยงได้เฉพาะในเนื้อหาหลัก"
+
+#. Translators: What a cross-reference shows.
+msgid "Heading text"
+msgstr "ข้อความหัวเรื่อง"
+
+#. Translators: What a cross-reference shows.
+msgid "Page number"
+msgstr "เลขหน้า"
+
+#. Translators: What a cross-reference shows.
+msgid "Heading number"
+msgstr "หมายเลขหัวเรื่อง"
+
+#. Translators: What a cross-reference shows.
+msgid "Above or below"
+msgstr "ด้านบนหรือด้านล่าง"
+
+#. Translators: Kind of item a cross-reference can point to.
+msgid "Bookmark"
+msgstr "บุ๊กมาร์ก"
+
+#. Translators: What a cross-reference shows.
+msgid "Bookmark text"
+msgstr "ข้อความบุ๊กมาร์ก"
+
+#. Translators: What a cross-reference shows.
+msgid "Footnote number"
+msgstr "หมายเลขเชิงอรรถ"
+
+#. Translators: What a cross-reference shows.
+msgid "Endnote number"
+msgstr "หมายเลข endnote"
+
+#. Translators: Kind of item a cross-reference can point to.
+msgid "Numbered item"
+msgstr "รายการลำดับเลข"
+
+#. Translators: What a cross-reference shows.
+msgid "Paragraph number"
+msgstr "หมายเลขย่อหน้า"
+
+#. Translators: What a cross-reference shows.
+msgid "Paragraph text"
+msgstr "ข้อความย่อหน้า"
+
+#. Translators: Kind of item a cross-reference can point to, for example "Caption: Table".
+#, python-brace-format
+msgid "Caption: {label}"
+msgstr "คำบรรยาย: {label}"
+
+#. Translators: What a cross-reference shows.
+msgid "Entire caption"
+msgstr "คำบรรยายทั้งหมด"
+
+#. Translators: What a cross-reference shows.
+msgid "Only label and number"
+msgstr "เฉพาะป้ายและหมายเลข"
+
+#. Translators: What a cross-reference shows.
+msgid "Only caption text"
+msgstr "เฉพาะข้อความคำบรรยาย"
+
+#. Translators: Title of the cross-reference dialogs.
+#. Translators: Name of the undo step for inserting a cross-reference.
+msgid "Insert cross-reference"
+msgstr "แทรกการอ้างอิงโยง"
+
+#. Translators: Label of the choice of what a cross-reference points to.
+msgid "Point to:"
+msgstr "ชี้ไปที่:"
+
+#. Translators: Reported when the document has nothing of the chosen kind to point to.
+#, python-brace-format
+msgid "The document has no {kind} to point to"
+msgstr "เอกสารไม่มี{kind}ให้อ้างอิง"
+
+#. Translators: Label of the list of targets for a cross-reference.
+msgid "Which item:"
+msgstr "รายการใด:"
+
+#. Translators: Label of the choice of what the cross-reference shows.
+msgid "Show:"
+msgstr "แสดง:"
+
+#. Translators: Reported after a cross-reference was inserted.
+msgid "Cross-reference inserted"
+msgstr "แทรกการอ้างอิงโยงแล้ว"
+
+#. Translators: Title of the dialogs for a new source.
+msgid "New source"
+msgstr "แหล่งอ้างอิงใหม่"
+
+#. Translators: Kind of source.
+msgid "Book"
+msgstr "หนังสือ"
+
+#. Translators: Kind of source.
+msgid "Journal article"
+msgstr "บทความวารสาร"
+
+#. Translators: Kind of source.
+msgid "Web site"
+msgstr "เว็บไซต์"
+
+#. Translators: Kind of source.
+msgid "Report"
+msgstr "รายงาน"
+
+#. Translators: Label of the choice of source kind.
+msgid "Kind of source:"
+msgstr "ชนิดของแหล่งอ้างอิง:"
+
+#. Translators: Label of the source author field.
+msgid "Author or authors (separate with ;):"
+msgstr "ผู้แต่ง (หลายคนคั่นด้วย ;):"
+
+#. Translators: Label of the source year field.
+msgid "Year:"
+msgstr "ปี:"
+
+#. Translators: Label of the source web address field.
+msgid "Web address:"
+msgstr "ที่อยู่เว็บ:"
+
+#. Translators: Label of the source publisher field.
+msgid "Publisher or journal:"
+msgstr "สำนักพิมพ์หรือวารสาร:"
+
+#. Translators: Reported after a source was added.
+#, python-brace-format
+msgid "Source added: {tag}"
+msgstr "เพิ่มแหล่งอ้างอิงแล้ว: {tag}"
+
+#. Translators: Reported when a citation cannot be inserted at the starting position.
+msgid "A citation can only be inserted in the main text"
+msgstr "แทรกการอ้างอิงได้เฉพาะในเนื้อหาหลัก"
+
+#. Translators: Choice in the citation dialog that adds a new source.
+msgid "New source..."
+msgstr "แหล่งอ้างอิงใหม่..."
+
+#. Translators: Title and label of the dialog for inserting a citation.
+#. Translators: Name of the undo step for inserting a citation.
+msgid "Insert citation"
+msgstr "แทรกการอ้างอิง"
+
+msgid "Source:"
+msgstr "แหล่งอ้างอิง:"
+
+#. Translators: Reported after a citation was inserted.
+msgid "Citation inserted"
+msgstr "แทรกการอ้างอิงแล้ว"
+
+#. Translators: Reported after the bibliography was updated.
+msgid "Bibliography updated"
+msgstr "อัปเดตบรรณานุกรมแล้ว"
+
+#. Translators: Reported when the bibliography cannot be inserted at the starting position.
+msgid "Place the caret where the bibliography should go, then try again"
+msgstr "วางเคอร์เซอร์ที่ตำแหน่งที่ต้องการให้มีบรรณานุกรม แล้วลองอีกครั้ง"
+
+#. Translators: Name of the undo step for inserting a bibliography.
+msgid "Insert bibliography"
+msgstr "แทรกบรรณานุกรม"
+
+#. Translators: Reported after the bibliography was inserted.
+msgid "Bibliography inserted at the starting position"
+msgstr "แทรกบรรณานุกรมที่ตำแหน่งเดิมแล้ว"
+
+#. Translators: Title and label of the dialog for the citation style.
+msgid "Citation style"
+msgstr "รูปแบบการอ้างอิง"
+
+msgid "Style:"
+msgstr "รูปแบบ:"
+
+#. Translators: Reported when Word does not have the chosen citation style.
+#, python-brace-format
+msgid "Word does not have the style {style}"
+msgstr "Word ไม่มีรูปแบบ {style}"
+
+#. Translators: Reported after the citation style changed.
+#, python-brace-format
+msgid "Citation style {style}"
+msgstr "รูปแบบการอ้างอิง {style}"
+
+#. Translators: Element type name.
+msgid "Citations"
+msgstr "การอ้างอิง"
+
+#. Translators: Section label in the citation details.
+msgid "Source"
+msgstr "แหล่งอ้างอิง"
+
+#. Translators: Action that inserts a citation where the caret was.
+msgid "Insert citation at the starting position..."
+msgstr "แทรกการอ้างอิงที่ตำแหน่งเดิม..."
+
+#. Translators: Action that adds a new source to the document.
+msgid "Add a new source..."
+msgstr "เพิ่มแหล่งอ้างอิงใหม่..."
+
+#. Translators: Action that inserts or updates the bibliography.
+msgid "Insert or update the bibliography"
+msgstr "แทรกหรืออัปเดตบรรณานุกรม"
+
+#. Translators: Action that changes the citation style.
+msgid "Change citation style..."
+msgstr "เปลี่ยนรูปแบบการอ้างอิง..."
+
+#. Translators: Element type name.
+msgid "Thai word check"
+msgstr "ตรวจคำภาษาไทย"
+
+#. Translators: Section label in the Thai word check details.
+msgid "Note"
+msgstr "หมายเหตุ"
+
+#. Translators: Problem found by the Thai word check.
+msgid "Commonly misspelled"
+msgstr "คำที่มักเขียนผิด"
+
+#. Translators: Problem found by the Thai word check.
+msgid "Not in the word list"
+msgstr "ไม่มีในรายการคำ"
+
+#. Translators: Spoken for a commonly misspelled word, for example "อนุญาติ, should be อนุญาต".
+#, python-brace-format
+msgid "{word}, should be {right}"
+msgstr "{word} ควรเป็น {right}"
+
+#. Translators: Spoken for a word not in the word list, followed by suggestions.
+#, python-brace-format
+msgid "{word}, not in the word list, {suggestions}"
+msgstr "{word} ไม่มีในรายการคำ, {suggestions}"
+
+#. Translators: Reported after every occurrence of a word was replaced; {count} is a number.
+#, python-brace-format
+msgid "{count} replaced with {text}"
+msgstr "แทนที่ {count} แห่งด้วย {text} แล้ว"
+
+#. Translators: Reported after a word was added to the user's word list.
+#, python-brace-format
+msgid "{word} added to my words"
+msgstr "เพิ่ม {word} ในรายการคำของฉันแล้ว"
+
+#. Translators: Reported after a word is ignored until NVDA restarts.
+#, python-brace-format
+msgid "{word} ignored until NVDA restarts"
+msgstr "ข้าม {word} จนกว่าจะเริ่ม NVDA ใหม่"
+
+msgid ""
+"Royal Institute dictionary opened. The word is on the clipboard, paste it in "
+"the search box"
+msgstr "เปิดพจนานุกรมราชบัณฑิตยสถานแล้ว คำอยู่ในคลิปบอร์ด วางลงในช่องค้นหาได้เลย"
+
+#. Translators: Action that replaces every occurrence of a word.
+#, python-brace-format
+msgid "Replace every {word} with {right}"
+msgstr "แทนที่ {word} ทุกแห่งด้วย {right}"
+
+#. Translators: Action that adds a word to the user's own word list.
+#, python-brace-format
+msgid "Add {word} to my words"
+msgstr "เพิ่ม {word} ในรายการคำของฉัน"
+
+#. Translators: Action that ignores a word until NVDA restarts.
+#, python-brace-format
+msgid "Ignore {word}"
+msgstr "ข้าม {word}"
+
+#. Translators: Action that opens the Royal Institute dictionary website.
+msgid "Look up in the Royal Institute dictionary website"
+msgstr "ค้นในเว็บไซต์พจนานุกรมราชบัณฑิตยสถาน"
+
+#. Translators: Action that checks for and downloads newer word lists.
+msgid "Update the Thai word lists now..."
+msgstr "อัปเดตรายการคำภาษาไทยตอนนี้..."
+
+#. Translators: Name of a Thai word list.
+msgid "PyThaiNLP Thai word list"
+msgstr "รายการคำภาษาไทยของ PyThaiNLP"
+
+#. Translators: Name of a Thai word list.
+msgid "LibreOffice Thai dictionary (NECTEC LEXiTRON)"
+msgstr "พจนานุกรมไทยของ LibreOffice (NECTEC LEXiTRON)"
+
+#. Translators: Name of the organization's own list of commonly misspelled words.
+msgid "Organization list of commonly misspelled words"
+msgstr "รายการคำที่มักเขียนผิดขององค์กร"
+
+#. Translators: First line of the user's own word list file.
+msgid "My words: one word per line. These words are never reported."
+msgstr "รายการคำของฉัน: บรรทัดละหนึ่งคำ คำเหล่านี้จะไม่ถูกรายงาน"
+
+msgid ""
+"My commonly misspelled words: wrong form, Tab, right form, Tab, optional "
+"note."
+msgstr "รายการคำผิดของฉัน: คำที่ผิด, Tab, คำที่ถูก, Tab, หมายเหตุ (ไม่บังคับ)"
+
+#. Translators: Name of the undo step for changing digits.
+msgid "Change digits"
+msgstr "เปลี่ยนตัวเลข"
+
+#. Translators: Name of the undo step for changing years between eras.
+msgid "Change years"
+msgstr "เปลี่ยนปี"
+
+#. Translators: Label of the read-only field with an AI result.
+msgid "&Result:"
+msgstr "ผลลัพธ์(&R):"
+
+#. Translators: Button that copies an AI result.
+msgid "&Copy"
+msgstr "คัดลอก(&C)"
+
+#. Translators: Label of the read-only field with the original text.
+msgid "&Original:"
+msgstr "ข้อความเดิม(&O):"
+
+#. Translators: Label of the editable field with the AI text.
+msgid "&New text (you can edit it):"
+msgstr "ข้อความใหม่ (แก้ไขได้)(&N):"
+
+#. Translators: Button that replaces the original text with the new text.
+msgid "&Replace the original"
+msgstr "แทนที่ข้อความเดิม(&R)"
+
+#. Translators: Button that inserts the new text after the original.
+msgid "&Insert after the original"
+msgstr "แทรกต่อจากข้อความเดิม(&I)"
+
+#. Translators: Button that copies the new text.
+msgid "&Copy new text"
+msgstr "คัดลอกข้อความใหม่(&C)"
+
+#. Translators: Name of the undo step for using AI text.
+msgid "AI text"
+msgstr "ข้อความจาก AI"
+
+#. Translators: Status of a comment sent to AI.
+msgid "resolved"
+msgstr "แก้ไขแล้ว"
+
+msgid "open"
+msgstr "ยังไม่แก้ไข"
+
+#. Translators: Reported when a command is used outside Microsoft Word.
+msgid "This command is only available in Microsoft Word"
+msgstr "คำสั่งนี้ใช้ได้เฉพาะใน Microsoft Word"
+
+#. Translators: Reported when the focus is in Word but not in the document text.
+msgid "Move the focus to the document text first"
+msgstr "กรุณาย้ายโฟกัสไปที่เนื้อหาเอกสารก่อน"
+
+msgid ""
+"Cannot access this document. If it is open in Protected View, enable editing "
+"first and try again"
+msgstr ""
+"ไม่สามารถเข้าถึงเอกสารนี้ได้ หากเปิดอยู่ในมุมมองที่ได้รับการป้องกัน (Protected View) "
+"ให้เปิดใช้งานการแก้ไขก่อนแล้วลองอีกครั้ง"
+
+#, python-brace-format
+msgid "Page {page} of {pages}"
+msgstr "หน้า {page} จาก {pages}"
+
+#. Translators: Reports the section number of the caret.
+#, python-brace-format
+msgid "section {number}"
+msgstr "ส่วนที่ {number}"
+
+#. Translators: Reports the line number of the caret.
+#, python-brace-format
+msgid "line {number}"
+msgstr "บรรทัด {number}"
+
+#. Translators: Reports the heading the caret is under.
+#, python-brace-format
+msgid "under heading {heading}"
+msgstr "ภายใต้หัวเรื่อง {heading}"
+
+#. Translators: Word markup view without any change marks.
+msgid "no markup"
+msgstr "ไม่แสดงมาร์กอัป"
+
+#. Translators: Word "Simple Markup" view.
+msgid "simple markup"
+msgstr "มาร์กอัปแบบง่าย"
+
+#. Translators: Word "All Markup" view.
+msgid "all markup"
+msgstr "มาร์กอัปทั้งหมด"
+
+#. Translators: Reported when Track Changes is on.
+msgid "Track changes on"
+msgstr "ติดตามการเปลี่ยนแปลง เปิด"
+
+#. Translators: Reported when Track Changes is off.
+msgid "Track changes off"
+msgstr "ติดตามการเปลี่ยนแปลง ปิด"
+
+#. Translators: Reports the markup view, for example "showing all markup".
+#, python-brace-format
+msgid "showing {markup}"
+msgstr "แสดง{markup}"
+
+#. Translators: Reports how many tracked changes the document has.
+#, python-brace-format
+msgid "{count} revisions"
+msgstr "การแก้ไข {count} รายการ"
+
+#. Translators: Summary of the document. Each {name} is a number.
+#, python-brace-format
+msgid "{words} words, {pages} pages, {paragraphs} paragraphs."
+msgstr "{words} คำ, {pages} หน้า, {paragraphs} ย่อหน้า"
+
+#, python-brace-format
+msgid ""
+"Spelling errors {spelling}, grammar issues {grammar}, comments {comments}, "
+"footnotes {footnotes}, endnotes {endnotes}, revisions {revisions}."
+msgstr ""
+"คำสะกดผิด {spelling}, ปัญหาไวยากรณ์ {grammar}, ข้อคิดเห็น {comments}, เชิงอรรถ "
+"{footnotes}, endnote {endnotes}, การแก้ไขที่ติดตาม {revisions}"
+
+#, python-brace-format
+msgid "{name} (licence {license}, {homepage})"
+msgstr "{name} (สัญญาอนุญาต {license}, {homepage})"
+
+#. Translators: Reported when a downloaded file is not a Thai word list.
+msgid "The downloaded file is not a Thai word list, so it was not used"
+msgstr "ไฟล์ที่ดาวน์โหลดมาไม่ใช่รายการคำภาษาไทย จึงไม่ได้นำมาใช้"
+
+#. Translators: Reported when the word lists cannot be checked or downloaded.
+msgid ""
+"Cannot reach the word list website. Check the internet connection and try "
+"again"
+msgstr "ติดต่อเว็บไซต์รายการคำไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่"
+
+#. Translators: Reported after word lists were updated; {lists} names them with their number of entries.
+#, python-brace-format
+msgid "Thai word lists updated: {lists}"
+msgstr "อัปเดตรายการคำภาษาไทยแล้ว: {lists}"
+
+#. Translators: Reported while word lists are downloaded.
+msgid "Downloading Thai word lists..."
+msgstr "กำลังดาวน์โหลดรายการคำภาษาไทย..."
+
+#. Translators: Reported when an update is already running.
+msgid "The word lists are already being updated"
+msgstr "กำลังอัปเดตรายการคำอยู่แล้ว"
+
+#. Translators: Reported while checking for newer word lists.
+msgid "Checking for new Thai word lists..."
+msgstr "กำลังตรวจหารายการคำภาษาไทยรุ่นใหม่..."
+
+#. Translators: Reported when the word lists are up to date.
+msgid "The Thai word lists are up to date"
+msgstr "รายการคำภาษาไทยเป็นรุ่นล่าสุดแล้ว"
+
+#. Translators: Question before word lists are downloaded; {lists} names them.
+#, python-brace-format
+msgid ""
+"New Thai word lists are available:\n"
+"{lists}\n"
+"\n"
+"Download them now?"
+msgstr ""
+"มีรายการคำภาษาไทยรุ่นใหม่:\n"
+"{lists}\n"
+"\n"
+"ดาวน์โหลดตอนนี้หรือไม่"
+
+#. Translators: Title of the word list update question.
+msgid "Thai word lists"
+msgstr "รายการคำภาษาไทย"
+
+#, python-brace-format
+msgid ""
+"New Thai word lists are available: {lists}. To update, use the NVDA menu, "
+"Tools, Update Thai word lists, or the actions of the Thai word check (Z)."
+msgstr ""
+"มีรายการคำภาษาไทยรุ่นใหม่: {lists} อัปเดตได้ที่เมนู NVDA > เครื่องมือ > "
+"อัปเดตรายการคำภาษาไทย หรือที่เมนูคำสั่งของการตรวจคำภาษาไทย (Z)"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-on store
+msgid ""
+"Read, manage and format Microsoft Word documents from the keyboard with "
+"NVDA. Works with Microsoft 365, Office 2021 and Office 2019.\n"
+"Main features:\n"
+"- Document navigation mode (NVDA+Shift+F8): move to spelling errors (S), "
+"grammar issues (G), comments (C), footnotes (F), endnotes (E), tracked "
+"changes (R), headings (O), tables (U), pictures (M), links (K), cross-"
+"references (X), citations (I), bookmarks (B), fields (D), language problems "
+"(L) and accessibility problems (A); Shift with the letter moves back, arrow "
+"keys move and change the type, Home and End go to the first and last item.\n"
+"- When you leave the mode the caret stays at the last item, ready to edit; "
+"Enter leaves and lets you type straight away, Backspace returns to where you "
+"started.\n"
+"- Item lists (Space) with each detail in its own field: author, date, "
+"status, commented text, comment and replies; copy the text or all details.\n"
+"- Actions (Applications key): replace misspelled words, reply to, edit, "
+"resolve and delete comments, insert, edit, delete and convert footnotes and "
+"endnotes, accept and reject tracked changes one by one, by author or all.\n"
+"- Track Changes status and toggle (T, Shift+T), note at the caret (N), page, "
+"section and heading (P), document summary (Q).\n"
+"- Accessibility checker (A): pictures without alternative text, tables "
+"without header rows, skipped heading levels, empty paragraphs used for "
+"spacing, unclear link text, missing title and wrong language, each with a "
+"fix. AI writes alternative text for pictures and tables in Thai or English "
+"for you to check.\n"
+"- Structure: promote and demote headings, header rows and alternative text "
+"of tables, edit and check links, add bookmarks, update fields, insert cross-"
+"references, citations and the bibliography.\n"
+"- Optional AI suggestions: proofread a paragraph or the selection (W), "
+"suggestions for a misspelled word, drafts of comment replies. AI tools (V): "
+"summaries, rewriting in official, polite, concise or easy-to-read style, "
+"Thai and English translation, comment summary and consistency check, always "
+"shown next to the original before anything changes.\n"
+"- Thai tools (Y): Thai and Arabic digits, Buddhist and Christian era years.\n"
+"- Offline Thai word check (Z): commonly misspelled words with the right "
+"form, and words not in open word lists (PyThaiNLP CC0, optional LibreOffice "
+"NECTEC dictionary), with suggestions, my words, an organization list, and a "
+"weekly check for new word lists.\n"
+"- Format the document with AI (J): Thai official letter, memo, announcement "
+"or order, meeting minutes, business and general letters, report, article, "
+"academic paper and an accessible easy-to-read format. AI only decides the "
+"role of each paragraph; the words are not changed, you check a preview and "
+"Control+Z undoes it.\n"
+"- AI services: Google Gemini (free tier), Anthropic Claude and OpenAI "
+"(paid), OpenAI compatible services, or Ollama on this computer for "
+"confidential documents. Guided API key setup (NVDA+Control+Shift+F8) with "
+"automatic model choice.\n"
+"- Every change is one Word undo step. API keys are encrypted for the Windows "
+"user. Keys work with Thai and English keyboard layouts. Thai and English "
+"interface."
+msgstr ""
+"อ่าน จัดการ และจัดรูปแบบเอกสาร Microsoft Word ด้วยแป้นพิมพ์ร่วมกับ NVDA ใช้ได้กับ "
+"Microsoft 365, Office 2021 และ Office 2019\n"
+"ความสามารถหลัก:\n"
+"- โหมดนำทางเอกสาร (NVDA+Shift+F8): ไปยังคำสะกดผิด (S) ปัญหาไวยากรณ์ (G) ข้อคิดเห็น "
+"(C) เชิงอรรถ (F) endnote (E) การแก้ไขที่ติดตาม (R) หัวเรื่อง (O) ตาราง (U) รูปภาพ (M) "
+"ลิงก์ (K) การอ้างอิงโยง (X) การอ้างอิง (I) บุ๊กมาร์ก (B) ฟิลด์ (D) ปัญหาการกำหนดภาษา (L) "
+"และปัญหาการเข้าถึงได้ (A) กด Shift พร้อมตัวอักษรเพื่อย้อนกลับ ใช้ลูกศรเพื่อเลื่อนและเปลี่ยนชนิด "
+"Home และ End ไปยังรายการแรกและรายการสุดท้าย\n"
+"- เมื่อออกจากโหมด เคอร์เซอร์อยู่ที่รายการล่าสุด พร้อมแก้ไขได้ทันที Enter "
+"ออกจากโหมดแล้วพิมพ์ได้เลย Backspace กลับไปตำแหน่งเดิม\n"
+"- หน้าต่างรายการ (Space) แยกรายละเอียดแต่ละส่วนเป็นช่อง ได้แก่ ผู้เขียน วันที่ สถานะ "
+"ข้อความที่แสดงความคิดเห็น ข้อคิดเห็น และการตอบกลับ คัดลอกข้อความหรือรายละเอียดทั้งหมดได้\n"
+"- เมนูคำสั่ง (ปุ่ม Applications): แทนที่คำสะกดผิด ตอบกลับ แก้ไข ทำเครื่องหมายว่าแก้ไขแล้ว "
+"และลบข้อคิดเห็น แทรก แก้ไข ลบ และแปลงเชิงอรรถกับ endnote "
+"ยอมรับและปฏิเสธการแก้ไขทีละรายการ ตามผู้เขียน หรือทั้งหมด\n"
+"- สถานะและการเปิดปิด Track Changes (T, Shift+T) อ่านเชิงอรรถที่เคอร์เซอร์ (N) หน้า "
+"ส่วน และหัวเรื่อง (P) สรุปเอกสาร (Q)\n"
+"- ตัวตรวจการเข้าถึงได้ (A): รูปภาพที่ไม่มีข้อความแสดงแทน ตารางที่ไม่มีแถวหัวตาราง "
+"หัวเรื่องข้ามระดับ ย่อหน้าว่างที่ใช้เว้นระยะ ข้อความลิงก์ที่ไม่ชัดเจน เอกสารไม่มีชื่อเรื่อง "
+"และการกำหนดภาษาผิด พร้อมคำสั่งแก้ไขแต่ละรายการ AI "
+"ช่วยเขียนข้อความแสดงแทนของรูปภาพและตารางเป็นภาษาไทยหรืออังกฤษให้ตรวจก่อนบันทึก\n"
+"- โครงสร้างเอกสาร: เลื่อนระดับหัวเรื่อง กำหนดแถวหัวตารางและข้อความแสดงแทนของตาราง "
+"แก้ไขและตรวจลิงก์ เพิ่มบุ๊กมาร์ก อัปเดตฟิลด์ แทรกการอ้างอิงโยง การอ้างอิง และบรรณานุกรม\n"
+"- คำแนะนำจาก AI (เลือกเปิดใช้ได้): ตรวจย่อหน้าหรือข้อความที่เลือก (W) "
+"แนะนำคำที่ถูกต้องสำหรับคำสะกดผิด ร่างคำตอบข้อคิดเห็น เครื่องมือ AI (V): สรุป "
+"เรียบเรียงใหม่เป็นภาษาราชการ สุภาพ กระชับ หรือภาษาง่าย แปลไทยและอังกฤษ สรุปข้อคิดเห็น "
+"และตรวจความสอดคล้อง โดยแสดงเทียบกับข้อความเดิมก่อนเปลี่ยนทุกครั้ง\n"
+"- เครื่องมือภาษาไทย (Y): เลขไทยและเลขอารบิก ปี พ.ศ. และ ค.ศ.\n"
+"- ตรวจคำภาษาไทยแบบออฟไลน์ (Z): คำที่มักเขียนผิดพร้อมคำที่ถูกต้อง "
+"และคำที่ไม่มีในรายการคำแบบเปิด (PyThaiNLP CC0 และพจนานุกรม NECTEC ของ LibreOffice "
+"ที่เลือกเพิ่มได้) พร้อมคำแนะนำ รายการคำของฉัน รายการขององค์กร "
+"และตรวจหารายการคำรุ่นใหม่ทุกสัปดาห์\n"
+"- จัดรูปแบบเอกสารด้วย AI (J): หนังสือราชการภายนอก บันทึกข้อความ ประกาศ / คำสั่ง "
+"รายงานการประชุม จดหมายทางการและจดหมายทั่วไป รายงาน บทความ บทความวิชาการ "
+"และเอกสารอ่านง่ายเข้าถึงได้ AI ระบุเพียงหน้าที่ของแต่ละย่อหน้า ถ้อยคำไม่ถูกเปลี่ยน "
+"ตรวจตัวอย่างได้ก่อน และกด Control+Z เพื่อย้อนกลับ\n"
+"- บริการ AI: Google Gemini (ใช้ฟรีได้) Anthropic Claude และ OpenAI (เสียเงิน) "
+"บริการที่รองรับรูปแบบ OpenAI หรือ Ollama ในเครื่องสำหรับเอกสารลับ มีหน้าตั้งค่า API key "
+"แบบนำทีละขั้น (NVDA+Control+Shift+F8) และเลือกโมเดลอัตโนมัติ\n"
+"- การเปลี่ยนแปลงแต่ละครั้งเป็นการเลิกทำหนึ่งขั้นของ Word API key เข้ารหัสไว้สำหรับผู้ใช้ "
+"Windows คีย์ใช้ได้ทั้งแป้นพิมพ์ไทยและอังกฤษ หน้าจอภาษาไทยและอังกฤษ"
+
+#. Brief changelog for this version
+#. Translators: what's new content for the add-on version to be shown in the add-on store
+msgid ""
+"Offline Thai word check (Z) with open word lists, a list of commonly "
+"misspelled words, my words, an organization list and notices when new word "
+"lists are available."
+msgstr ""
+"ตรวจคำภาษาไทยแบบออฟไลน์ (Z) ด้วยรายการคำแบบเปิด รายการคำที่มักเขียนผิด รายการคำของฉัน "
+"รายการขององค์กร และแจ้งเตือนเมื่อมีรายการคำรุ่นใหม่"
