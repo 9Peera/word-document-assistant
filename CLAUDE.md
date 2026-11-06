@@ -5,7 +5,7 @@
 - NVDA add-on that lets blind users read, navigate, manage and format Microsoft Word documents from the keyboard.
 - Owner and author: **Peera Pilarit** (`addon_author="Peera Pilarit <9peera@gmail.com>"`). Do not add a company name anywhere.
 - The owner writes in Thai. Reply in Thai, keep code, identifiers and code comments in English.
-- Used inside the organization first; the plan is to submit to the NVDA Add-on Store later.
+- Public on GitHub (9Peera/word-document-assistant) and submitted to the NVDA Add-on Store, stable channel. Releases are built by GitHub Actions when a tag such as `v1.0.0` is pushed.
 - Built from the NV Access AddonTemplate (new template, uv/ruff/pyright/scons).
 
 ## Targets
@@ -72,5 +72,5 @@ Tests live in `tests/`: `nvdaStubs.py` stands in for NVDA modules, `fakeword.py`
 
 ## Status and next ideas
 
-- Current version: 0.10.0. Everything is unit tested with the fake Word only; testing with real Word/NVDA (test matrix above) is the top open task.
-- Ideas the owner has agreed are worth doing: ask the Royal Institute for permission to use their data; an organization misspelling list hosted on GitHub (supported via the `misspellingListUrl` setting); word-frequency ranking of suggestions (TNC frequency list, CC0); AI filtering of names in unknown words; checking while typing; a preset editor; Add-on Store submission (needs `addon_url` and `addon_sourceURL`).
+- Current version: 1.0.0 (first public release, Add-on Store stable channel). Everything is unit tested with the fake Word only; testing with real Word/NVDA (test matrix above) is the top open task.
+- Ideas the owner has agreed are worth doing: ask the Royal Institute for permission to use their data; an organization misspelling list hosted on GitHub (supported via the `misspellingListUrl` setting); word-frequency ranking of suggestions (TNC frequency list, CC0); AI filtering of names in unknown words; checking while typing; a preset editor.

@@ -154,7 +154,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(settings.WordDocAssistantPanel)
 			self._addToolsMenuItem()
-			# Look for newer Thai word lists a minute after NVDA starts, at most once a week.
+			# Look for newer Thai word lists a minute after NVDA starts, at most once a week, if the user allowed it.
 			core.callLater(60000, wordListUpdates.scheduledCheck)
 		self.active = False
 		self.ctx: WordContext | None = None
@@ -369,6 +369,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self._totals[kind.id] = total
 			if kind.id == "thaiWords":
 				wordListUpdates.announcePending()
+				wx.CallAfter(wordListUpdates.askOnce)
 		return items
 
 	def isInvalidated(self, kind: ElementType) -> bool:

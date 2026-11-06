@@ -23,22 +23,56 @@ def main() -> int:
 	with tempfile.TemporaryDirectory() as folder:
 		pot = os.path.join(folder, "wordDocAssistant.pot")
 		subprocess.run(
-			["xgettext", "--from-code=UTF-8", "--keyword=pgettext:1c,2", "-c", "--no-location", "-o", pot, *sources],
+			[
+				"xgettext",
+				"--from-code=UTF-8",
+				"--keyword=pgettext:1c,2",
+				"-c",
+				"--no-location",
+				"-o",
+				pot,
+				*sources,
+			],
 			check=True,
 		)
 		with open(pot, encoding="utf-8") as file:
 			text = file.read().replace("charset=CHARSET", "charset=UTF-8")
 		with open(pot, "w", encoding="utf-8") as file:
 			file.write(text)
-		subprocess.run(["msgmerge", "--quiet", "--no-fuzzy-matching", "--no-location", "--update", "--backup=none", PO, pot], check=True)
-	result = subprocess.run(["msgfmt", "--check", "--statistics", "-o", os.devnull, PO], capture_output=True, text=True)
+		subprocess.run(
+			[
+				"msgmerge",
+				"--quiet",
+				"--no-fuzzy-matching",
+				"--no-location",
+				"--update",
+				"--backup=none",
+				PO,
+				pot,
+			],
+			check=True,
+		)
+	result = subprocess.run(
+		["msgfmt", "--check", "--statistics", "-o", os.devnull, PO], capture_output=True, text=True
+	)
 	print(result.stderr.strip())
-	untranslated = subprocess.run(["msgattrib", "--untranslated", "--no-obsolete", PO], capture_output=True, text=True).stdout
-	missing = [line[7:-1] for line in untranslated.splitlines() if line.startswith('msgid "') and line != 'msgid ""']
+	untranslated = subprocess.run(
+		["msgattrib", "--untranslated", "--no-obsolete", PO], capture_output=True, text=True
+	).stdout
+	missing, current = [], None
+	for line in untranslated.splitlines():
+		if line.startswith("msgid "):
+			current = line[7:-1]
+		elif line.startswith('"') and current is not None:
+			current += line[1:-1]
+		elif line.startswith("msgstr") and current is not None:
+			if current:
+				missing.append(current)
+			current = None
 	if missing:
 		print("\nStill needs a Thai translation (edit nvda.po):")
 		for entry in missing:
-			print("  " + entry)
+			print("  " + (entry[:100] + "..." if len(entry) > 100 else entry))
 	return 0
 
 

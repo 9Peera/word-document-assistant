@@ -210,7 +210,7 @@ The PyThaiNLP list is collected from real text and also contains common misspell
 
 ### New word lists
 
-Once a week, a minute after NVDA starts, the add-on asks the list websites whether there is a newer version (only a small header request).
+If you allow it (you are asked the first time you press Z, or turn it on in the settings), once a week, a minute after NVDA starts, the add-on asks the list websites whether there is a newer version (only a small header request).
 When there is, it tells you, and you update with NVDA menu, Tools, Update Thai word lists, with the actions of Z, or with Update word lists now in the settings. You can also let it download new lists automatically.
 A downloaded file is only used when it really is a Thai word list.
 
@@ -245,7 +245,7 @@ The official measurements follow common practice; check them against your organi
 The add-on only uses the internet in these cases:
 
 * **AI features, only when you turn AI on.** The text you check, rewrite, translate or summarize, and pictures you ask to describe, are sent to the AI service you chose (Google Gemini, Anthropic Claude, OpenAI, an OpenAI compatible service, or Ollama, which stays on your computer). You are asked before text is first sent to an online service. Free tiers may use the content to improve the service.
-* **Thai word lists.** Once a week the add-on asks GitHub (and the organization address, if you set one) whether a newer word list exists; this sends no document text. Lists are only downloaded when you agree, or automatically if you turned that on. Turn the weekly check off in the settings.
+* **Thai word lists.** Only if you allow it, once a week the add-on asks GitHub (and the organization address, if you set one) whether a newer word list exists; this sends no document text. You are asked once, the first time you use the Thai word check (Z). Lists are only downloaded when you agree, or automatically if you turned that on. Turn the weekly check off in the settings.
 * **Links you open** and the Royal Institute dictionary website, only when you choose them.
 
 Your API keys are stored in the NVDA configuration, encrypted for your Windows user account. The add-on collects no usage data.

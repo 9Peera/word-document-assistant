@@ -151,6 +151,37 @@ def scheduledCheck() -> None:
 	_background(lists.checkForUpdates, done, failed)
 
 
+def askOnce() -> None:
+	"""The first time the Thai word check is used, ask whether the weekly check may use the internet."""
+	settings = config.conf[CONFIG_SECTION]
+	if globalVars.appArgs.secure or settings["wordListAsked"] or settings["wordListUpdates"]:
+		return
+	settings["wordListAsked"] = True
+	from . import dialogs
+
+	def make(window):
+		return wx.MessageDialog(
+			window,
+			# Translators: Question asked once, the first time the Thai word check is used.
+			_(
+				"The Thai word check works offline with the word list included in the add-on.\n\n"
+				"Should the add-on look for newer Thai word lists on GitHub once a week and tell you when there "
+				"is one? It only asks whether a newer file exists and never sends your documents. "
+				"You can change this later in the settings."
+			),
+			# Translators: Title of the question about the weekly word list check.
+			_("New Thai word lists"),
+			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
+		)
+
+	result, _value = dialogs.runModal(make)
+	if result == wx.ID_YES:
+		settings["wordListUpdates"] = True
+		# Translators: Reported after the user allowed the weekly word list check.
+		ui.message(_("The add-on will look for new Thai word lists once a week"))
+		scheduledCheck()
+
+
 def announcePending(updates: list[thaidict.WordSource] | None = None) -> None:
 	"""Tell the user once per session that newer word lists can be downloaded."""
 	global _toldThisSession

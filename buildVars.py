@@ -31,15 +31,15 @@ Main features:
 - Structure: promote and demote headings, header rows and alternative text of tables, edit and check links, add bookmarks, update fields, insert cross-references, citations and the bibliography.
 - Optional AI suggestions: proofread a paragraph or the selection (W), suggestions for a misspelled word, drafts of comment replies. AI tools (V): summaries, rewriting in official, polite, concise or easy-to-read style, Thai and English translation, comment summary and consistency check, always shown next to the original before anything changes.
 - Thai tools (Y): Thai and Arabic digits, Buddhist and Christian era years.
-- Offline Thai word check (Z): commonly misspelled words with the right form, and words not in open word lists (PyThaiNLP CC0, optional LibreOffice NECTEC dictionary), with suggestions, my words, an organization list, and a weekly check for new word lists.
+- Offline Thai word check (Z): commonly misspelled words with the right form, and words not in open word lists (PyThaiNLP CC0, optional LibreOffice NECTEC dictionary), with suggestions, my words, an organization list, and an optional weekly check for new word lists.
 - Format the document with AI (J): Thai official letter, memo, announcement or order, meeting minutes, business and general letters, report, article, academic paper and an accessible easy-to-read format. AI only decides the role of each paragraph; the words are not changed, you check a preview and Control+Z undoes it.
 - AI services: Google Gemini (free tier), Anthropic Claude and OpenAI (paid), OpenAI compatible services, or Ollama on this computer for confidential documents. Guided API key setup (NVDA+Control+Shift+F8) with automatic model choice.
 - Every change is one Word undo step. API keys are encrypted for the Windows user. Keys work with Thai and English keyboard layouts. Thai and English interface."""),
 	# version
-	addon_version="0.10.0",
+	addon_version="1.0.0",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""Offline Thai word check (Z) with open word lists, a list of commonly misspelled words, my words, an organization list and notices when new word lists are available."""),
+	addon_changelog=_("""First public release. The weekly check for new Thai word lists is off until you allow it; you are asked once, the first time you use the Thai word check (Z). Newest PyThaiNLP word list and a privacy section in the documentation."""),
 	# Author(s)
 	addon_author="Peera Pilarit <9peera@gmail.com>",
 	# URL for the add-on documentation support

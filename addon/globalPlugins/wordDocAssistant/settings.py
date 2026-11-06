@@ -39,7 +39,9 @@ CONFIG_SPEC = {
 	"aiKeyOpenai": 'string(default="")',
 	# Thai word check
 	"thaiCheckUnknown": "boolean(default=True)",
-	"wordListUpdates": "boolean(default=True)",
+	"wordListUpdates": "boolean(default=False)",
+	# The user has been asked once whether the weekly check may run.
+	"wordListAsked": "boolean(default=False)",
 	"wordListAutoDownload": "boolean(default=False)",
 	"wordListLibreOffice": "boolean(default=False)",
 	"misspellingListUrl": 'string(default="")',
@@ -153,6 +155,7 @@ class WordDocAssistantPanel(SettingsPanel):
 		conf = config.conf[CONFIG_SECTION]
 		conf["thaiCheckUnknown"] = self.thaiUnknown.GetValue()
 		conf["wordListUpdates"] = self.wordListUpdates.GetValue()
+		conf["wordListAsked"] = True
 		conf["wordListAutoDownload"] = self.wordListAuto.GetValue()
 		conf["wordListLibreOffice"] = self.wordListLibreOffice.GetValue()
 		conf["misspellingListUrl"] = self.misspellingUrl.GetValue().strip()

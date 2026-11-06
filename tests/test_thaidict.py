@@ -117,7 +117,7 @@ class ListServer:
 def lists(tmp_path, config, monkeypatch):
 	config.update(
 		thaiCheckUnknown=True,
-		wordListUpdates=True,
+		wordListUpdates=False,
 		wordListAutoDownload=False,
 		wordListLibreOffice=False,
 		misspellingListUrl="",
@@ -184,3 +184,28 @@ def test_element_type_replaces_and_ignores(lists, config):
 	replaceAll.run()
 	assert doc.text == "กรุณาส่งอีเมลภายในวันนี้\rอีเมลฉบับที่สอง\r"
 	assert kind.collect(ctx, 100)[1] == 0
+
+
+def test_weekly_check_is_off_until_the_user_agrees(lists, config, monkeypatch):
+	from wordDocAssistant import dialogs, wordListUpdates
+
+	monkeypatch.setattr(nvdaStubs.sys.modules["globalVars"].appArgs, "secure", False)
+	checks = []
+	monkeypatch.setattr(wordListUpdates, "scheduledCheck", lambda: checks.append("check"))
+	answers = [nvdaStubs.sys.modules["wx"].ID_NO]
+	monkeypatch.setattr(dialogs, "runModal", lambda make, read=None: (answers.pop(0), None))
+	assert config["wordListUpdates"] is False
+	wordListUpdates.askOnce()
+	assert config["wordListAsked"] is True and config["wordListUpdates"] is False and checks == []
+	wordListUpdates.askOnce()  # asked only once
+	config["wordListAsked"] = False
+	answers.append(nvdaStubs.sys.modules["wx"].ID_YES)
+	wordListUpdates.askOnce()
+	assert config["wordListUpdates"] is True and checks == ["check"]
+
+
+def test_nothing_is_asked_on_secure_screens(lists, config):
+	from wordDocAssistant import wordListUpdates
+
+	wordListUpdates.askOnce()
+	assert config["wordListAsked"] is False and config["wordListUpdates"] is False

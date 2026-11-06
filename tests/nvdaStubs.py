@@ -67,7 +67,15 @@ _module("speech", cancelSpeech=lambda: None)
 _module(
 	"ui", message=lambda text: spoken.append(text), browseableMessage=lambda *a, **k: spoken.append("HELP")
 )
-wx = _module("wx", Dialog=object, Window=object, ID_HIGHEST=5999, CallAfter=lambda func, *a: func(*a))
+wx = _module(
+	"wx",
+	Dialog=object,
+	Window=object,
+	ID_HIGHEST=5999,
+	ID_YES=5103,
+	ID_NO=5104,
+	CallAfter=lambda func, *a: func(*a),
+)
 gui = _module("gui")
 gui.guiHelper = _module("gui.guiHelper")
 gui.nvdaControls = _module("gui.nvdaControls")
@@ -123,6 +131,12 @@ DEFAULT_CONFIG = {
 	"aiKeyAnthropic": "",
 	"aiKeyOpenaiApi": "",
 	"aiKeyOpenai": "",
+	"thaiCheckUnknown": True,
+	"wordListUpdates": False,
+	"wordListAsked": False,
+	"wordListAutoDownload": False,
+	"wordListLibreOffice": False,
+	"misspellingListUrl": "",
 }
 
 

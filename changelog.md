@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0
+
+* First public release, for the NVDA Add-on Store.
+* The weekly check for new Thai word lists is off until the user allows it; the add-on asks once, the first time the Thai word check (Z) is used.
+* Newest PyThaiNLP word list; project and source addresses; privacy section in the documentation.
+
 ## 0.10.0 (internal)
 
 * Offline Thai word check (Z): commonly misspelled words with the right form, and words not in the word list with suggestions or the completed word.
