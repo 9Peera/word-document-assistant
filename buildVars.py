@@ -43,9 +43,9 @@ Main features:
 	# Author(s)
 	addon_author="Peera Pilarit <9peera@gmail.com>",
 	# URL for the add-on documentation support
-	addon_url=None,
+	addon_url="https://github.com/9Peera/word-document-assistant",
 	# URL for the add-on repository where the source code can be found
-	addon_sourceURL=None,
+	addon_sourceURL="https://github.com/9Peera/word-document-assistant",
 	# Documentation file name
 	addon_docFileName="readme.html",
 	# Minimum NVDA version supported (e.g. "2019.3.0", minor version is optional)

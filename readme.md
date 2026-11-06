@@ -240,6 +240,16 @@ Press J in navigation mode.
 Lists keep their numbering and paragraphs inside tables are not re-indented.
 The official measurements follow common practice; check them against your organization's rules. They can be changed in presets.py.
 
+## Privacy
+
+The add-on only uses the internet in these cases:
+
+* **AI features, only when you turn AI on.** The text you check, rewrite, translate or summarize, and pictures you ask to describe, are sent to the AI service you chose (Google Gemini, Anthropic Claude, OpenAI, an OpenAI compatible service, or Ollama, which stays on your computer). You are asked before text is first sent to an online service. Free tiers may use the content to improve the service.
+* **Thai word lists.** Once a week the add-on asks GitHub (and the organization address, if you set one) whether a newer word list exists; this sends no document text. Lists are only downloaded when you agree, or automatically if you turned that on. Turn the weekly check off in the settings.
+* **Links you open** and the Royal Institute dictionary website, only when you choose them.
+
+Your API keys are stored in the NVDA configuration, encrypted for your Windows user account. The add-on collects no usage data.
+
 ## Settings
 
 NVDA menu, Preferences, Settings, Word Document Assistant:
