@@ -134,7 +134,9 @@ def test_bundled_list_is_used_until_a_download_exists(lists):
 	assert lists.folder.endswith(os.path.join("wordDocAssistant", "dictionaries"))
 
 
-def test_organization_list_update_cycle(lists, config):
+def test_organization_list_update_cycle(lists, config, monkeypatch):
+	# Only the local test server: the real word list websites change over time.
+	monkeypatch.setattr(thaidict, "sources", lambda: [])
 	server = ListServer("# list\nอนุญาติ\tอนุญาต\nกะเพา\tกะเพรา\nเกมส\tเกม\nอีเมว\tอีเมล\nสังเกด\tสังเกต\n", '"v1"')
 	config["misspellingListUrl"] = server.url
 	updates = lists.checkForUpdates()

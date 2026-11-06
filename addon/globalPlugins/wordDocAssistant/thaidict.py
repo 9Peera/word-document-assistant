@@ -56,7 +56,7 @@ def sources() -> list[WordSource]:
 			"https://raw.githubusercontent.com/PyThaiNLP/pythainlp/dev/pythainlp/corpus/words_th.txt",
 			"CC0 1.0",
 			"https://github.com/PyThaiNLP/pythainlp",
-			bundledEtag='"9e9f266a63eeb0a94b06a96091adea4a4620861c13280cc854bea3351ee57ad6"',
+			bundledEtag='"59162035b39b3b618f2b785993c20f147d0964a05edfa36f500cc143291d9401"',
 		),
 		WordSource(
 			"libreoffice",
