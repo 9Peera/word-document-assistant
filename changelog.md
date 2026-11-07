@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+* Headings (O) are collected with Word's search by heading style, which is much faster in long documents. Before, Word could stop responding and the add-on reported "Word did not respond, please try again".
+* Custom paragraph styles with an outline level are found as headings too. Looking for headings never takes more than a few seconds.
+
 ## 1.0.0
 
 * First public release, for the NVDA Add-on Store.

@@ -72,5 +72,6 @@ Tests live in `tests/`: `nvdaStubs.py` stands in for NVDA modules, `fakeword.py`
 
 ## Status and next ideas
 
-- Current version: 1.0.0 (first public release, Add-on Store stable channel). Everything is unit tested with the fake Word only; testing with real Word/NVDA (test matrix above) is the top open task.
+- Headings are collected with Find by heading style (built-in Heading 1-9 plus custom styles with an outline level), with GoTo only as a time-limited fallback. Do not go back to GoTo heading by heading: it made Word stop responding in long documents.
+- Current version: 1.0.1 (1.0.0 was the first public release; 1.0.1 makes heading collection fast, the owner found it hanging in real Word). Add-on Store stable channel. Everything is unit tested with the fake Word only; testing with real Word/NVDA (test matrix above) is the top open task.
 - Ideas the owner has agreed are worth doing: ask the Royal Institute for permission to use their data; an organization misspelling list hosted on GitHub (supported via the `misspellingListUrl` setting); word-frequency ranking of suggestions (TNC frequency list, CC0); AI filtering of names in unknown words; checking while typing; a preset editor.

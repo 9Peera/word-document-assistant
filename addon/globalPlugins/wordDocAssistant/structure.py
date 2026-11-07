@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import re
+import time
 from typing import Any
 from xml.sax.saxutils import escape
 
@@ -25,6 +26,32 @@ STYLE_NORMAL = -1
 STYLE_HEADING1 = -2
 WD_FIELD_EMPTY = -1
 WD_COLLAPSE_END = 0
+WD_FIND_STOP = 0
+WD_STYLE_TYPE_PARAGRAPH = 1
+#: Built-in styles Heading 1 to Heading 9 (wdStyleHeading1 is -2, wdStyleHeading9 is -10).
+BUILTIN_HEADING_STYLES = tuple(range(STYLE_HEADING1, STYLE_HEADING1 - 9, -1))
+#: Longest time to spend looking for headings, so NVDA never waits on Word for long.
+COLLECT_SECONDS = 8
+
+
+def _headingStyles(doc: Any) -> list[Any]:
+	"""Heading 1 to 9 plus the document's own paragraph styles that have an outline level."""
+	styles: list[Any] = list(BUILTIN_HEADING_STYLES)
+	try:
+		count = int(doc.Styles.Count)
+	except (*COM_ERRORS, AttributeError, TypeError, ValueError):
+		return styles
+	for index in range(1, count + 1):
+		try:
+			style = doc.Styles.Item(index)
+			if style.BuiltIn or style.Type != WD_STYLE_TYPE_PARAGRAPH:
+				continue
+			if int(style.ParagraphFormat.OutlineLevel) < WD_OUTLINE_BODY_TEXT:
+				styles.append(str(style.NameLocal))
+		except (*COM_ERRORS, AttributeError, TypeError, ValueError):
+			continue
+	return styles
+
 
 _ERROR_RESULT = re.compile(r"^\s*(error!|ข้อผิดพลาด!|ข้อผิดพลาด)", re.I)
 
@@ -87,48 +114,96 @@ class Headings(ElementType):
 		]
 
 	def collect(self, ctx, limit):
-		items = []
 		doc = ctx.document
-		position = doc.Range(0, 0)
-		lastStart = -1
-		# "Next heading" from the very start skips a heading in the first paragraph, so check it first.
+		found: dict[int, Item] = {}
+		# Word's Find jumps straight to paragraphs in a heading style, which stays fast in long documents.
+		# Searching heading by heading with GoTo can take so long that Word stops answering.
+		for style in _headingStyles(doc):
+			self._findStyle(doc, style, found, limit)
+			if len(found) >= limit:
+				break
+		if not found:
+			# Headings made with a paragraph outline level instead of a heading style.
+			self._collectWithGoTo(doc, found, limit)
+		items = [found[start] for start in sorted(found)][:limit]
+		return items, len(items)
+
+	@staticmethod
+	def _add(found: dict[int, Item], paragraph: Any) -> None:
 		try:
-			first = doc.Content.Paragraphs.First
-			level = int(first.OutlineLevel)
-			if level < WD_OUTLINE_BODY_TEXT and cleanText(first.Range.Text):
-				items.append(
-					Item(obj=first, navRange=first.Range, start=first.Range.Start, cache={"level": level}),
-				)
-				lastStart = first.Range.Start
+			rangeObj = paragraph.Range
+			start = int(rangeObj.Start)
+			if start in found:
+				return
+			level = int(paragraph.OutlineLevel)
+			if level < WD_OUTLINE_BODY_TEXT and cleanText(rangeObj.Text):
+				found[start] = Item(obj=paragraph, navRange=rangeObj, start=start, cache={"level": level})
 		except (*COM_ERRORS, ValueError, TypeError, AttributeError):
 			pass
-		# Word finds the next heading itself, which is much faster than reading every paragraph.
-		while len(items) < limit:
+
+	def _findStyle(self, doc: Any, style: Any, found: dict[int, Item], limit: int) -> None:
+		try:
+			search = doc.Content
+			finder = search.Find
+			finder.ClearFormatting()
+			finder.Style = style
+		except COM_ERRORS:
+			# The style does not exist in this document.
+			return
+		try:
+			self._findRuns(finder, search, found, limit)
+		finally:
+			# Find settings are shared with Word's own Find dialog, so do not leave the style there.
 			try:
-				found = position.GoTo(WD_GOTO_HEADING, WD_GOTO_NEXT)
+				finder.ClearFormatting()
 			except COM_ERRORS:
-				break
-			if found is None or found.Start <= lastStart:
-				break
-			lastStart = found.Start
-			paragraph = found.Paragraphs.Item(1)
+				pass
+
+	def _findRuns(self, finder: Any, search: Any, found: dict[int, Item], limit: int) -> None:
+		lastEnd = -1
+		deadline = time.monotonic() + COLLECT_SECONDS
+		while len(found) < limit and time.monotonic() < deadline:
 			try:
-				level = int(paragraph.OutlineLevel)
-			except (*COM_ERRORS, ValueError, TypeError):
-				level = WD_OUTLINE_BODY_TEXT
-			if level < WD_OUTLINE_BODY_TEXT and cleanText(paragraph.Range.Text):
-				items.append(
-					Item(
-						obj=paragraph,
-						navRange=paragraph.Range,
-						start=paragraph.Range.Start,
-						cache={"level": level},
-					),
-				)
-			position = doc.Range(paragraph.Range.End, paragraph.Range.End)
-			if position.Start >= doc.Content.End - 1:
-				break
-		return items, len(items)
+				# FindText, MatchCase, MatchWholeWord, MatchWildcards, MatchSoundsLike, MatchAllWordForms,
+				# Forward, Wrap (stop at the end), Format.
+				if not finder.Execute("", False, False, False, False, False, True, WD_FIND_STOP, True):
+					return
+				if search.End <= lastEnd:
+					return
+				lastEnd = search.End
+				# One match covers a run of paragraphs with the same style.
+				paragraphs = search.Paragraphs
+				for index in range(1, paragraphs.Count + 1):
+					self._add(found, paragraphs.Item(index))
+					if len(found) >= limit:
+						return
+				search.Collapse(WD_COLLAPSE_END)
+			except COM_ERRORS:
+				return
+
+	def _collectWithGoTo(self, doc: Any, found: dict[int, Item], limit: int) -> None:
+		try:
+			self._add(found, doc.Content.Paragraphs.First)
+			docEnd = int(doc.Content.End)
+		except COM_ERRORS:
+			return
+		position = doc.Range(0, 0)
+		lastStart = -1
+		deadline = time.monotonic() + COLLECT_SECONDS
+		while len(found) < limit and time.monotonic() < deadline:
+			try:
+				foundRange = position.GoTo(WD_GOTO_HEADING, WD_GOTO_NEXT)
+				if foundRange is None or foundRange.Start <= lastStart:
+					return
+				lastStart = foundRange.Start
+				paragraph = foundRange.Paragraphs.Item(1)
+				self._add(found, paragraph)
+				end = int(paragraph.Range.End)
+			except COM_ERRORS:
+				return
+			if end >= docEnd - 1:
+				return
+			position = doc.Range(end, end)
 
 	@staticmethod
 	def _level(item: Item) -> int:

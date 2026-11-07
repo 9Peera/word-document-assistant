@@ -52,11 +52,32 @@ class Find:
 		pass
 
 	def Execute(self, findText, *args):
+		style = getattr(self, "Style", None)
+		if findText == "" and style is not None:
+			return self._findStyle(style)
 		replaceWith = args[8]
 		doc, start, end = self.range.doc, self.range.Start, self.range.End
 		part = doc.text[start:end].replace(findText, replaceWith)
 		doc.setText(start, end, part)
 		self.range.End = start + len(part)
+		return True
+
+	def _findStyle(self, style):
+		"""Like Word: the match is the next run of paragraphs in the style, after the current range."""
+		self.searches = getattr(self, "searches", 0) + 1
+		run = []
+		for paragraph in self.range.doc.paragraphs():
+			if paragraph.start < self.range.Start or (run and paragraph.start != run[-1].end):
+				if run:
+					break
+				continue
+			if paragraph.styleKey == style:
+				run.append(paragraph)
+			elif run:
+				break
+		if not run:
+			return False
+		self.range.Start, self.range.End = run[0].start, run[-1].end
 		return True
 
 
@@ -201,6 +222,14 @@ class Paragraph:
 	@property
 	def OutlineLevel(self):
 		return self.props.get("level", 10)
+
+	@property
+	def styleKey(self):
+		"""The style Find matches: the one set, else Heading n for a heading level, else Normal."""
+		if "Style" in self.props:
+			return self.props["Style"]
+		level = self.OutlineLevel
+		return -1 - level if level < 10 else -1
 
 	def __getattr__(self, name):
 		if name in (
@@ -420,7 +449,9 @@ class Doc:
 	def _style(self, key):
 		if key not in self.styles:
 			self.styles[key] = types.SimpleNamespace(
-				LanguageID=ENGLISH, Font=Font(), ParagraphFormat=types.SimpleNamespace(),
+				LanguageID=ENGLISH,
+				Font=Font(),
+				ParagraphFormat=types.SimpleNamespace(),
 			)
 		return self.styles[key]
 
@@ -502,7 +533,8 @@ class Application:
 		self.undo: list[str] = []
 		app = self
 		self.UndoRecord = types.SimpleNamespace(
-			StartCustomRecord=lambda name: app.undo.append(name), EndCustomRecord=lambda: None,
+			StartCustomRecord=lambda name: app.undo.append(name),
+			EndCustomRecord=lambda: None,
 		)
 
 	def LinesToPoints(self, lines):

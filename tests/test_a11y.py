@@ -110,7 +110,9 @@ def test_ai_alt_text_is_saved_after_editing(monkeypatch):
 	doc = makeDoc()
 	ctx = Context(doc)
 	monkeypatch.setattr(
-		a11y.ai, "describeImage", lambda image, mime, context, detailed: f"AI {len(image)} {detailed}",
+		a11y.ai,
+		"describeImage",
+		lambda image, mime, context, detailed: f"AI {len(image)} {detailed}",
 	)
 	kind = a11y.Pictures()
 	items, _total = kind.collect(ctx, 10)

@@ -1,3 +1,4 @@
+import types
 import xml.dom.minidom
 
 from fakeword import Context, Doc, Field, Host, Link, Table
@@ -12,7 +13,7 @@ def headingDoc():
 	return doc
 
 
-def test_headings_are_found_with_goto_and_can_change_level():
+def test_headings_are_found_and_can_change_level():
 	doc = headingDoc()
 	ctx = Context(doc)
 	kind = structure.Headings()
@@ -31,6 +32,46 @@ def test_headings_are_found_with_goto_and_can_change_level():
 	body = next(a for a in kind.actions(ctx, items[1], None, host) if a.label == "Change to body text")
 	body.run()
 	assert doc.paraProps[2]["level"] == 10
+
+
+def test_headings_in_runs_custom_styles_and_document_order():
+	doc = Doc(["Intro", "One", "Two", "body", "Custom", "", "Outline only"])
+	doc.setLevel(0, 1)
+	doc.setLevel(1, 2)
+	doc.setLevel(2, 2)
+	doc.paraProps[4] = {"Style": "My heading", "level": 1}
+	doc.paraProps[5] = {"level": 2}
+	doc.styles.update(
+		{
+			1: types.SimpleNamespace(BuiltIn=True, Type=1, NameLocal="Normal"),
+			2: types.SimpleNamespace(
+				BuiltIn=False,
+				Type=1,
+				NameLocal="My heading",
+				ParagraphFormat=types.SimpleNamespace(OutlineLevel=1),
+			),
+		},
+	)
+	doc.Styles.Count = 2
+	ctx = Context(doc)
+	kind = structure.Headings()
+	items, total = kind.collect(ctx, 100)
+	# Two headings in a row, a custom heading style, and the empty heading is skipped.
+	assert [kind.summary(ctx, i) for i in items] == [
+		"Level 1: Intro",
+		"Level 2: One",
+		"Level 2: Two",
+		"Level 1: Custom",
+	]
+	assert total == 4
+	assert kind.collect(ctx, 2)[1] == 2
+
+
+def test_headings_with_only_outline_levels_use_goto():
+	doc = Doc(["body", "Outline heading", "body"])
+	doc.paraProps[1] = {"Style": -1, "level": 3}
+	items, _total = structure.Headings().collect(Context(doc), 100)
+	assert [i.cache["level"] for i in items] == [3]
 
 
 def test_tables_summary_header_and_ai_description(monkeypatch):
@@ -118,7 +159,13 @@ def test_insert_cross_reference_asks_type_target_and_kind():
 
 def test_sources_and_citations():
 	xmlText = structure.sourceXml(
-		"Pee26", "Book", "Peera Pilarit; Somchai Jaidee", "Thai & Word", "2026", "SAINT", "",
+		"Pee26",
+		"Book",
+		"Peera Pilarit; Somchai Jaidee",
+		"Thai & Word",
+		"2026",
+		"SAINT",
+		"",
 	)
 	xml.dom.minidom.parseString(xmlText)
 	assert "<b:Last>Pilarit</b:Last>" in xmlText and "&amp;" in xmlText

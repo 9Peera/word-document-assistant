@@ -135,7 +135,8 @@ def test_missing_key_asks_for_setup(config):
 
 def test_claude_models_prefer_sonnet_then_haiku():
 	ranked = ai.rankModels(
-		"anthropic", ["claude-opus-5-5", "claude-haiku-5-5", "claude-sonnet-4-5", "claude-sonnet-5-5"],
+		"anthropic",
+		["claude-opus-5-5", "claude-haiku-5-5", "claude-sonnet-4-5", "claude-sonnet-5-5"],
 	)
 	assert ranked[:3] == ["claude-sonnet-5-5", "claude-sonnet-4-5", "claude-haiku-5-5"]
 
@@ -162,7 +163,9 @@ def test_paragraph_roles_are_checked(server, config):
 		),
 	)
 	roles = ai.classifyParagraphs(
-		["เรื่อง ขอเชิญ", "text", ""], {"subject": "", "body": "", "empty": ""}, "letter",
+		["เรื่อง ขอเชิญ", "text", ""],
+		{"subject": "", "body": "", "empty": ""},
+		"letter",
 	)
 	assert roles == ["subject", "body", "empty"]
 
