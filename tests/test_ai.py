@@ -17,7 +17,7 @@ class Server:
 		class Handler(BaseHTTPRequestHandler):
 			def _answer(self, body):
 				server.requests.append(
-					(self.command, self.path, body, {k.lower(): v for k, v in self.headers.items()})
+					(self.command, self.path, body, {k.lower(): v for k, v in self.headers.items()}),
 				)
 				status, data = server.reply(self.path, body, self.headers)
 				payload = json.dumps(data).encode()
@@ -53,7 +53,7 @@ ANSWER = {
 	"corrections": [
 		{"original": "thsi", "suggestion": "this", "reason": "typo"},
 		{"original": "absent", "suggestion": "x"},
-	]
+	],
 }
 
 
@@ -105,7 +105,7 @@ def test_busy_model_is_retried_then_replaced(server, config):
 			return 200, {
 				"models": [
 					{"name": f"models/{m}", "supportedGenerationMethods": ["generateContent"]} for m in models
-				]
+				],
 			}
 		if "gemini-3.8-flash:" in path:
 			return 503, {"error": {"status": "UNAVAILABLE"}}
@@ -135,7 +135,7 @@ def test_missing_key_asks_for_setup(config):
 
 def test_claude_models_prefer_sonnet_then_haiku():
 	ranked = ai.rankModels(
-		"anthropic", ["claude-opus-5-5", "claude-haiku-5-5", "claude-sonnet-4-5", "claude-sonnet-5-5"]
+		"anthropic", ["claude-opus-5-5", "claude-haiku-5-5", "claude-sonnet-4-5", "claude-sonnet-5-5"],
 	)
 	assert ranked[:3] == ["claude-sonnet-5-5", "claude-sonnet-4-5", "claude-haiku-5-5"]
 
@@ -162,7 +162,7 @@ def test_paragraph_roles_are_checked(server, config):
 		),
 	)
 	roles = ai.classifyParagraphs(
-		["เรื่อง ขอเชิญ", "text", ""], {"subject": "", "body": "", "empty": ""}, "letter"
+		["เรื่อง ขอเชิญ", "text", ""], {"subject": "", "body": "", "empty": ""}, "letter",
 	)
 	assert roles == ["subject", "body", "empty"]
 

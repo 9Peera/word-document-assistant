@@ -53,11 +53,15 @@ def main() -> int:
 			check=True,
 		)
 	result = subprocess.run(
-		["msgfmt", "--check", "--statistics", "-o", os.devnull, PO], capture_output=True, text=True
+		["msgfmt", "--check", "--statistics", "-o", os.devnull, PO],
+		capture_output=True,
+		text=True,
 	)
 	print(result.stderr.strip())
 	untranslated = subprocess.run(
-		["msgattrib", "--untranslated", "--no-obsolete", PO], capture_output=True, text=True
+		["msgattrib", "--untranslated", "--no-obsolete", PO],
+		capture_output=True,
+		text=True,
 	).stdout
 	missing, current = [], None
 	for line in untranslated.splitlines():

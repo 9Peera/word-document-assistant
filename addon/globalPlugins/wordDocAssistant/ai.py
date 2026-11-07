@@ -250,7 +250,7 @@ def _post(url: str, body: dict | None, headers: dict[str, str]) -> dict:
 			raise AIModelNotFound(
 				# Translators: Reported when the AI service does not know the model.
 				_(
-					"The AI service does not have this model. Leave the model empty to choose one automatically"
+					"The AI service does not have this model. Leave the model empty to choose one automatically",
 				),
 			) from error
 		if error.code in (401, 403) or (error.code == 400 and "API_KEY" in detail.upper()):
@@ -270,7 +270,7 @@ def _post(url: str, body: dict | None, headers: dict[str, str]) -> dict:
 		log.debugWarning("Cannot reach the AI service", exc_info=True)
 		# Translators: Reported when the AI service cannot be reached.
 		raise AIError(
-			_("Cannot reach the AI service. Check the internet connection and the address")
+			_("Cannot reach the AI service. Check the internet connection and the address"),
 		) from error
 	except ValueError as error:
 		# Translators: Reported when the AI service sends an answer the add-on cannot read.
@@ -329,7 +329,7 @@ def _generate(
 						"role": "user",
 						"parts": ([{"inlineData": {"mimeType": mime, "data": imageData}}] if image else [])
 						+ [{"text": user}],
-					}
+					},
 				],
 				"generationConfig": {"temperature": 0.2, "responseMimeType": "application/json"},
 			},
@@ -357,7 +357,7 @@ def _generate(
 							if image
 							else user
 						),
-					}
+					},
 				],
 			},
 			_anthropicHeaders(apiKey),
@@ -552,7 +552,12 @@ def _withRetry(func: Callable[[], str]) -> str:
 
 
 def _autoComplete(
-	provider: str, baseUrl: str, apiKey: str, system: str, user: str, image: tuple[bytes, str] | None = None
+	provider: str,
+	baseUrl: str,
+	apiKey: str,
+	system: str,
+	user: str,
+	image: tuple[bytes, str] | None = None,
 ) -> str:
 	"""Pick a model automatically; move to the next one if it is busy, out of quota or retired."""
 	key = (provider, apiKey)
@@ -572,13 +577,14 @@ def _autoComplete(
 	if not ranked:
 		# Translators: Reported when the key cannot use any text model.
 		raise AIError(_("No text model is available for this key. Enter a model in the settings"))
-	current = _autoModel.get(key) if _autoModel.get(key) in ranked else ranked[0]
+	saved = _autoModel.get(key)
+	current = saved if saved is not None and saved in ranked else ranked[0]
 	candidates = [current] + [m for m in ranked if m != current][:3]
 	lastError: AIError | None = None
 	for candidate in candidates:
 		try:
 			result = _withRetry(
-				lambda m=candidate: _generate(provider, baseUrl, apiKey, m, system, user, image)
+				lambda m=candidate: _generate(provider, baseUrl, apiKey, m, system, user, image),
 			)
 		except (AIBusy, AIModelNotFound) as error:
 			log.debugWarning(f"AI model {candidate} failed: {error}")
@@ -661,7 +667,7 @@ def proofread(text: str) -> list[dict[str, str]]:
 					"original": original,
 					"suggestion": suggestion,
 					"reason": str(entry.get("reason", "")).strip(),
-				}
+				},
 			)
 	return result
 
@@ -685,7 +691,7 @@ def suggestWord(word: str, context: str) -> list[dict[str, str]]:
 			entry = {"text": entry}
 		if isinstance(entry, dict) and str(entry.get("text", "")).strip():
 			result.append(
-				{"text": str(entry["text"]).strip(), "reason": str(entry.get("reason", "")).strip()}
+				{"text": str(entry["text"]).strip(), "reason": str(entry.get("reason", "")).strip()},
 			)
 	return result[:5]
 
@@ -763,7 +769,7 @@ def classifyParagraphs(
 			if not isinstance(entry, dict):
 				continue
 			try:
-				index = int(entry.get("i"))
+				index = int(entry.get("i", ""))
 			except (TypeError, ValueError):
 				continue
 			role = str(entry.get("role", "")).strip()
@@ -914,7 +920,7 @@ def listOllamaModels(baseUrl: str = "") -> list[str]:
 	except (urllib.error.URLError, TimeoutError, OSError, ValueError) as error:
 		# Translators: Reported when Ollama is not running on this computer.
 		raise AIError(
-			_("Ollama was not found on this computer. Install it, then start it and try again")
+			_("Ollama was not found on this computer. Install it, then start it and try again"),
 		) from error
 	return [m["name"] for m in data.get("models", []) if isinstance(m, dict) and m.get("name")]
 

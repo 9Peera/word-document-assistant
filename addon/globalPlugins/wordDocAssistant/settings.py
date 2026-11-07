@@ -112,25 +112,27 @@ class WordDocAssistantPanel(SettingsPanel):
 		self.thaiUnknown = group.addItem(
 			# Translators: Check box in the Thai word check settings.
 			wx.CheckBox(
-				box, label=_("Also report words that are not in the word list (names may be reported)")
-			)
+				box,
+				label=_("Also report words that are not in the word list (names may be reported)"),
+			),
 		)
 		self.thaiUnknown.SetValue(conf["thaiCheckUnknown"])
 		self.wordListUpdates = group.addItem(
 			# Translators: Check box in the Thai word check settings.
-			wx.CheckBox(box, label=_("Check for new word lists once a week and tell me"))
+			wx.CheckBox(box, label=_("Check for new word lists once a week and tell me")),
 		)
 		self.wordListUpdates.SetValue(conf["wordListUpdates"])
 		self.wordListAuto = group.addItem(
 			# Translators: Check box in the Thai word check settings.
-			wx.CheckBox(box, label=_("Download new word lists automatically"))
+			wx.CheckBox(box, label=_("Download new word lists automatically")),
 		)
 		self.wordListAuto.SetValue(conf["wordListAutoDownload"])
 		self.wordListLibreOffice = group.addItem(
 			# Translators: Check box in the Thai word check settings.
 			wx.CheckBox(
-				box, label=_("Also use the LibreOffice Thai dictionary (NECTEC LEXiTRON, LGPL, downloaded)")
-			)
+				box,
+				label=_("Also use the LibreOffice Thai dictionary (NECTEC LEXiTRON, LGPL, downloaded)"),
+			),
 		)
 		self.wordListLibreOffice.SetValue(conf["wordListLibreOffice"])
 		self.misspellingUrl = group.addLabeledControl(
@@ -199,7 +201,7 @@ class WordDocAssistantPanel(SettingsPanel):
 					"free tiers may use it to improve their products. "
 					"For confidential documents use Ollama on this computer.",
 				),
-			)
+			),
 		)
 		note.Wrap(520)
 		self._providerIds = list(ai.PROVIDERS)

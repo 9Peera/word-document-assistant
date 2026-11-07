@@ -211,8 +211,8 @@ def imageData(ctx: WordContext, picture: Picture) -> tuple[bytes, str]:
 		raise ImageUnavailable(
 			# Translators: Reported when the picture is a drawing type AI cannot read, such as EMF.
 			_(
-				"This picture is a drawing format AI cannot read ({type}). Save it as PNG or JPEG first"
-			).format(type=parts[0][0])
+				"This picture is a drawing format AI cannot read ({type}). Save it as PNG or JPEG first",
+			).format(type=parts[0][0]),
 		)
 	mime, data = usable[0]
 	if picture.floating:
@@ -254,7 +254,9 @@ def _prepare(raw: bytes, mime: str) -> tuple[bytes, str]:
 		if largest > MAX_IMAGE_SIDE:
 			scale = MAX_IMAGE_SIDE / largest
 			image = image.Scale(
-				max(1, int(width * scale)), max(1, int(height * scale)), wx.IMAGE_QUALITY_HIGH
+				max(1, int(width * scale)),
+				max(1, int(height * scale)),
+				wx.IMAGE_QUALITY_HIGH,
 			)
 		stream = io.BytesIO()
 		image.SaveFile(stream, wx.BITMAP_TYPE_PNG)
@@ -559,6 +561,8 @@ class LanguageProblems(ElementType):
 
 	def actions(self, ctx, item, anchor, host):
 		def fixOne() -> None:
+			if item is None:
+				return
 			# Translators: Name of the undo step for fixing the language of text.
 			with undoRecord(ctx, _("Fix language")):
 				changed = fixParagraphLanguage(ctx, item.obj.paragraph)
@@ -579,11 +583,14 @@ class LanguageProblems(ElementType):
 			# Translators: Reported after all language problems were fixed.
 			host.speak(
 				_("Language fixed in {paragraphs} paragraphs, {count} words").format(
-					paragraphs=len(items), count=changed
-				)
+					paragraphs=len(items),
+					count=changed,
+				),
 			)
 
 		def setLanguage(languageId: int) -> None:
+			if item is None:
+				return
 			with undoRecord(ctx, _("Fix language")):
 				item.obj.paragraph.Range.LanguageID = languageId
 			host.modified()
@@ -600,7 +607,7 @@ class LanguageProblems(ElementType):
 				Action(
 					# Translators: Action that marks a whole paragraph as English.
 					_("Mark whole paragraph as {language}").format(
-						language=languageName(_latinLanguage(ctx))
+						language=languageName(_latinLanguage(ctx)),
 					),
 					lambda: setLanguage(_latinLanguage(ctx)),
 				),
@@ -649,35 +656,35 @@ def _issueHelp(kind: str) -> str:
 		"altText": _(
 			# Translators: How to fix an accessibility problem.
 			"Screen reader users only hear that there is a picture. Add alternative text that says what it shows, "
-			"or mark it as decorative."
+			"or mark it as decorative.",
 		),
 		"tableHeader": _(
 			# Translators: How to fix an accessibility problem.
-			"Mark the first row as a header row so screen readers announce the column names."
+			"Mark the first row as a header row so screen readers announce the column names.",
 		),
 		"headingSkip": _(
 			# Translators: How to fix an accessibility problem.
-			"Headings should go down one level at a time, for example from level 1 to level 2."
+			"Headings should go down one level at a time, for example from level 1 to level 2.",
 		),
 		"emptyParagraphs": _(
 			# Translators: How to fix an accessibility problem.
-			"Screen readers read every empty line as blank. Use space after paragraphs instead."
+			"Screen readers read every empty line as blank. Use space after paragraphs instead.",
 		),
 		"linkText": _(
 			# Translators: How to fix an accessibility problem.
-			"Link text such as click here makes no sense in a list of links. Say where the link goes."
+			"Link text such as click here makes no sense in a list of links. Say where the link goes.",
 		),
 		"title": _(
 			# Translators: How to fix an accessibility problem.
-			"The title is read first when the document or its PDF is opened."
+			"The title is read first when the document or its PDF is opened.",
 		),
 		"noHeadings": _(
 			# Translators: How to fix an accessibility problem.
-			"Real Word headings let screen reader users jump through the document. Format it with J."
+			"Real Word headings let screen reader users jump through the document. Format it with J.",
 		),
 		"language": _(
 			# Translators: How to fix an accessibility problem.
-			"Wrong language stops spell checking and makes screen readers use the wrong voice. Use L to fix it."
+			"Wrong language stops spell checking and makes screen readers use the wrong voice. Use L to fix it.",
 		),
 	}
 	return help.get(kind, "")
@@ -689,7 +696,7 @@ def _isUnclearLink(text: str, address: str) -> bool:
 		return True
 	if clean in UNCLEAR_LINK_TEXTS:
 		return True
-	return clean.startswith(("http://", "https://", "www.")) or (address and clean == address.lower())
+	return clean.startswith(("http://", "https://", "www.")) or bool(address and clean == address.lower())
 
 
 #: Paragraph count above which a document without headings is reported.
@@ -720,8 +727,11 @@ def checkDocument(ctx: WordContext, limit: int) -> list[Issue]:
 					# Translators: Describes a table, for example "Table 2".
 					issues.append(
 						Issue(
-							"tableHeader", table.Range, _("Table {number}").format(number=index), target=table
-						)
+							"tableHeader",
+							table.Range,
+							_("Table {number}").format(number=index),
+							target=table,
+						),
 					)
 			except COM_ERRORS:
 				continue
@@ -753,7 +763,7 @@ def checkDocument(ctx: WordContext, limit: int) -> list[Issue]:
 					# Translators: Describes a run of empty paragraphs; {count} is a number.
 					_("{count} empty paragraphs in a row").format(count=len(emptyRun)),
 					target=list(emptyRun),
-				)
+				),
 			)
 		emptyRun = []
 		try:
@@ -769,11 +779,13 @@ def checkDocument(ctx: WordContext, limit: int) -> list[Issue]:
 						rangeObj,
 						# Translators: Describes a skipped heading level.
 						_("Level {level} after level {previous}: {text}").format(
-							level=level, previous=previousLevel, text=flatText(text, 80)
+							level=level,
+							previous=previousLevel,
+							text=flatText(text, 80),
 						),
 						target=paragraph,
 						extra=previousLevel + 1,
-					)
+					),
 				)
 			previousLevel = level
 		if languageChecked < 5000:
@@ -790,7 +802,7 @@ def checkDocument(ctx: WordContext, limit: int) -> list[Issue]:
 				emptyRun[0].Range,
 				_("{count} empty paragraphs in a row").format(count=len(emptyRun)),
 				target=list(emptyRun),
-			)
+			),
 		)
 	if paragraphCount > LONG_DOCUMENT and headings == 0:
 		issues.append(
@@ -799,7 +811,7 @@ def checkDocument(ctx: WordContext, limit: int) -> list[Issue]:
 				doc.Range(0, 0),
 				# Translators: Describes a document without headings; {count} is a number.
 				_("{count} paragraphs, no headings").format(count=paragraphCount),
-			)
+			),
 		)
 	# Links
 	try:
@@ -945,8 +957,8 @@ class AccessibilityIssues(ElementType):
 				# Translators: Reported after empty paragraphs were removed; {count} is a number.
 				host.speak(
 					_("{count} empty paragraphs removed, space after the paragraph added").format(
-						count=len(paragraphs)
-					)
+						count=len(paragraphs),
+					),
 				)
 
 			# Translators: Action that removes empty paragraphs and adds space after the previous paragraph.

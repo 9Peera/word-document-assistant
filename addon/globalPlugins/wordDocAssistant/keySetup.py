@@ -53,7 +53,7 @@ class KeySetupDialog(wx.Dialog):
 					"on their website. Leave the model empty to choose one automatically, or press Find models. "
 					"Ollama runs on this computer for free; no key is needed and text stays here.",
 				),
-			)
+			),
 		)
 		intro.Wrap(560)
 		names = ai.providerNames()
@@ -142,7 +142,7 @@ class KeySetupDialog(wx.Dialog):
 		self.url.SetValue(
 			""
 			if self.providerId != config.conf[CONFIG_SECTION]["aiProvider"]
-			else config.conf[CONFIG_SECTION]["aiUrl"]
+			else config.conf[CONFIG_SECTION]["aiUrl"],
 		)
 		self._updateButtons()
 
@@ -267,8 +267,8 @@ class KeySetupDialog(wx.Dialog):
 					# Translators: Reported when Ollama runs but has no models installed.
 					self._setStatus(
 						_(
-							"Ollama is running but has no models. Install one, for example: ollama pull qwen2.5:7b"
-						)
+							"Ollama is running but has no models. Install one, for example: ollama pull qwen2.5:7b",
+						),
 					)
 				else:
 					# Translators: Reported when the service lists no text models for the key.
@@ -282,7 +282,7 @@ class KeySetupDialog(wx.Dialog):
 				_("{count} models found, {model} selected. Use the Model box to choose another").format(
 					count=len(ranked),
 					model=self.model.GetValue(),
-				)
+				),
 			)
 
 		ai.runInBackground(

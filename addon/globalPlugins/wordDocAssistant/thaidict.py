@@ -101,7 +101,10 @@ class Dictionary:
 		self._sorted: list[str] = []
 
 	def load(
-		self, wordFiles: list[tuple[str, str]], misspellingFiles: list[str], myWordsFile: str = ""
+		self,
+		wordFiles: list[tuple[str, str]],
+		misspellingFiles: list[str],
+		myWordsFile: str = "",
 	) -> None:
 		words: set[str] = set()
 		for path, kind in wordFiles:
@@ -234,12 +237,15 @@ class Dictionary:
 						run[spanStart:spanEnd],
 						"unknown",
 						suggestions,
-					)
+					),
 				)
 		return found
 
 	def _bestSpan(
-		self, run: str, pieces: list[tuple[int, int, bool]], index: int
+		self,
+		run: str,
+		pieces: list[tuple[int, int, bool]],
+		index: int,
 	) -> tuple[int, int, list[str]]:
 		"""The unknown piece, joined with its neighbours when that gives a known word nearby.
 
@@ -383,7 +389,7 @@ class WordLists:
 					"",
 					url,
 					kind="misspellings",
-				)
+				),
 			)
 		return enabled
 
@@ -428,7 +434,7 @@ class WordLists:
 				file.write(
 					"# "
 					+ _("My commonly misspelled words: wrong form, Tab, right form, Tab, optional note.")
-					+ "\n"
+					+ "\n",
 				)
 
 	# Updates
@@ -459,7 +465,9 @@ class WordLists:
 			downloaded = os.path.isfile(self._sourceFile(source))
 			try:
 				status, etag, _body = self._request(
-					source, known if (downloaded or source.bundledEtag) else "", "HEAD"
+					source,
+					known if (downloaded or source.bundledEtag) else "",
+					"HEAD",
 				)
 			except (urllib.error.URLError, TimeoutError, OSError):
 				log.debugWarning(f"Cannot check {source.url}", exc_info=True)

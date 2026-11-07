@@ -15,7 +15,7 @@ def makeDoc():
 			"ข้อความภาษาไทย",  # 5 Thai, will be marked English
 			"see here for more",  # 6 link "here"
 			"X",  # 7 picture placeholder
-		]
+		],
 	)
 	doc.setLevel(0, 1)
 	doc.setLevel(2, 3)
@@ -37,7 +37,7 @@ def test_checker_finds_every_kind_of_problem():
 	ctx = Context(makeDoc())
 	issues = a11y.checkDocument(ctx, 100)
 	assert kinds(issues) == sorted(
-		["altText", "tableHeader", "headingSkip", "emptyParagraphs", "linkText", "title", "language"]
+		["altText", "tableHeader", "headingSkip", "emptyParagraphs", "linkText", "title", "language"],
 	)
 	skip = next(i for i in issues if i.kind == "headingSkip")
 	assert skip.extra == 2
@@ -110,7 +110,7 @@ def test_ai_alt_text_is_saved_after_editing(monkeypatch):
 	doc = makeDoc()
 	ctx = Context(doc)
 	monkeypatch.setattr(
-		a11y.ai, "describeImage", lambda image, mime, context, detailed: f"AI {len(image)} {detailed}"
+		a11y.ai, "describeImage", lambda image, mime, context, detailed: f"AI {len(image)} {detailed}",
 	)
 	kind = a11y.Pictures()
 	items, _total = kind.collect(ctx, 10)

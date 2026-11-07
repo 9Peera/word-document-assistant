@@ -269,7 +269,12 @@ def presets() -> list[Preset]:
 				"refNo": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
 				"recipient": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
 				"subject": RoleFormat(
-					align=ALIGN_LEFT, leftCm=0, firstLineCm=0, bold=True, before=12, after=6
+					align=ALIGN_LEFT,
+					leftCm=0,
+					firstLineCm=0,
+					bold=True,
+					before=12,
+					after=6,
 				),
 				"salutation": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0, before=6, after=6),
 				"body": RoleFormat(align=ALIGN_THAI, leftCm=0, firstLineCm=0, after=8),
@@ -535,7 +540,9 @@ def apply(
 	"""Format the paragraphs. Returns counts of what was done. One undo step."""
 	app = ctx.application
 	fontThai = _availableFont(
-		ctx, preset.fontThai, ("TH SarabunIT๙", "TH Sarabun New", "TH SarabunPSK", "Leelawadee UI", "Tahoma")
+		ctx,
+		preset.fontThai,
+		("TH SarabunIT๙", "TH Sarabun New", "TH SarabunPSK", "Leelawadee UI", "Tahoma"),
 	)
 	fontLatin = _availableFont(ctx, preset.fontLatin, (fontThai, "Calibri", "Arial"))
 	counts = {"formatted": 0, "removed": 0}

@@ -123,7 +123,7 @@ def lists(tmp_path, config, monkeypatch):
 		misspellingListUrl="",
 	)
 	monkeypatch.setattr(
-		nvdaStubs.sys.modules["globalVars"].appArgs, "configPath", str(tmp_path), raising=False
+		nvdaStubs.sys.modules["globalVars"].appArgs, "configPath", str(tmp_path), raising=False,
 	)
 	monkeypatch.setattr(thaicheck, "_lists", None)
 	return thaicheck.wordLists()

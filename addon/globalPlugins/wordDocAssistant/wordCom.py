@@ -65,7 +65,7 @@ def isDocumentFocused() -> bool:
 		return False
 	focus = api.getFocusObject()
 	return _isDocumentWindow(getattr(focus, "windowClassName", "")) or bool(
-		_findDocumentWindow(focus, searchForeground=False)
+		_findDocumentWindow(focus, searchForeground=False),
 	)
 
 
@@ -277,7 +277,7 @@ def positionInfo(ctx: WordContext) -> str:
 			_("Page {page} of {pages}").format(
 				page=sel.Information(WD_INFO_PAGE),
 				pages=sel.Information(WD_INFO_PAGE_COUNT),
-			)
+			),
 		)
 		# Translators: Reports the section number of the caret.
 		parts.append(_("section {number}").format(number=sel.Information(WD_INFO_SECTION)))

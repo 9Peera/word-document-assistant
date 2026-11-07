@@ -64,7 +64,7 @@ class FormatChooserDialog(wx.Dialog):
 				],
 				majorDimension=1,
 				style=wx.RA_SPECIFY_COLS,
-			)
+			),
 		)
 		self.scope.EnableItem(1, hasSelection)
 		self.pageSetup = helper.addItem(
@@ -90,7 +90,7 @@ class FormatChooserDialog(wx.Dialog):
 					"AI only decides what each paragraph is, such as subject, body or signature. "
 					"The words are not changed. You can check and correct the result before anything is formatted.",
 				),
-			)
+			),
 		)
 		note.Wrap(560)
 		buttons = guiHelper.ButtonHelper(wx.HORIZONTAL)
@@ -113,7 +113,8 @@ class FormatChooserDialog(wx.Dialog):
 			self.recommendation.SetValue(_("Asking AI which format fits this document..."))
 			ai.runInBackground(
 				lambda: ai.recommendFormat(
-					sample, [(p.id, p.name + ". " + p.description) for p in self.presets]
+					sample,
+					[(p.id, p.name + ". " + p.description) for p in self.presets],
 				),
 				self._onRecommendation,
 				lambda message, _key: self.recommendation.SetValue(message) if self else None,

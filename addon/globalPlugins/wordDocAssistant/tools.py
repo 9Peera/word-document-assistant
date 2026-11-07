@@ -224,7 +224,7 @@ def commentsText(ctx: WordContext, limit: int = 500) -> str:
 			# Translators: Status of a comment sent to AI.
 			status = _("resolved") if done else _("open")
 			lines.append(
-				f'[{status}] {comment.Author} on "{cleanText(comment.Scope.Text)[:200]}": {cleanText(comment.Range.Text)}'
+				f'[{status}] {comment.Author} on "{cleanText(comment.Scope.Text)[:200]}": {cleanText(comment.Range.Text)}',
 			)
 			try:
 				replies = comment.Replies

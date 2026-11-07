@@ -15,7 +15,7 @@ def letterDoc():
 			"ด้วยสำนักงาน",
 			"ขอแสดงความนับถือ",
 			"(นายสมชาย ใจดี)",
-		]
+		],
 	)
 
 
@@ -71,6 +71,6 @@ def test_every_preset_applies_without_errors():
 
 def test_missing_font_falls_back():
 	ctx = types.SimpleNamespace(
-		application=types.SimpleNamespace(FontNames=types.SimpleNamespace(Count=1, Item=lambda i: "Tahoma"))
+		application=types.SimpleNamespace(FontNames=types.SimpleNamespace(Count=1, Item=lambda i: "Tahoma")),
 	)
 	assert presets._availableFont(ctx, "TH SarabunIT๙", ("TH Sarabun New", "Tahoma")) == "Tahoma"

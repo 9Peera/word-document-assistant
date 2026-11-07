@@ -118,7 +118,7 @@ def test_insert_cross_reference_asks_type_target_and_kind():
 
 def test_sources_and_citations():
 	xmlText = structure.sourceXml(
-		"Pee26", "Book", "Peera Pilarit; Somchai Jaidee", "Thai & Word", "2026", "SAINT", ""
+		"Pee26", "Book", "Peera Pilarit; Somchai Jaidee", "Thai & Word", "2026", "SAINT", "",
 	)
 	xml.dom.minidom.parseString(xmlText)
 	assert "<b:Last>Pilarit</b:Last>" in xmlText and "&amp;" in xmlText

@@ -157,7 +157,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Look for newer Thai word lists a minute after NVDA starts, at most once a week, if the user allowed it.
 			core.callLater(60000, wordListUpdates.scheduledCheck)
 		self.active = False
-		self.ctx: WordContext | None = None
+		self._ctx: WordContext | None = None
 		#: Where the caret was when the mode started. Used for Backspace and to insert new items.
 		self.anchor: Any = None
 		self._kindIndex = 0
@@ -172,13 +172,28 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
 			# Translators: Item in the NVDA Tools menu.
 			self._wordListsMenuItem = toolsMenu.Append(
-				wx.ID_ANY, _("Update Thai word lists (Word Document Assistant)...")
+				wx.ID_ANY,
+				_("Update Thai word lists (Word Document Assistant)..."),
 			)
 			gui.mainFrame.sysTrayIcon.Bind(
-				wx.EVT_MENU, lambda evt: wordListUpdates.updateNow(), self._wordListsMenuItem
+				wx.EVT_MENU,
+				lambda evt: wordListUpdates.updateNow(),
+				self._wordListsMenuItem,
 			)
 		except AttributeError:
 			self._wordListsMenuItem = None
+
+	@property
+	def hasContext(self) -> bool:
+		"""Whether navigation mode has found a Word document to work with."""
+		return self._ctx is not None
+
+	@property
+	def ctx(self) -> WordContext:
+		"""The Word document of the current navigation mode session."""
+		if self._ctx is None:
+			raise RuntimeError("No Word document")
+		return self._ctx
 
 	def terminate(self):
 		try:
@@ -283,7 +298,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def _enter(self) -> None:
 		try:
-			self.ctx = WordContext.fromFocus()
+			self._ctx = WordContext.fromFocus()
 		except WordUnavailable as error:
 			ui.message(str(error))
 			return
@@ -315,7 +330,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not self.active:
 			return
 		self.active = False
-		if collapse and self._index is not None and self.ctx is not None:
+		if collapse and self._index is not None and self.hasContext:
 			try:
 				# Keep the caret at the current item without leaving text selected.
 				self.ctx.selection.Collapse(wordCom.WD_COLLAPSE_START)
@@ -596,7 +611,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def confirm(self, title: str, message: str) -> bool:
 		result, _value = dialogs.runModal(
 			lambda parent: wx.MessageDialog(
-				parent, message, title, wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION
+				parent,
+				message,
+				title,
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
 			),
 		)
 		return result == wx.ID_YES
@@ -659,7 +677,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(_("Asking AI, please wait..."))
 
 	def _aiProofread(self, selectionOnly: bool) -> None:
-		if self.ctx is None or not self._aiReady():
+		if not self.hasContext or not self._aiReady():
 			return
 		try:
 			if selectionOnly:
@@ -747,7 +765,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# From the end so earlier positions stay valid.
 				for offset, correction in sorted(placed, key=lambda p: p[0], reverse=True):
 					rangeObj = self.ctx.document.Range(
-						start + offset, start + offset + len(correction["original"])
+						start + offset,
+						start + offset + len(correction["original"]),
 					)
 					if rangeObj.Text != correction["original"]:
 						continue
@@ -758,7 +777,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.modified()
 		# Translators: Reported after AI corrections were applied.
 		message = _("{applied} of {total} corrections applied").format(
-			applied=applied, total=len(corrections)
+			applied=applied,
+			total=len(corrections),
 		)
 		if applied < len(corrections):
 			# Translators: Added when some corrections could not be applied.
@@ -859,7 +879,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	MAX_FORMAT_PARAGRAPHS = 3000
 
 	def _aiFormat(self) -> None:
-		if self.ctx is None or not self._aiReady():
+		if not self.hasContext or not self._aiReady():
 			return
 		try:
 			content = self.ctx.document.Content
@@ -894,8 +914,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Translators: Reported when the document is too long to format at once.
 			ui.message(
 				_("Only the first {count} paragraphs will be formatted").format(
-					count=self.MAX_FORMAT_PARAGRAPHS
-				)
+					count=self.MAX_FORMAT_PARAGRAPHS,
+				),
 			)
 		hints = {r: presets.ROLE_HINTS[r] for r in preset.roleIds if r in presets.ROLE_HINTS}
 		# Translators: Reported while AI looks at the paragraphs; {count} is a number.
@@ -934,7 +954,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.modified()
 		# Translators: Reported after formatting; {formatted} and {removed} are numbers.
 		message = _("Formatted {formatted} paragraphs as {name}").format(
-			formatted=counts["formatted"], name=preset.name
+			formatted=counts["formatted"],
+			name=preset.name,
 		)
 		if counts["removed"]:
 			# Translators: Added after formatting when empty paragraphs were removed.
@@ -992,7 +1013,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# AI tools (V) --------------------------------------------------------------------------------
 
 	def _aiToolsMenu(self) -> None:
-		if self.ctx is None or not self._aiReady():
+		if not self.hasContext or not self._aiReady():
 			return
 		tools_ = [
 			# Translators: AI tool.
@@ -1054,7 +1075,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Translators: Title of the summary dialog; {where} is what was summarized.
 		title = _("Summary of the {where}").format(where=where)
 		ai.runInBackground(
-			lambda: ai.summarize(text, length), lambda result: self._showResult(title, result), self._aiFailed
+			lambda: ai.summarize(text, length),
+			lambda result: self._showResult(title, result),
+			self._aiFailed,
 		)
 
 	def _compare(self, title: str, rangeObj, original: str, proposed: str, canInsert: bool) -> None:
@@ -1133,7 +1156,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Thai tools (Y) -------------------------------------------------------------------------------
 
 	def _thaiToolsMenu(self) -> None:
-		if self.ctx is None:
+		if not self.hasContext:
 			return
 		try:
 			rangeObj, where = self._toolRange(wholeDocumentDefault=True)
@@ -1160,7 +1183,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		]
 		# Translators: Title and label of the Thai tools menu; {where} is what the tools work on.
 		index = self.choose(
-			_("Thai tools"), _("Tool, works on the {where}:").format(where=where), [o[0] for o in options]
+			_("Thai tools"),
+			_("Tool, works on the {where}:").format(where=where),
+			[o[0] for o in options],
 		)
 		if index is not None:
 			self._runSafely(options[index][1])

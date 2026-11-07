@@ -42,8 +42,10 @@ def _describe(updates: list[thaidict.WordSource]) -> str:
 		# Translators: One word list in the update question; {license} is its licence, {homepage} its web page.
 		lines.append(
 			_("{name} (licence {license}, {homepage})").format(
-				name=source.name, license=source.license or "-", homepage=source.homepage
-			)
+				name=source.name,
+				license=source.license or "-",
+				homepage=source.homepage,
+			),
 		)
 	return "\n".join(lines)
 
@@ -109,7 +111,7 @@ def updateNow(parent: wx.Window | None = None) -> None:
 				window,
 				# Translators: Question before word lists are downloaded; {lists} names them.
 				_("New Thai word lists are available:\n{lists}\n\nDownload them now?").format(
-					lists=_describe(updates)
+					lists=_describe(updates),
 				),
 				# Translators: Title of the word list update question.
 				_("Thai word lists"),
@@ -167,7 +169,7 @@ def askOnce() -> None:
 				"The Thai word check works offline with the word list included in the add-on.\n\n"
 				"Should the add-on look for newer Thai word lists on GitHub once a week and tell you when there "
 				"is one? It only asks whether a newer file exists and never sends your documents. "
-				"You can change this later in the settings."
+				"You can change this later in the settings.",
 			),
 			# Translators: Title of the question about the weekly word list check.
 			_("New Thai word lists"),
@@ -195,6 +197,6 @@ def announcePending(updates: list[thaidict.WordSource] | None = None) -> None:
 		# Translators: Told when newer word lists are available; {lists} names them.
 		_(
 			"New Thai word lists are available: {lists}. To update, use the NVDA menu, Tools, "
-			"Update Thai word lists, or the actions of the Thai word check (Z)."
-		).format(lists=", ".join(s.name for s in updates))
+			"Update Thai word lists, or the actions of the Thai word check (Z).",
+		).format(lists=", ".join(s.name for s in updates)),
 	)

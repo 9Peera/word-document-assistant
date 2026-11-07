@@ -35,11 +35,19 @@ class Host(Protocol):
 	def aiAvailable(self) -> bool: ...
 	def aiWordSuggestions(self, word: str, context: str, apply: Callable[[str], None]) -> None: ...
 	def aiReplyDrafts(
-		self, author: str, comment: str, commentedText: str, apply: Callable[[str], None]
+		self,
+		author: str,
+		comment: str,
+		commentedText: str,
+		apply: Callable[[str], None],
 	) -> None: ...
 	def choose(self, title: str, label: str, options: list[str]) -> int | None: ...
 	def aiDraft(
-		self, title: str, label: str, work: Callable[[], str], apply: Callable[[str], None]
+		self,
+		title: str,
+		label: str,
+		work: Callable[[], str],
+		apply: Callable[[str], None],
 	) -> None: ...
 	def aiFormat(self) -> None: ...
 	def updateWordLists(self) -> None: ...
@@ -130,14 +138,14 @@ class ElementType:
 					# Translators: Action that copies the main text of the current item.
 					_("Copy text"),
 					lambda: host.copy(self.copyText(ctx, item)),
-				)
+				),
 			)
 			actions.append(
 				Action(
 					# Translators: Action that copies all details of the current item.
 					_("Copy all details"),
 					lambda: host.copy(self.detailsText(ctx, item)),
-				)
+				),
 			)
 		return actions
 
@@ -249,7 +257,7 @@ class SpellingErrors(ElementType):
 						# Translators: Action that replaces a misspelled word with a suggestion.
 						_("Replace with {suggestion}").format(suggestion=suggestion),
 						lambda s=suggestion: self._replace(ctx, item, s, host),
-					)
+					),
 				)
 			if not suggestions:
 				# Translators: Disabled menu item shown when Word has no suggestions.
@@ -259,7 +267,7 @@ class SpellingErrors(ElementType):
 					# Translators: Action that lets the user type a replacement for a misspelled word.
 					_("Type a replacement..."),
 					lambda: self._replaceTyped(ctx, item, host),
-				)
+				),
 			)
 			if host.aiAvailable():
 				actions.append(
@@ -271,7 +279,7 @@ class SpellingErrors(ElementType):
 							_context(ctx, item.obj.Start, item.obj.End),
 							lambda text: self._replace(ctx, item, text, host),
 						),
-					)
+					),
 				)
 		return actions + super().actions(ctx, item, anchor, host)
 
@@ -506,7 +514,7 @@ class Comments(ElementType):
 							wordCom.cleanText(comment.Scope.Text),
 							lambda text: self._postReply(ctx, comment, text, host),
 						),
-					)
+					),
 				)
 			actions += [
 				# Translators: Action that edits the text of a comment.
@@ -533,7 +541,7 @@ class Comments(ElementType):
 				_("New comment at the starting position..."),
 				lambda: self._add(ctx, anchor, host),
 				enabled=anchor is not None,
-			)
+			),
 		)
 		return actions + super().actions(ctx, item, anchor, host)
 
@@ -555,8 +563,8 @@ class Comments(ElementType):
 			host.speak(
 				# Translators: Reported when Word does not let the add-on post a reply.
 				_(
-					"Word did not accept the reply. It was copied; paste it as a reply in the comment Word opened"
-				)
+					"Word did not accept the reply. It was copied; paste it as a reply in the comment Word opened",
+				),
 			)
 			return
 		host.modified()
@@ -580,8 +588,8 @@ class Comments(ElementType):
 			host.speak(
 				# Translators: Reported when Word does not let the add-on change a comment.
 				_(
-					"Word did not accept the change. The new text was copied; paste it into the comment Word opened"
-				)
+					"Word did not accept the change. The new text was copied; paste it into the comment Word opened",
+				),
 			)
 			return
 		host.modified()
@@ -713,7 +721,7 @@ class _Notes(ElementType):
 				self.insertLabel,
 				lambda: self._insert(ctx, anchor, host),
 				enabled=anchor is not None,
-			)
+			),
 		)
 		return actions + super().actions(ctx, item, anchor, host)
 

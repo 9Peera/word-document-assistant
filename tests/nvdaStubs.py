@@ -65,7 +65,7 @@ _module("globalPluginHandler", GlobalPlugin=_GlobalPlugin)
 _module("globalVars", appArgs=types.SimpleNamespace(secure=True))
 _module("speech", cancelSpeech=lambda: None)
 _module(
-	"ui", message=lambda text: spoken.append(text), browseableMessage=lambda *a, **k: spoken.append("HELP")
+	"ui", message=lambda text: spoken.append(text), browseableMessage=lambda *a, **k: spoken.append("HELP"),
 )
 wx = _module(
 	"wx",

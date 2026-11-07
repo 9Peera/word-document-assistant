@@ -51,6 +51,7 @@ def _locate(ctx: WordContext, paragraphRange: Any, offset: int, word: str, text:
 		pass
 	occurrence = text.count(word, 0, offset)
 	search = paragraphRange.Duplicate
+	found = None
 	for _number in range(occurrence + 1):
 		finder = search.Find
 		finder.ClearFormatting()
@@ -114,7 +115,7 @@ class ThaiWords(ElementType):
 					continue
 				context = flatText(text[max(0, finding.start - 25) : finding.end + 25])
 				items.append(
-					Item(obj=finding, navRange=rangeObj, start=rangeObj.Start, cache={"context": context})
+					Item(obj=finding, navRange=rangeObj, start=rangeObj.Start, cache={"context": context}),
 				)
 			try:
 				paragraph = paragraph.Next()
@@ -143,7 +144,8 @@ class ThaiWords(ElementType):
 		else:
 			# Translators: Spoken for a word not in the word list, followed by suggestions.
 			text = _("{word}, not in the word list, {suggestions}").format(
-				word=finding.word, suggestions=self._suggestions(finding)
+				word=finding.word,
+				suggestions=self._suggestions(finding),
 			)
 		if finding.note:
 			text += f" ({finding.note})"
@@ -189,7 +191,9 @@ class ThaiWords(ElementType):
 			def replaceAll(text: str) -> None:
 				items, _total = self.collect(ctx, 100000)
 				same = sorted(
-					(i for i in items if i.obj.word == finding.word), key=lambda i: i.start, reverse=True
+					(i for i in items if i.obj.word == finding.word),
+					key=lambda i: i.start,
+					reverse=True,
 				)
 				with undoRecord(ctx, _("Replace word")):
 					for other in same:
@@ -200,7 +204,9 @@ class ThaiWords(ElementType):
 
 			def typed() -> None:
 				text = host.prompt(
-					_("Replace word"), _("Replace {word} with:").format(word=finding.word), finding.word
+					_("Replace word"),
+					_("Replace {word} with:").format(word=finding.word),
+					finding.word,
 				)
 				if text:
 					replace(text)
@@ -226,8 +232,8 @@ class ThaiWords(ElementType):
 				# Translators: Reported after the Royal Institute dictionary website was opened.
 				host.speak(
 					_(
-						"Royal Institute dictionary opened. The word is on the clipboard, paste it in the search box"
-					)
+						"Royal Institute dictionary opened. The word is on the clipboard, paste it in the search box",
+					),
 				)
 
 			for suggestion in finding.suggestions:
@@ -235,7 +241,7 @@ class ThaiWords(ElementType):
 					Action(
 						_("Replace with {suggestion}").format(suggestion=suggestion),
 						lambda s=suggestion: replace(s),
-					)
+					),
 				)
 			if finding.suggestions:
 				right = finding.suggestions[0]
@@ -244,7 +250,7 @@ class ThaiWords(ElementType):
 						# Translators: Action that replaces every occurrence of a word.
 						_("Replace every {word} with {right}").format(word=finding.word, right=right),
 						lambda: replaceAll(right),
-					)
+					),
 				)
 			# Translators: Action that lets the user type a replacement for a misspelled word.
 			actions.append(Action(_("Type a replacement..."), typed))

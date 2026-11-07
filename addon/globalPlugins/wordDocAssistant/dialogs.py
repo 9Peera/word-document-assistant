@@ -303,7 +303,7 @@ class ChoiceDialog(wx.Dialog):
 					wx.TextCtrl,
 					style=wx.TE_READONLY | wx.TE_MULTILINE,
 					size=(640, 50),
-				)
+				),
 			)
 		buttons = guiHelper.ButtonHelper(wx.HORIZONTAL)
 		self.okButton = buttons.addButton(self, wx.ID_OK, label=okLabel)

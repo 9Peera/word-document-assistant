@@ -135,7 +135,7 @@ class Range:
 	@property
 	def LanguageID(self):
 		values = set(self.doc.lang[self.Start : self.End]) or {
-			self.doc.lang[self.Start] if self.Start < len(self.doc.lang) else ENGLISH
+			self.doc.lang[self.Start] if self.Start < len(self.doc.lang) else ENGLISH,
 		}
 		return values.pop() if len(values) == 1 else MIXED
 
@@ -160,7 +160,7 @@ class Range:
 		for shape in self.InlineShapes:
 			data = base64.b64encode(shape.imageBytes).decode()
 			parts.append(
-				f'<pkg:part pkg:name="/word/media/i.png" pkg:contentType="{shape.mime}"><pkg:binaryData>{data}</pkg:binaryData></pkg:part>'
+				f'<pkg:part pkg:name="/word/media/i.png" pkg:contentType="{shape.mime}"><pkg:binaryData>{data}</pkg:binaryData></pkg:part>',
 			)
 		return "<pkg:package>" + "".join(parts) + "</pkg:package>"
 
@@ -420,7 +420,7 @@ class Doc:
 	def _style(self, key):
 		if key not in self.styles:
 			self.styles[key] = types.SimpleNamespace(
-				LanguageID=ENGLISH, Font=Font(), ParagraphFormat=types.SimpleNamespace()
+				LanguageID=ENGLISH, Font=Font(), ParagraphFormat=types.SimpleNamespace(),
 			)
 		return self.styles[key]
 
@@ -502,7 +502,7 @@ class Application:
 		self.undo: list[str] = []
 		app = self
 		self.UndoRecord = types.SimpleNamespace(
-			StartCustomRecord=lambda name: app.undo.append(name), EndCustomRecord=lambda: None
+			StartCustomRecord=lambda name: app.undo.append(name), EndCustomRecord=lambda: None,
 		)
 
 	def LinesToPoints(self, lines):
@@ -516,7 +516,7 @@ class Context:
 		self.document = doc
 		self.application = Application()
 		self.window = types.SimpleNamespace(
-			View=types.SimpleNamespace(RevisionsFilter=types.SimpleNamespace(Markup=2))
+			View=types.SimpleNamespace(RevisionsFilter=types.SimpleNamespace(Markup=2)),
 		)
 
 	@property

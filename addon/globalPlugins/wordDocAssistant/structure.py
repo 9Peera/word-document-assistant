@@ -97,7 +97,7 @@ class Headings(ElementType):
 			level = int(first.OutlineLevel)
 			if level < WD_OUTLINE_BODY_TEXT and cleanText(first.Range.Text):
 				items.append(
-					Item(obj=first, navRange=first.Range, start=first.Range.Start, cache={"level": level})
+					Item(obj=first, navRange=first.Range, start=first.Range.Start, cache={"level": level}),
 				)
 				lastStart = first.Range.Start
 		except (*COM_ERRORS, ValueError, TypeError, AttributeError):
@@ -123,7 +123,7 @@ class Headings(ElementType):
 						navRange=paragraph.Range,
 						start=paragraph.Range.Start,
 						cache={"level": level},
-					)
+					),
 				)
 			position = doc.Range(paragraph.Range.End, paragraph.Range.End)
 			if position.Start >= doc.Content.End - 1:
@@ -137,7 +137,8 @@ class Headings(ElementType):
 	def summary(self, ctx, item):
 		# Translators: Spoken for a heading, for example "Level 2: Budget".
 		return _("Level {level}: {text}").format(
-			level=self._level(item), text=flatText(item.obj.Range.Text, 150)
+			level=self._level(item),
+			text=flatText(item.obj.Range.Text, 150),
 		)
 
 	def row(self, ctx, item):
@@ -174,12 +175,15 @@ class Headings(ElementType):
 			if level > 1:
 				# Translators: Action that raises a heading one level, for example from 2 to 1.
 				actions.append(
-					Action(_("Promote to level {level}").format(level=level - 1), lambda: setLevel(level - 1))
+					Action(
+						_("Promote to level {level}").format(level=level - 1),
+						lambda: setLevel(level - 1),
+					),
 				)
 			if level < 9:
 				# Translators: Action that lowers a heading one level, for example from 1 to 2.
 				actions.append(
-					Action(_("Demote to level {level}").format(level=level + 1), lambda: setLevel(level + 1))
+					Action(_("Demote to level {level}").format(level=level + 1), lambda: setLevel(level + 1)),
 				)
 			for newLevel in range(1, 7):
 				if newLevel not in (level, level - 1, level + 1):
@@ -188,7 +192,7 @@ class Headings(ElementType):
 						Action(
 							_("Change to heading level {level}").format(level=newLevel),
 							lambda n=newLevel: setLevel(n),
-						)
+						),
 					)
 			# Translators: Action that changes a heading to body text.
 			actions.append(Action(_("Change to body text"), lambda: setLevel(0)))
@@ -244,7 +248,7 @@ class Tables(ElementType):
 		for index in range(1, min(tables.Count, limit) + 1):
 			table = tables.Item(index)
 			items.append(
-				Item(obj=table, navRange=table.Range, start=table.Range.Start, cache={"number": index})
+				Item(obj=table, navRange=table.Range, start=table.Range.Start, cache={"number": index}),
 			)
 		return items, tables.Count
 
@@ -253,7 +257,8 @@ class Tables(ElementType):
 		try:
 			# Translators: Size of a table, for example "5 rows, 3 columns".
 			return _("{rows} rows, {columns} columns").format(
-				rows=table.Rows.Count, columns=table.Columns.Count
+				rows=table.Rows.Count,
+				columns=table.Columns.Count,
 			)
 		except COM_ERRORS:
 			# Translators: Size of a table with merged cells that Word cannot count by columns.
@@ -344,7 +349,9 @@ class Tables(ElementType):
 					current = ""
 				# Translators: Label of the field with the alternative text of a table.
 				text = host.prompt(
-					_("Alternative text"), _("Describe the table for people who cannot see it:"), current
+					_("Alternative text"),
+					_("Describe the table for people who cannot see it:"),
+					current,
 				)
 				if text is not None:
 					setDescription(text)
@@ -353,7 +360,7 @@ class Tables(ElementType):
 				content = tableText(table)
 				try:
 					before = flatText(
-						ctx.document.Range(max(0, table.Range.Start - 200), table.Range.Start).Text
+						ctx.document.Range(max(0, table.Range.Start - 200), table.Range.Start).Text,
 					)
 				except COM_ERRORS:
 					before = ""
@@ -369,7 +376,7 @@ class Tables(ElementType):
 					# Translators: Action that removes the header row of a table.
 					_("Remove header row") if header else _("Make the first row a header row"),
 					toggleHeader,
-				)
+				),
 			)
 			# Translators: Action that edits the alternative text of a table.
 			actions.append(Action(_("Edit alternative text..."), editDescription))
@@ -599,8 +606,8 @@ class Bookmarks(ElementType):
 				# Translators: Reported when a bookmark name is not valid.
 				host.speak(
 					_(
-						"Not a valid bookmark name. Use letters and numbers without spaces, starting with a letter"
-					)
+						"Not a valid bookmark name. Use letters and numbers without spaces, starting with a letter",
+					),
 				)
 				return
 			ctx.document.Bookmarks.Add(name, anchor)
@@ -701,7 +708,8 @@ class Fields(ElementType):
 			def unlink() -> None:
 				# Translators: Confirmation before turning a field into plain text.
 				if host.confirm(
-					_("Convert to text"), _("Replace this field with its current result as plain text?")
+					_("Convert to text"),
+					_("Replace this field with its current result as plain text?"),
 				):
 					# Translators: Name of the undo step for turning a field into text.
 					with undoRecord(ctx, _("Convert to text")):
@@ -812,7 +820,8 @@ class CrossReferences(Fields):
 		field = item.obj
 		# Translators: Spoken for a cross-reference, for example "3, points to Results".
 		text = _("{shows}, points to {target}").format(
-			shows=flatText(_fieldResult(field), 80), target=self._targetText(ctx, field)
+			shows=flatText(_fieldResult(field), 80),
+			target=self._targetText(ctx, field),
 		)
 		if _isError(field):
 			text += ", " + _("Error")
@@ -847,7 +856,7 @@ class CrossReferences(Fields):
 				target.Select()
 				# Translators: Reported after moving to the target of a cross-reference.
 				host.speak(
-					_("Target: {text}").format(text=flatText(target.Paragraphs.Item(1).Range.Text, 150))
+					_("Target: {text}").format(text=flatText(target.Paragraphs.Item(1).Range.Text, 150)),
 				)
 
 			# Translators: Action that moves to the target of a cross-reference.
@@ -858,7 +867,7 @@ class CrossReferences(Fields):
 				_("Insert cross-reference at the starting position..."),
 				lambda: insertCrossReference(ctx, anchor, host),
 				enabled=anchor is not None,
-			)
+			),
 		)
 		return actions + super().actions(ctx, item, anchor, host)
 
@@ -955,7 +964,7 @@ def insertCrossReference(ctx: WordContext, anchor: Any, host: Host) -> None:
 					(_("Only caption text"), KIND_CAPTION_TEXT),
 					(_("Page number"), KIND_PAGE),
 				],
-			)
+			),
 		)
 	# Translators: Title of the cross-reference dialogs.
 	title = _("Insert cross-reference")
@@ -1035,7 +1044,7 @@ def sourceXml(tag: str, sourceType: str, author: str, title: str, year: str, pub
 		last = pieces[-1] if len(pieces) > 1 else name
 		first = " ".join(pieces[:-1]) if len(pieces) > 1 else ""
 		people.append(
-			f"<b:Person><b:Last>{escape(last)}</b:Last><b:First>{escape(first)}</b:First></b:Person>"
+			f"<b:Person><b:Last>{escape(last)}</b:Last><b:First>{escape(first)}</b:First></b:Person>",
 		)
 	authorXml = (
 		f"<b:Author><b:Author><b:NameList>{''.join(people)}</b:NameList></b:Author></b:Author>"
@@ -1061,6 +1070,10 @@ def _newTag(author: str, year: str, existing: set[str]) -> str:
 		number += 1
 		tag = f"{base}_{number}"
 	return tag
+
+
+def _ignoreResult(_value: object) -> None:
+	"""Run an action for its effect only; actions return nothing."""
 
 
 def addSource(ctx: WordContext, host: Host) -> str | None:
@@ -1241,7 +1254,7 @@ class Citations(Fields):
 				enabled=anchor is not None,
 			),
 			# Translators: Action that adds a new source to the document.
-			Action(_("Add a new source..."), lambda: addSource(ctx, host)),
+			Action(_("Add a new source..."), lambda: _ignoreResult(addSource(ctx, host))),
 			# Translators: Action that inserts or updates the bibliography.
 			Action(_("Insert or update the bibliography"), lambda: updateBibliography(ctx, anchor, host)),
 			# Translators: Action that changes the citation style.
