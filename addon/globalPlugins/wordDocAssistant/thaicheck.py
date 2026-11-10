@@ -41,25 +41,32 @@ def reload() -> None:
 		_lists.load()
 
 
-def _locate(ctx: WordContext, paragraphRange: Any, offset: int, word: str, text: str) -> Any:
+#: How far around the expected position a finding is looked for when field codes shift positions.
+LOCATE_WINDOW = 400
+
+
+def _locate(ctx: WordContext, partRange: Any, offset: int, word: str, text: str) -> Any:
 	"""The Word range of a finding. Field codes can shift positions, so check and search if needed."""
-	rangeObj = ctx.document.Range(paragraphRange.Start + offset, paragraphRange.Start + offset + len(word))
+	doc = ctx.document
+	expected = int(partRange.Start) + offset
+	rangeObj = doc.Range(expected, expected + len(word))
 	try:
 		if str(rangeObj.Text or "") == word:
 			return rangeObj
+		# Search near the expected position and take the closest match.
+		window = doc.Range(
+			max(int(partRange.Start), expected - LOCATE_WINDOW),
+			min(int(partRange.End), expected + len(word) + LOCATE_WINDOW),
+		)
 	except COM_ERRORS:
-		pass
-	occurrence = text.count(word, 0, offset)
-	search = paragraphRange.Duplicate
-	found = None
-	for _number in range(occurrence + 1):
-		finder = search.Find
-		finder.ClearFormatting()
-		if not finder.Execute(word, True, False, False, False, False, True, 0):
-			return None
-		found = search.Duplicate
-		search = ctx.document.Range(found.End, paragraphRange.End)
-	return found
+		return None
+	best = None
+	for number, match in enumerate(wordCom.findAll(window, word)):
+		if best is None or abs(match.Start - expected) < abs(best.Start - expected):
+			best = match
+		if number >= 20:
+			break
+	return best
 
 
 class ThaiWords(ElementType):
@@ -97,30 +104,26 @@ class ThaiWords(ElementType):
 		items: list[Item] = []
 		total = 0
 		checkUnknown = bool(conf("thaiCheckUnknown"))
-		paragraph = ctx.document.Content.Paragraphs.First
-		count = 0
-		while paragraph is not None and count < 20000:
-			count += 1
+		budget = wordCom.budgetOf(ctx)
+		# The text is read in large parts: reading it paragraph by paragraph takes minutes in a long document.
+		for part in wordCom.chunks(ctx, budget):
 			try:
-				paragraphRange = paragraph.Range
-				text = wordCom.sameLengthText(paragraphRange.Text)
+				text = wordCom.sameLengthText(part.Text)
 			except COM_ERRORS:
-				break
+				continue
 			for finding in dictionary.check(text, unknown=checkUnknown):
 				total += 1
 				if len(items) >= limit:
 					continue
-				rangeObj = _locate(ctx, paragraphRange, finding.start, finding.word, text)
+				if budget.over():
+					break
+				rangeObj = _locate(ctx, part, finding.start, finding.word, text)
 				if rangeObj is None:
 					continue
 				context = flatText(text[max(0, finding.start - 25) : finding.end + 25])
 				items.append(
 					Item(obj=finding, navRange=rangeObj, start=rangeObj.Start, cache={"context": context}),
 				)
-			try:
-				paragraph = paragraph.Next()
-			except COM_ERRORS:
-				break
 		return items, total
 
 	@staticmethod

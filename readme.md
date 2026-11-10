@@ -44,7 +44,7 @@ Press the letter to move to the next item of that type. Add Shift to move to the
 | Key | Action |
 |---|---|
 | Down arrow / Up arrow | Next or previous item of the current type |
-| Left arrow / Right arrow | Change the element type |
+| Left arrow / Right arrow | Change the element type. The number of items is said when Word can count them quickly; types that need a search of the whole document, such as spelling, are searched when you move to an item |
 | Home / End | First or last item |
 | Space | List of all items of the current type |
 | Applications or Shift+F10 | Actions for the current item |
@@ -259,6 +259,7 @@ NVDA menu, Preferences, Settings, Word Document Assistant:
 * Report the author, and the date, of comments and revisions
 * Speak the text around misspelled words, and how many characters on each side
 * Maximum items collected for each type (for very long documents)
+* Longest search time in seconds (default 10). In a very long document a search stops at this limit and reports how many items it found so far, so NVDA never waits a long time for Word
 * AI suggestions: on or off, service, API key, service address, model, document language, and a connection test
 
 The NVDA+Shift+F8 command can be changed in Input Gestures, category Word Document Assistant.

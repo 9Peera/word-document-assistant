@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2
+
+* Long documents no longer freeze NVDA. Every search for items stops at a time limit (setting "Longest search time in seconds", 10 by default) and reports how many it found so far.
+* Spelling and grammar errors are asked from Word part by part (about 20,000 characters at a time) instead of for the whole document at once.
+* Language problems, empty paragraphs used for spacing and skipped heading levels are found with Word's own search instead of reading every paragraph.
+* The Thai word check reads the text in large parts instead of paragraph by paragraph.
+* Comments, notes, tracked changes, tables, links, bookmarks, fields and pictures are read with the collection's enumerator, which stays fast in long collections.
+* Left and right arrows only say the number of items when Word can count them quickly; spelling, grammar and other slow types are searched when you move to an item.
+
 ## 1.0.1
 
 * Headings (O) are collected with Word's search by heading style, which is much faster in long documents. Before, Word could stop responding and the add-on reported "Word did not respond, please try again".

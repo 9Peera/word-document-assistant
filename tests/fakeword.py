@@ -49,17 +49,39 @@ class Find:
 		self.Replacement = types.SimpleNamespace(ClearFormatting=lambda: None)
 
 	def ClearFormatting(self):
-		pass
+		self.__dict__.pop("Style", None)
+		self.__dict__.pop("LanguageID", None)
 
 	def Execute(self, findText, *args):
 		style = getattr(self, "Style", None)
 		if findText == "" and style is not None:
 			return self._findStyle(style)
+		if len(args) < 9:
+			return self._search(findText, wildcards=len(args) > 2 and bool(args[2]))
 		replaceWith = args[8]
 		doc, start, end = self.range.doc, self.range.Start, self.range.End
 		part = doc.text[start:end].replace(findText, replaceWith)
 		doc.setText(start, end, part)
 		self.range.End = start + len(part)
+		return True
+
+	def _search(self, findText, wildcards):
+		"""Plain or wildcard search (only "@" for one or more), optionally limited to a language."""
+		self.searches = getattr(self, "searches", 0) + 1
+		doc, rangeObj = self.range.doc, self.range
+		if wildcards:
+			pattern = findText.replace("@", "+")
+		else:
+			pattern = re.escape(findText).replace(r"\^p", "\r").replace("^p", "\r")
+		language = getattr(self, "LanguageID", None)
+		text = doc.text
+		if language is not None:
+			text = "".join(ch if doc.lang[i] == language else "\x00" for i, ch in enumerate(text))
+		end = rangeObj.End if rangeObj.End > rangeObj.Start else len(text)
+		match = re.compile(pattern).search(text, rangeObj.Start, end)
+		if match is None:
+			return False
+		rangeObj.Start, rangeObj.End = match.start(), match.end()
 		return True
 
 	def _findStyle(self, style):
@@ -113,7 +135,24 @@ class Range:
 		self.doc.selection.Start, self.doc.selection.End = self.Start, self.End
 
 	def MoveEnd(self, unit, count):
+		if unit == 4:
+			# By paragraph: to the end of the paragraph the range ends in.
+			self.End = next((p.end for p in self.doc.paragraphs() if p.end > self.End), len(self.doc.text))
+			return
 		self.End = max(self.Start, self.End + count)
+
+	def SetRange(self, start, end):
+		self.Start, self.End = start, end
+
+	@property
+	def SpellingErrors(self):
+		self.doc.proofingCalls.append((self.Start, self.End))
+		return Coll(Range(self.doc, s, e) for s, e in self.doc.spelling if self.Start <= s < self.End)
+
+	@property
+	def GrammaticalErrors(self):
+		self.doc.proofingCalls.append((self.Start, self.End))
+		return Coll(Range(self.doc, s, e) for s, e in self.doc.grammar if self.Start <= s < self.End)
 
 	def InsertAfter(self, text):
 		self.doc.setText(self.End, self.End, text)
@@ -418,6 +457,9 @@ class Doc:
 		self.fields: list[Field] = []
 		self.sources: list[Source] = []
 		self.spelling: list[tuple[int, int]] = []
+		self.grammar: list[tuple[int, int]] = []
+		#: Ranges whose spelling or grammar errors were asked for.
+		self.proofingCalls: list[tuple[int, int]] = []
 		self.properties = {"Title": ""}
 		self.crossReferenceItems: dict[Any, list[str]] = {}
 		self.inserted: list[tuple] = []
@@ -485,10 +527,7 @@ class Doc:
 	# Object model
 	@property
 	def Content(self):
-		content = Range(self, 0, len(self.text))
-		content.SpellingErrors = Coll(Range(self, s, e) for s, e in self.spelling)
-		content.GrammaticalErrors = Coll()
-		return content
+		return Range(self, 0, len(self.text))
 
 	def Range(self, start, end):
 		return Range(self, start, end)

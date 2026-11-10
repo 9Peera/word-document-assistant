@@ -25,6 +25,8 @@ CONFIG_SPEC = {
 	"speakSpellingContext": "boolean(default=False)",
 	"contextLength": "integer(default=20, min=5, max=100)",
 	"maxItems": "integer(default=1000, min=50, max=10000)",
+	# Longest time a search for items may take, so NVDA never waits a long time for Word.
+	"collectSeconds": "integer(default=10, min=3, max=120)",
 	"aiEnabled": "boolean(default=False)",
 	"aiProvider": 'option("gemini", "anthropic", "openaiApi", "openai", "ollama", default="gemini")',
 	"aiApiKey": 'string(default="")',
@@ -99,6 +101,14 @@ class WordDocAssistantPanel(SettingsPanel):
 			min=50,
 			max=10000,
 			initial=conf["maxItems"],
+		)
+		self.collectSeconds = helper.addLabeledControl(
+			# Translators: Label of a number field in the settings panel.
+			_("&Longest search time in seconds:"),
+			nvdaControls.SelectOnFocusSpinCtrl,
+			min=3,
+			max=120,
+			initial=conf["collectSeconds"],
 		)
 		self._makeAiSettings(helper, conf)
 		self._makeWordListSettings(helper, conf)
@@ -291,6 +301,7 @@ class WordDocAssistantPanel(SettingsPanel):
 		conf["speakSpellingContext"] = self.speakContext.GetValue()
 		conf["contextLength"] = self.contextLength.GetValue()
 		conf["maxItems"] = self.maxItems.GetValue()
+		conf["collectSeconds"] = self.collectSeconds.GetValue()
 		self._saveAi()
 		self._saveWordLists()
 		from . import thaicheck

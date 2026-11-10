@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import base64
 import re
+from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Any
 
@@ -155,10 +156,9 @@ def _anchor(picture: Picture) -> Any:
 def collectPictures(ctx: WordContext, limit: int) -> list[Picture]:
 	doc = ctx.document
 	pictures: list[Picture] = []
+	budget = wordCom.budgetOf(ctx)
 	try:
-		inline = doc.InlineShapes
-		for index in range(1, inline.Count + 1):
-			shape = inline.Item(index)
+		for index, shape in enumerate(wordCom.iterate(doc.InlineShapes, budget), start=1):
 			if shape.Type in INLINE_PICTURE_TYPES:
 				pictures.append(Picture(shape, False, index))
 			if len(pictures) >= limit:
@@ -166,9 +166,7 @@ def collectPictures(ctx: WordContext, limit: int) -> list[Picture]:
 	except COM_ERRORS:
 		pass
 	try:
-		shapes = doc.Shapes
-		for index in range(1, shapes.Count + 1):
-			shape = shapes.Item(index)
+		for index, shape in enumerate(wordCom.iterate(doc.Shapes, budget), start=1):
 			if shape.Type in SHAPE_PICTURE_TYPES:
 				pictures.append(Picture(shape, True, index))
 			if len(pictures) >= limit:
@@ -426,53 +424,76 @@ class LanguageProblem:
 	kind: str  # "thai" Thai text not marked Thai, "latin" Latin text marked Thai, "mixed" some words wrong
 
 
-def _problemFor(paragraph: Any, text: str, checkWords: bool) -> LanguageProblem | None:
+#: Word wildcard patterns for a run of Thai letters and a run of Latin letters.
+THAI_RUN = "[\u0e01-\u0e5b]@"
+LATIN_RUN = "[A-Za-z]@"
+#: Languages Thai text gets by mistake, for example when it is pasted from elsewhere.
+WRONG_THAI_LANGUAGES = (LANG_ENGLISH_US, 2057, 0)
+
+
+def _problemOf(paragraph: Any) -> LanguageProblem | None:
+	try:
+		rangeObj = paragraph.Range
+		text = str(rangeObj.Text or "")
+		languageId = int(rangeObj.LanguageID)
+	except (*COM_ERRORS, ValueError, TypeError):
+		return None
 	hasThai = bool(_THAI.search(text))
 	hasLatin = bool(_LATIN.search(text))
-	if not hasThai and not hasLatin:
-		return None
-	try:
-		languageId = int(paragraph.Range.LanguageID)
-	except (*COM_ERRORS, ValueError, TypeError):
-		return None
-	if languageId == LANG_NO_PROOFING:
-		return None
-	if hasThai and not hasLatin and languageId != LANG_THAI:
-		return LanguageProblem(paragraph, text, languageId, "thai")
-	if hasLatin and not hasThai and languageId == LANG_THAI:
-		return LanguageProblem(paragraph, text, languageId, "latin")
 	if hasThai and hasLatin:
-		if languageId != WD_UNDEFINED:
-			# The whole paragraph has one language although it mixes Thai and Latin text.
-			return LanguageProblem(paragraph, text, languageId, "mixed")
-		if checkWords and _wrongWords(paragraph):
-			return LanguageProblem(paragraph, text, languageId, "mixed")
-	return None
+		kind = "mixed"
+	elif hasThai:
+		kind = "thai"
+	elif hasLatin:
+		kind = "latin"
+	else:
+		return None
+	return LanguageProblem(paragraph, text, languageId, kind)
 
 
-def _wrongWords(paragraph: Any) -> int:
-	count = 0
-	try:
-		words = paragraph.Range.Words
-		for index in range(1, min(words.Count, 400) + 1):
-			word = words.Item(index)
-			text = str(word.Text or "")
-			if _THAI.search(text) and int(word.LanguageID) != LANG_THAI:
-				count += 1
-			elif _LATIN.search(text) and not _THAI.search(text) and int(word.LanguageID) == LANG_THAI:
-				count += 1
-	except (*COM_ERRORS, ValueError, TypeError):
-		pass
-	return count
+def findLanguageProblems(ctx: WordContext, limit: int) -> list[LanguageProblem]:
+	"""Paragraphs with Thai text not marked Thai, or Latin text marked Thai, in document order.
+
+	Word's own search finds the wrong text, so only those paragraphs are read: reading every paragraph
+	and asking for its language takes minutes in a long document.
+	"""
+	budget = wordCom.budgetOf(ctx)
+	content = ctx.document.Content
+	searches = [
+		(THAI_RUN, language) for language in dict.fromkeys((_latinLanguage(ctx), *WRONG_THAI_LANGUAGES))
+	]
+	searches.append((LATIN_RUN, LANG_THAI))
+	found: dict[int, LanguageProblem] = {}
+	for pattern, language in searches:
+		for paragraph in wordCom.findAll(
+			content,
+			pattern,
+			wildcards=True,
+			languageId=language,
+			budget=budget,
+			paragraphs=True,
+		):
+			try:
+				start = int(paragraph.Range.Start)
+			except COM_ERRORS:
+				continue
+			if start in found:
+				continue
+			problem = _problemOf(paragraph)
+			if problem is not None:
+				found[start] = problem
+			if len(found) >= limit:
+				break
+		if len(found) >= limit or budget.over():
+			break
+	return [found[start] for start in sorted(found)]
 
 
 def fixParagraphLanguage(ctx: WordContext, paragraph: Any) -> int:
 	"""Mark Thai words as Thai and Latin words with the document's Latin language. Returns words changed."""
 	latin = _latinLanguage(ctx)
 	changed = 0
-	words = paragraph.Range.Words
-	for index in range(1, words.Count + 1):
-		word = words.Item(index)
+	for word in wordCom.iterate(paragraph.Range.Words):
 		text = str(word.Text or "")
 		wanted = LANG_THAI if _THAI.search(text) else latin if _LATIN.search(text) else None
 		if wanted is None:
@@ -484,10 +505,6 @@ def fixParagraphLanguage(ctx: WordContext, paragraph: Any) -> int:
 		except (*COM_ERRORS, ValueError, TypeError):
 			continue
 	return changed
-
-
-#: Above this number of mixed paragraphs, words are not checked one by one (it would be slow).
-WORD_CHECK_LIMIT = 150
 
 
 class LanguageProblems(ElementType):
@@ -517,18 +534,13 @@ class LanguageProblems(ElementType):
 		]
 
 	def collect(self, ctx, limit):
-		paragraphs = list(_paragraphs(ctx, 20000))
-		mixed = sum(1 for _p, text in paragraphs if _THAI.search(text) and _LATIN.search(text))
-		checkWords = mixed <= WORD_CHECK_LIMIT
 		items = []
-		for paragraph, text in paragraphs:
-			problem = _problemFor(paragraph, text, checkWords)
-			if problem is None:
+		for problem in findLanguageProblems(ctx, limit):
+			try:
+				rangeObj = problem.paragraph.Range
+				items.append(Item(obj=problem, navRange=rangeObj, start=rangeObj.Start))
+			except COM_ERRORS:
 				continue
-			rangeObj = paragraph.Range
-			items.append(Item(obj=problem, navRange=rangeObj, start=rangeObj.Start))
-			if len(items) >= limit:
-				break
 		return items, len(items)
 
 	@staticmethod
@@ -703,9 +715,35 @@ def _isUnclearLink(text: str, address: str) -> bool:
 LONG_DOCUMENT = 25
 
 
+def _emptyParagraphRuns(ctx: WordContext, budget: wordCom.Budget) -> Iterator[list[Any]]:
+	"""Runs of two or more empty paragraphs, found with Word's search for three paragraph marks."""
+	doc = ctx.document
+	lastEnd = -1
+	for match in wordCom.findAll(doc.Content, "^p^p^p", budget=budget):
+		try:
+			start, end = int(match.Start), int(match.End)
+			if start < lastEnd:
+				# Part of a run already reported.
+				continue
+			# The first mark ends the paragraph before the run; the run goes on while marks follow.
+			while not budget.over():
+				following = str(doc.Range(end, end + 50).Text or "")
+				extra = len(following) - len(following.lstrip("\r"))
+				end += extra
+				if extra < 50:
+					break
+			lastEnd = end
+			run = list(wordCom.iterate(doc.Range(start + 1, end).Paragraphs, budget))
+		except COM_ERRORS:
+			continue
+		if len(run) >= 2:
+			yield run
+
+
 def checkDocument(ctx: WordContext, limit: int) -> list[Issue]:
 	doc = ctx.document
 	issues: list[Issue] = []
+	budget = wordCom.budgetOf(ctx)
 	# Pictures
 	for picture in collectPictures(ctx, 2000):
 		try:
@@ -720,8 +758,7 @@ def checkDocument(ctx: WordContext, limit: int) -> list[Issue]:
 	# Tables
 	try:
 		tables = doc.Tables
-		for index in range(1, tables.Count + 1):
-			table = tables.Item(index)
+		for index, table in enumerate(wordCom.iterate(tables, budget), start=1):
 			try:
 				if table.Rows.Count > 1 and not table.Rows.Item(1).HeadingFormat:
 					# Translators: Describes a table, for example "Table 2".
@@ -737,87 +774,67 @@ def checkDocument(ctx: WordContext, limit: int) -> list[Issue]:
 				continue
 	except COM_ERRORS:
 		pass
-	# Paragraph based checks
+	# Headings, found with Word's search by heading style
+	from .structure import Headings
+
+	headingItems, _count = Headings().collect(ctx, 5000)
 	previousLevel = 0
-	headings = 0
-	emptyRun: list[Any] = []
-	paragraphCount = 0
-	languageChecked = 0
-	for paragraph, text in _paragraphs(ctx, 20000):
-		paragraphCount += 1
-		rangeObj = paragraph.Range
-		empty = _isEmptyText(text) and "\x0c" not in text
-		if empty and not _inTable(rangeObj):
-			try:
-				hasPicture = rangeObj.InlineShapes.Count > 0
-			except COM_ERRORS:
-				hasPicture = True
-			if not hasPicture:
-				emptyRun.append(paragraph)
-				continue
-		if len(emptyRun) >= 2:
+	for item in headingItems:
+		level = int(item.cache.get("level", WD_OUTLINE_BODY_TEXT))
+		if previousLevel and level > previousLevel + 1:
 			issues.append(
 				Issue(
-					"emptyParagraphs",
-					emptyRun[0].Range,
-					# Translators: Describes a run of empty paragraphs; {count} is a number.
-					_("{count} empty paragraphs in a row").format(count=len(emptyRun)),
-					target=list(emptyRun),
+					"headingSkip",
+					item.navRange,
+					# Translators: Describes a skipped heading level.
+					_("Level {level} after level {previous}: {text}").format(
+						level=level,
+						previous=previousLevel,
+						text=flatText(item.obj.Range.Text, 80),
+					),
+					target=item.obj,
+					extra=previousLevel + 1,
 				),
 			)
-		emptyRun = []
+		previousLevel = level
+	if not headingItems:
 		try:
-			level = int(paragraph.OutlineLevel)
+			paragraphCount = int(doc.Paragraphs.Count)
 		except (*COM_ERRORS, ValueError, TypeError):
-			level = WD_OUTLINE_BODY_TEXT
-		if level < WD_OUTLINE_BODY_TEXT:
-			headings += 1
-			if previousLevel and level > previousLevel + 1:
-				issues.append(
-					Issue(
-						"headingSkip",
-						rangeObj,
-						# Translators: Describes a skipped heading level.
-						_("Level {level} after level {previous}: {text}").format(
-							level=level,
-							previous=previousLevel,
-							text=flatText(text, 80),
-						),
-						target=paragraph,
-						extra=previousLevel + 1,
-					),
-				)
-			previousLevel = level
-		if languageChecked < 5000:
-			languageChecked += 1
-			problem = _problemFor(paragraph, text, checkWords=False)
-			if problem is not None:
-				issues.append(Issue("language", rangeObj, flatText(text, 80), target=problem))
-		if len(issues) >= limit:
-			break
-	if len(emptyRun) >= 2:
+			paragraphCount = 0
+		if paragraphCount > LONG_DOCUMENT:
+			issues.append(
+				Issue(
+					"noHeadings",
+					doc.Range(0, 0),
+					# Translators: Describes a document without headings; {count} is a number.
+					_("{count} paragraphs, no headings").format(count=paragraphCount),
+				),
+			)
+	# Empty paragraphs used for spacing
+	for run in _emptyParagraphRuns(ctx, budget):
 		issues.append(
 			Issue(
 				"emptyParagraphs",
-				emptyRun[0].Range,
-				_("{count} empty paragraphs in a row").format(count=len(emptyRun)),
-				target=list(emptyRun),
+				run[0].Range,
+				# Translators: Describes a run of empty paragraphs; {count} is a number.
+				_("{count} empty paragraphs in a row").format(count=len(run)),
+				target=run,
 			),
 		)
-	if paragraphCount > LONG_DOCUMENT and headings == 0:
-		issues.append(
-			Issue(
-				"noHeadings",
-				doc.Range(0, 0),
-				# Translators: Describes a document without headings; {count} is a number.
-				_("{count} paragraphs, no headings").format(count=paragraphCount),
-			),
-		)
+		if len(issues) >= limit:
+			break
+	# Language
+	for problem in findLanguageProblems(ctx, max(0, limit - len(issues))):
+		try:
+			issues.append(
+				Issue("language", problem.paragraph.Range, flatText(problem.text, 80), target=problem),
+			)
+		except COM_ERRORS:
+			continue
 	# Links
 	try:
-		links = doc.Hyperlinks
-		for index in range(1, links.Count + 1):
-			link = links.Item(index)
+		for link in wordCom.iterate(doc.Hyperlinks, budget):
 			try:
 				text = str(link.TextToDisplay or "")
 				address = str(link.Address or "")

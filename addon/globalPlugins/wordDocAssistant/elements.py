@@ -150,13 +150,41 @@ class ElementType:
 		return actions
 
 
-def _collectRanges(collection: Any, limit: int) -> tuple[list[Item], int]:
-	total = collection.Count
+def _collectRanges(
+	collection: Any,
+	limit: int,
+	budget: wordCom.Budget | None = None,
+) -> tuple[list[Item], int]:
 	items = []
-	for index in range(1, min(total, limit) + 1):
-		rangeObj = collection.Item(index)
+	for rangeObj in wordCom.iterate(collection, budget):
+		if len(items) >= limit:
+			break
 		items.append(Item(obj=rangeObj, navRange=rangeObj, start=rangeObj.Start))
-	return items, total
+	return items, len(items)
+
+
+def _collectProofing(ctx: WordContext, limit: int, collectionName: str) -> tuple[list[Item], int]:
+	"""Spelling or grammar errors, read part by part so a long document can stop at the time limit.
+
+	Asking the whole document for its errors makes Word check all of it in one call, which can take
+	minutes in a long document and cannot be stopped.
+	"""
+	budget = wordCom.budgetOf(ctx)
+	items: list[Item] = []
+	seen: set[int] = set()
+	for part in wordCom.chunks(ctx, budget):
+		try:
+			errors = getattr(part, collectionName)
+		except COM_ERRORS:
+			continue
+		found, _total = _collectRanges(errors, limit - len(items), budget)
+		for item in found:
+			if item.start not in seen:
+				seen.add(item.start)
+				items.append(item)
+		if len(items) >= limit:
+			break
+	return items, len(items)
 
 
 def _context(ctx: WordContext, start: int, end: int) -> str:
@@ -196,7 +224,7 @@ class SpellingErrors(ElementType):
 		]
 
 	def collect(self, ctx, limit):
-		return _collectRanges(ctx.document.Content.SpellingErrors, limit)
+		return _collectProofing(ctx, limit, "SpellingErrors")
 
 	def _word(self, item: Item) -> str:
 		if "word" not in item.cache:
@@ -330,7 +358,7 @@ class GrammarErrors(ElementType):
 		return [Section(_("Text with the issue"), multiline=True)]
 
 	def collect(self, ctx, limit):
-		return _collectRanges(ctx.document.Content.GrammaticalErrors, limit)
+		return _collectProofing(ctx, limit, "GrammaticalErrors")
 
 	def summary(self, ctx, item):
 		return flatText(item.obj.Text, 200)
@@ -397,12 +425,9 @@ class Comments(ElementType):
 		]
 
 	def collect(self, ctx, limit):
-		comments = ctx.document.Comments
-		total = comments.Count
 		items = []
 		truncated = False
-		for index in range(1, total + 1):
-			comment = comments.Item(index)
+		for comment in wordCom.iterate(ctx.document.Comments, wordCom.budgetOf(ctx)):
 			try:
 				# Replies are shown inside their parent comment.
 				if comment.Ancestor is not None:
@@ -670,8 +695,9 @@ class _Notes(ElementType):
 		notes = self._collection(ctx.document)
 		total = notes.Count
 		items = []
-		for index in range(1, min(total, limit) + 1):
-			note = notes.Item(index)
+		for note in wordCom.iterate(notes, wordCom.budgetOf(ctx)):
+			if len(items) >= limit:
+				break
 			reference = note.Reference
 			items.append(Item(obj=note, navRange=reference, start=reference.Start))
 		return items, total
@@ -935,8 +961,9 @@ class Revisions(ElementType):
 		revisions = ctx.document.Revisions
 		total = revisions.Count
 		items = []
-		for index in range(1, min(total, limit) + 1):
-			revision = revisions.Item(index)
+		for revision in wordCom.iterate(revisions, wordCom.budgetOf(ctx)):
+			if len(items) >= limit:
+				break
 			rangeObj = revision.Range
 			items.append(Item(obj=revision, navRange=rangeObj, start=rangeObj.Start))
 		items.sort(key=lambda i: i.start)

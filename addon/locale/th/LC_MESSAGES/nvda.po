@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  wordDocAssistant\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-07 20:37+0700\n"
+"POT-Creation-Date: 2026-11-10 12:00+0700\n"
 "PO-Revision-Date: 2026-11-01 15:40+0700\n"
 "Last-Translator: Peera Pilarit\n"
 "Language-Team: Thai\n"
@@ -167,6 +167,13 @@ msgstr "โหมดนำทาง, {kind}"
 #, python-brace-format
 msgid "Collecting {kind}..."
 msgstr "กำลังรวบรวม{kind}..."
+
+#, python-brace-format
+msgid ""
+"Long document, stopped after {seconds} seconds with {count} found. The time "
+"limit is in the settings"
+msgstr ""
+"เอกสารยาว หยุดค้นหาหลัง {seconds} วินาที พบ {count} รายการ ปรับเวลาจำกัดได้ในการตั้งค่า"
 
 #. Translators: Reported when the document has no items of a type, for example "No Comments".
 #, python-brace-format
@@ -779,11 +786,6 @@ msgstr "การกำหนดภาษาผิดทำให้ตรวจ
 msgid "Table {number}"
 msgstr "ตารางที่ {number}"
 
-#. Translators: Describes a run of empty paragraphs; {count} is a number.
-#, python-brace-format
-msgid "{count} empty paragraphs in a row"
-msgstr "ย่อหน้าว่างติดกัน {count} ย่อหน้า"
-
 #. Translators: Describes a skipped heading level.
 #, python-brace-format
 msgid "Level {level} after level {previous}: {text}"
@@ -793,6 +795,11 @@ msgstr "ระดับ {level} ต่อจากระดับ {previous}: {t
 #, python-brace-format
 msgid "{count} paragraphs, no headings"
 msgstr "{count} ย่อหน้า ไม่มีหัวเรื่อง"
+
+#. Translators: Describes a run of empty paragraphs; {count} is a number.
+#, python-brace-format
+msgid "{count} empty paragraphs in a row"
+msgstr "ย่อหน้าว่างติดกัน {count} ย่อหน้า"
 
 #. Translators: Detail of the missing title problem.
 msgid "File, Info, Properties, Title is empty"
@@ -2004,6 +2011,10 @@ msgstr "จำนวนอักขระของบริบทแต่ละ
 msgid "&Maximum items collected for each type:"
 msgstr "จำนวนรายการสูงสุดที่รวบรวมต่อชนิด(&M):"
 
+#. Translators: Label of a number field in the settings panel.
+msgid "&Longest search time in seconds:"
+msgstr "เวลาค้นหา&นานที่สุด (วินาที):"
+
 #. Translators: Group of Thai word check settings in the settings panel.
 msgid "Thai word check (Z)"
 msgstr "ตรวจคำภาษาไทย (Z)"
@@ -2965,10 +2976,22 @@ msgstr ""
 #. Brief changelog for this version
 #. Translators: what's new content for the add-on version to be shown in the add-on store
 msgid ""
-"Collecting headings is much faster in long documents, and Word no longer "
-"stops responding. First public release: the weekly check for new Thai word "
-"lists is off until you allow it."
-msgstr "การรวบรวมหัวเรื่องเร็วขึ้นมากในเอกสารยาว และ Word ไม่ค้างไม่ตอบสนองอีก รุ่นแรกที่เผยแพร่สู่สาธารณะ: การตรวจหารายการคำภาษาไทยรุ่นใหม่รายสัปดาห์จะปิดไว้จนกว่าผู้ใช้จะอนุญาต"
+"Much faster in long documents, and NVDA no longer freezes: spelling, grammar "
+"and the Thai word check read the document in large parts, language problems, "
+"empty paragraphs and headings are found with Word's own search, and every "
+"search stops at a time limit (10 seconds by default, in the settings) with "
+"what it found so far. Moving between types with the arrow keys no longer "
+"searches the whole document."
+msgstr "เร็วขึ้นมากในเอกสารยาว และ NVDA ไม่ค้างอีก: คำสะกดผิด ไวยากรณ์ และการตรวจคำภาษาไทยอ่านเอกสารเป็นส่วนใหญ่ ๆ ปัญหาการกำหนดภาษา ย่อหน้าว่าง และหัวเรื่องใช้การค้นหาของ Word เอง และทุกการค้นหาหยุดเมื่อครบเวลาที่กำหนด (ค่าเริ่มต้น 10 วินาที ปรับได้ในการตั้งค่า) พร้อมรายการที่พบแล้ว การเปลี่ยนชนิดด้วยลูกศรไม่ค้นทั้งเอกสารอีกต่อไป"
+
+#~ msgid ""
+#~ "Collecting headings is much faster in long documents, and Word no longer "
+#~ "stops responding. First public release: the weekly check for new Thai "
+#~ "word lists is off until you allow it."
+#~ msgstr ""
+#~ "การรวบรวมหัวเรื่องเร็วขึ้นมากในเอกสารยาว และ Word ไม่ค้างไม่ตอบสนองอีก "
+#~ "รุ่นแรกที่เผยแพร่สู่สาธารณะ: "
+#~ "การตรวจหารายการคำภาษาไทยรุ่นใหม่รายสัปดาห์จะปิดไว้จนกว่าผู้ใช้จะอนุญาต"
 
 #~ msgid ""
 #~ "First public release. The weekly check for new Thai word lists is off "

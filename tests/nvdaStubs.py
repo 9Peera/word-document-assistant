@@ -139,6 +139,7 @@ DEFAULT_CONFIG = {
 	"wordListAutoDownload": False,
 	"wordListLibreOffice": False,
 	"misspellingListUrl": "",
+	"collectSeconds": 10,
 }
 
 

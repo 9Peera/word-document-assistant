@@ -6,7 +6,6 @@
 from __future__ import annotations
 
 import re
-import time
 from typing import Any
 from xml.sax.saxutils import escape
 
@@ -26,12 +25,9 @@ STYLE_NORMAL = -1
 STYLE_HEADING1 = -2
 WD_FIELD_EMPTY = -1
 WD_COLLAPSE_END = 0
-WD_FIND_STOP = 0
 WD_STYLE_TYPE_PARAGRAPH = 1
 #: Built-in styles Heading 1 to Heading 9 (wdStyleHeading1 is -2, wdStyleHeading9 is -10).
 BUILTIN_HEADING_STYLES = tuple(range(STYLE_HEADING1, STYLE_HEADING1 - 9, -1))
-#: Longest time to spend looking for headings, so NVDA never waits on Word for long.
-COLLECT_SECONDS = 8
 
 
 def _headingStyles(doc: Any) -> list[Any]:
@@ -118,13 +114,14 @@ class Headings(ElementType):
 		found: dict[int, Item] = {}
 		# Word's Find jumps straight to paragraphs in a heading style, which stays fast in long documents.
 		# Searching heading by heading with GoTo can take so long that Word stops answering.
+		budget = wordCom.budgetOf(ctx)
 		for style in _headingStyles(doc):
-			self._findStyle(doc, style, found, limit)
-			if len(found) >= limit:
+			self._findStyle(doc, style, found, limit, budget)
+			if len(found) >= limit or budget.over():
 				break
 		if not found:
 			# Headings made with a paragraph outline level instead of a heading style.
-			self._collectWithGoTo(doc, found, limit)
+			self._collectWithGoTo(doc, found, limit, budget)
 		items = [found[start] for start in sorted(found)][:limit]
 		return items, len(items)
 
@@ -141,47 +138,15 @@ class Headings(ElementType):
 		except (*COM_ERRORS, ValueError, TypeError, AttributeError):
 			pass
 
-	def _findStyle(self, doc: Any, style: Any, found: dict[int, Item], limit: int) -> None:
-		try:
-			search = doc.Content
-			finder = search.Find
-			finder.ClearFormatting()
-			finder.Style = style
-		except COM_ERRORS:
-			# The style does not exist in this document.
-			return
-		try:
-			self._findRuns(finder, search, found, limit)
-		finally:
-			# Find settings are shared with Word's own Find dialog, so do not leave the style there.
-			try:
-				finder.ClearFormatting()
-			except COM_ERRORS:
-				pass
-
-	def _findRuns(self, finder: Any, search: Any, found: dict[int, Item], limit: int) -> None:
-		lastEnd = -1
-		deadline = time.monotonic() + COLLECT_SECONDS
-		while len(found) < limit and time.monotonic() < deadline:
-			try:
-				# FindText, MatchCase, MatchWholeWord, MatchWildcards, MatchSoundsLike, MatchAllWordForms,
-				# Forward, Wrap (stop at the end), Format.
-				if not finder.Execute("", False, False, False, False, False, True, WD_FIND_STOP, True):
+	def _findStyle(self, doc: Any, style: Any, found: dict[int, Item], limit: int, budget: Any) -> None:
+		for match in wordCom.findAll(doc.Content, style=style, budget=budget):
+			# One match covers a run of paragraphs with the same style.
+			for paragraph in wordCom.iterate(match.Paragraphs, budget):
+				self._add(found, paragraph)
+				if len(found) >= limit:
 					return
-				if search.End <= lastEnd:
-					return
-				lastEnd = search.End
-				# One match covers a run of paragraphs with the same style.
-				paragraphs = search.Paragraphs
-				for index in range(1, paragraphs.Count + 1):
-					self._add(found, paragraphs.Item(index))
-					if len(found) >= limit:
-						return
-				search.Collapse(WD_COLLAPSE_END)
-			except COM_ERRORS:
-				return
 
-	def _collectWithGoTo(self, doc: Any, found: dict[int, Item], limit: int) -> None:
+	def _collectWithGoTo(self, doc: Any, found: dict[int, Item], limit: int, budget: Any) -> None:
 		try:
 			self._add(found, doc.Content.Paragraphs.First)
 			docEnd = int(doc.Content.End)
@@ -189,8 +154,7 @@ class Headings(ElementType):
 			return
 		position = doc.Range(0, 0)
 		lastStart = -1
-		deadline = time.monotonic() + COLLECT_SECONDS
-		while len(found) < limit and time.monotonic() < deadline:
+		while len(found) < limit and not budget.over():
 			try:
 				foundRange = position.GoTo(WD_GOTO_HEADING, WD_GOTO_NEXT)
 				if foundRange is None or foundRange.Start <= lastStart:
@@ -320,8 +284,9 @@ class Tables(ElementType):
 	def collect(self, ctx, limit):
 		items = []
 		tables = ctx.document.Tables
-		for index in range(1, min(tables.Count, limit) + 1):
-			table = tables.Item(index)
+		for index, table in enumerate(wordCom.iterate(tables, wordCom.budgetOf(ctx)), start=1):
+			if len(items) >= limit:
+				break
 			items.append(
 				Item(obj=table, navRange=table.Range, start=table.Range.Start, cache={"number": index}),
 			)
@@ -492,8 +457,9 @@ class Links(ElementType):
 	def collect(self, ctx, limit):
 		items = []
 		links = ctx.document.Hyperlinks
-		for index in range(1, min(links.Count, limit) + 1):
-			link = links.Item(index)
+		for link in wordCom.iterate(links, wordCom.budgetOf(ctx)):
+			if len(items) >= limit:
+				break
 			try:
 				rangeObj = link.Range
 			except COM_ERRORS:
@@ -625,8 +591,9 @@ class Bookmarks(ElementType):
 	def collect(self, ctx, limit):
 		items = []
 		bookmarks = ctx.document.Bookmarks
-		for index in range(1, min(bookmarks.Count, limit) + 1):
-			bookmark = bookmarks.Item(index)
+		for bookmark in wordCom.iterate(bookmarks, wordCom.budgetOf(ctx)):
+			if len(items) >= limit:
+				break
 			items.append(Item(obj=bookmark, navRange=bookmark.Range, start=bookmark.Range.Start))
 		items.sort(key=lambda i: i.start)
 		return items, bookmarks.Count
@@ -730,10 +697,8 @@ class Fields(ElementType):
 
 	def collect(self, ctx, limit):
 		items = []
-		fields = ctx.document.Fields
 		total = 0
-		for index in range(1, fields.Count + 1):
-			field = fields.Item(index)
+		for field in wordCom.iterate(ctx.document.Fields, wordCom.budgetOf(ctx)):
 			if not self.wanted(field):
 				continue
 			total += 1
@@ -1223,9 +1188,7 @@ def insertCitation(ctx: WordContext, anchor: Any, host: Host) -> None:
 
 def updateBibliography(ctx: WordContext, anchor: Any, host: Host) -> None:
 	doc = ctx.document
-	fields = doc.Fields
-	for index in range(1, fields.Count + 1):
-		field = fields.Item(index)
+	for field in wordCom.iterate(doc.Fields):
 		if _fieldKind(field) == "BIBLIOGRAPHY":
 			field.Update()
 			host.modified()
@@ -1265,9 +1228,7 @@ def setCitationStyle(ctx: WordContext, host: Host) -> None:
 
 
 def updateAllCitations(ctx: WordContext) -> None:
-	fields = ctx.document.Fields
-	for index in range(1, fields.Count + 1):
-		field = fields.Item(index)
+	for field in wordCom.iterate(ctx.document.Fields):
 		if _fieldKind(field) in ("CITATION", "BIBLIOGRAPHY"):
 			try:
 				field.Update()

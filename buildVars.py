@@ -36,10 +36,10 @@ Main features:
 - AI services: Google Gemini (free tier), Anthropic Claude and OpenAI (paid), OpenAI compatible services, or Ollama on this computer for confidential documents. Guided API key setup (NVDA+Control+Shift+F8) with automatic model choice.
 - Every change is one Word undo step. API keys are encrypted for the Windows user. Keys work with Thai and English keyboard layouts. Thai and English interface."""),
 	# version
-	addon_version="1.0.1",
+	addon_version="1.0.2",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""Collecting headings is much faster in long documents, and Word no longer stops responding. First public release: the weekly check for new Thai word lists is off until you allow it."""),
+	addon_changelog=_("""Much faster in long documents, and NVDA no longer freezes: spelling, grammar and the Thai word check read the document in large parts, language problems, empty paragraphs and headings are found with Word's own search, and every search stops at a time limit (10 seconds by default, in the settings) with what it found so far. Moving between types with the arrow keys no longer searches the whole document."""),
 	# Author(s)
 	addon_author="Peera Pilarit <9peera@gmail.com>",
 	# URL for the add-on documentation support

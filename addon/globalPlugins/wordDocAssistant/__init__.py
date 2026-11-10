@@ -41,6 +41,9 @@ from .wordCom import COM_ERRORS, WordContext, WordUnavailable
 
 addonHandler.initTranslation()
 
+#: Longest time spent counting a type while moving between types with the arrow keys.
+QUICK_COUNT_SECONDS = 1.5
+
 # Virtual key codes. Navigation mode reads keys by virtual key, so it works the same
 # with the Thai (Kedmanee) and English keyboard layouts.
 VK_BACK = 0x08
@@ -163,6 +166,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self._kindIndex = 0
 		self._items: dict[str, list[Item]] = {}
 		self._totals: dict[str, int] = {}
+		#: Types whose search stopped at the time limit.
+		self._partial: set[str] = set()
+		#: Spoken before the next message, for example that a search stopped early.
+		self._note: str | None = None
 		self._index: int | None = None
 		self._indexKind = ""
 		self._inclusive = True
@@ -309,6 +316,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self._ensureFocusMode()
 		self._items.clear()
 		self._totals.clear()
+		self._partial.clear()
+		self._note = None
 		self._index = None
 		self._inclusive = True
 		self.active = True
@@ -374,18 +383,45 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			sounds.play(sounds.ERROR)
 
 	def getItems(self, kind: ElementType) -> list[Item]:
-		items = self._items.get(kind.id)
-		if items is None:
+		if kind.id not in self._items:
 			if kind.slow:
 				# Translators: Reported while a slow list, such as spelling errors, is collected.
 				ui.message(_("Collecting {kind}...").format(kind=kind.label))
-			items, total = kind.collect(self.ctx, conf("maxItems"))
-			self._items[kind.id] = items
-			self._totals[kind.id] = total
+			self._collect(kind, conf("collectSeconds"))
 			if kind.id == "thaiWords":
 				wordListUpdates.announcePending()
 				wx.CallAfter(wordListUpdates.askOnce)
-		return items
+		return self._items[kind.id]
+
+	def _collect(self, kind: ElementType, seconds: float, keepPartial: bool = True) -> bool:
+		"""Collect the items of a type within a time limit. Returns False if the limit stopped it."""
+		ctx = self.ctx
+		ctx.budget = wordCom.Budget(seconds)
+		try:
+			items, total = kind.collect(ctx, conf("maxItems"))
+		finally:
+			budget, ctx.budget = ctx.budget, wordCom.Budget(float("inf"))
+		if budget.expired:
+			if not keepPartial:
+				return False
+			# Only part of the document was searched, so the total is what was found.
+			total = len(items)
+			self._partial.add(kind.id)
+			sounds.play(sounds.WRAP)
+			# Translators: Reported when a search took too long and stopped part way;
+			# {count} is the number of items found and {seconds} the time limit.
+			self._note = _(
+				"Long document, stopped after {seconds} seconds with {count} found. "
+				"The time limit is in the settings",
+			).format(seconds=budget.seconds, count=total)
+		self._items[kind.id] = items
+		self._totals[kind.id] = total
+		return not budget.expired
+
+	def _takeNote(self, text: str) -> str:
+		"""Put a waiting note, such as a search that stopped early, in front of the next message."""
+		note, self._note = self._note, None
+		return f"{note}. {text}" if note else text
 
 	def isInvalidated(self, kind: ElementType) -> bool:
 		return kind.id not in self._items
@@ -401,7 +437,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def _noItems(self, kind: ElementType) -> None:
 		sounds.play(sounds.ERROR)
 		# Translators: Reported when the document has no items of a type, for example "No Comments".
-		ui.message(_("No {kind}").format(kind=kind.label))
+		ui.message(self._takeNote(_("No {kind}").format(kind=kind.label)))
 
 	def _move(self, direction: int) -> None:
 		kind = self.kind
@@ -449,7 +485,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Translators: Reported when navigation wraps around the document.
 				text = _("Wrapped") + ", " + text
 		speech.cancelSpeech()
-		ui.message(text)
+		ui.message(self._takeNote(text))
 
 	def _edge(self, direction: int) -> None:
 		items = self.getItems(self.kind)
@@ -463,10 +499,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self._kindIndex = (self._kindIndex + direction) % count
 		self._index = None
 		kind = self.kind
-		total = len(self.getItems(kind)) and self._totals[kind.id]
 		speech.cancelSpeech()
+		# Searching a long document can take a while: slow types wait until the user moves to an item,
+		# the others are counted only if that is quick.
+		if kind.id not in self._items and (kind.slow or not self._collect(kind, QUICK_COUNT_SECONDS, False)):
+			ui.message(kind.label)
+			return
 		# Translators: Reported when the element type changes, for example "Comments, 5".
-		ui.message(_("{kind}, {count}").format(kind=kind.label, count=total))
+		ui.message(self._takeNote(_("{kind}, {count}").format(kind=kind.label, count=self._totals[kind.id])))
 
 	def _letter(self, vk: int, shift: bool) -> None:
 		kind = registry.TYPES_BY_VK.get(vk)
@@ -630,6 +670,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"""The document changed: collect items again on the next command."""
 		self._items.clear()
 		self._totals.clear()
+		self._partial.clear()
 		self._index = None
 		self._inclusive = True
 

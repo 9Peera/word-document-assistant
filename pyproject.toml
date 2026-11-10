@@ -9,7 +9,7 @@ package = false
 [project]
 name = "wordDocAssistant"
 # Keep in step with addon_version in buildVars.py.
-version = "1.0.1"
+version = "1.0.2"
 description = "NVDA add-on for Microsoft Word document work"
 maintainers = [
 	{name = "Peera Pilarit", email = "9peera@gmail.com"},

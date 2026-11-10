@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import re
+import time
 from collections.abc import Iterator
 from contextlib import contextmanager
 from datetime import datetime
@@ -45,8 +46,186 @@ WD_STAT_WORDS = 0
 WD_STAT_PAGES = 2
 WD_STAT_PARAGRAPHS = 4
 
+WD_FIND_STOP = 0
+WD_PARAGRAPH = 4
+
 # Errors raised by the Word object model.
 COM_ERRORS = (COMError, OSError, AttributeError)
+
+#: Characters of the main text read from Word in one call when the document is read in parts.
+CHUNK_SIZE = 20000
+
+
+class Budget:
+	"""A time limit for collecting items, so NVDA never waits a long time for Word.
+
+	Every call into Word goes between processes, so walking a long document item by item can take
+	minutes. Collectors check the budget between calls and stop with what they found so far.
+	"""
+
+	def __init__(self, seconds: float):
+		self.seconds = seconds
+		self._deadline = time.monotonic() + seconds
+		self.expired = False
+
+	def over(self) -> bool:
+		if not self.expired and time.monotonic() >= self._deadline:
+			self.expired = True
+		return self.expired
+
+
+def budgetOf(ctx: Any) -> Budget:
+	budget = getattr(ctx, "budget", None)
+	if budget is None:
+		budget = Budget(float("inf"))
+		try:
+			ctx.budget = budget
+		except AttributeError:
+			pass
+	return budget
+
+
+def iterate(collection: Any, budget: Budget | None = None) -> Iterator[Any]:
+	"""The items of a Word collection in order, until the budget runs out.
+
+	The collection's enumerator is used: Item(n) makes Word count from the start every time, so a loop
+	over Item(1..n) gets slower and slower in long documents.
+	"""
+	first = None
+	try:
+		enumerator = iter(collection)
+		first = next(enumerator)
+	except StopIteration:
+		return
+	except (*COM_ERRORS, TypeError):
+		enumerator = None
+	if enumerator is not None:
+		yield first
+		while budget is None or not budget.over():
+			try:
+				yield next(enumerator)
+			except StopIteration:
+				return
+			except COM_ERRORS:
+				return
+		return
+	try:
+		count = int(collection.Count)
+	except (*COM_ERRORS, TypeError, ValueError):
+		return
+	for index in range(1, count + 1):
+		if budget is not None and budget.over():
+			return
+		try:
+			yield collection.Item(index)
+		except COM_ERRORS:
+			continue
+
+
+def chunks(ctx: Any, budget: Budget | None = None, size: int | None = None) -> Iterator[Any]:
+	"""The main text in ranges of about size characters that end at a paragraph end."""
+	size = size or CHUNK_SIZE
+	doc = ctx.document
+	try:
+		end = int(doc.Content.End)
+	except COM_ERRORS:
+		return
+	start = 0
+	while start < end:
+		if budget is not None and budget.over():
+			return
+		try:
+			rangeObj = doc.Range(start, min(start + size, end))
+			if rangeObj.End < end:
+				# Finish the paragraph so a word or paragraph is never cut in two.
+				rangeObj.MoveEnd(WD_PARAGRAPH, 1)
+			chunkEnd = int(rangeObj.End)
+		except COM_ERRORS:
+			return
+		yield rangeObj
+		if chunkEnd <= start:
+			return
+		start = chunkEnd
+
+
+def findAll(
+	rangeObj: Any,
+	text: str = "",
+	*,
+	wildcards: bool = False,
+	style: Any = None,
+	languageId: int | None = None,
+	budget: Budget | None = None,
+	paragraphs: bool = False,
+) -> Iterator[Any]:
+	"""Ranges Word's own search finds inside rangeObj. Much faster than reading the text piece by piece.
+
+	With paragraphs, the paragraph of each match is given instead, once, and the search goes on after it.
+	"""
+	search = rangeObj.Duplicate
+	end = int(rangeObj.End)
+	finder = search.Find
+	formatted = style is not None or languageId is not None
+	try:
+		finder.ClearFormatting()
+		if style is not None:
+			finder.Style = style
+		if languageId is not None:
+			finder.LanguageID = languageId
+	except COM_ERRORS:
+		# For example a style that does not exist in this document.
+		_clearFind(finder)
+		return
+	lastEnd = -1
+	try:
+		while budget is None or not budget.over():
+			try:
+				# FindText, MatchCase, MatchWholeWord, MatchWildcards, MatchSoundsLike, MatchAllWordForms,
+				# Forward, Wrap (stop at the end), Format.
+				if not finder.Execute(
+					text,
+					False,
+					False,
+					wildcards,
+					False,
+					False,
+					True,
+					WD_FIND_STOP,
+					formatted,
+				):
+					return
+				foundStart, foundEnd = int(search.Start), int(search.End)
+			except COM_ERRORS:
+				return
+			if foundEnd <= lastEnd or foundStart >= end:
+				return
+			if paragraphs:
+				try:
+					paragraph = search.Paragraphs.Item(1)
+					foundEnd = max(foundEnd, int(paragraph.Range.End))
+				except COM_ERRORS:
+					return
+				lastEnd = foundEnd
+				yield paragraph
+			else:
+				lastEnd = foundEnd
+				yield search.Duplicate
+			if foundEnd >= end:
+				return
+			try:
+				search.SetRange(foundEnd, end)
+			except COM_ERRORS:
+				return
+	finally:
+		_clearFind(finder)
+
+
+def _clearFind(finder: Any) -> None:
+	"""Find settings are shared with Word's own Find dialog, so nothing is left there."""
+	try:
+		finder.ClearFormatting()
+	except COM_ERRORS:
+		pass
 
 
 class WordUnavailable(Exception):
@@ -109,6 +288,8 @@ class WordContext:
 		self.window = window
 		self.document = window.Document
 		self.application = window.Application
+		#: Time limit of the collection in progress; see Budget.
+		self.budget = Budget(float("inf"))
 
 	@classmethod
 	def fromFocus(cls) -> WordContext:

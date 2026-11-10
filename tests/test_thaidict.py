@@ -212,3 +212,15 @@ def test_nothing_is_asked_on_secure_screens(lists, config):
 
 	wordListUpdates.askOnce()
 	assert config["wordListAsked"] is False and config["wordListUpdates"] is False
+
+
+def test_thai_check_reads_large_parts_and_finds_positions(lists, config, monkeypatch):
+	from wordDocAssistant import wordCom
+
+	monkeypatch.setattr(wordCom, "CHUNK_SIZE", 40)
+	config.update(thaiCheckUnknown=False)
+	doc = Doc(["ข้อความแรก", "ขออนุญาติ ครับ", "ข้อความ", "อนุญาติอีกครั้ง"])
+	items, _total = thaicheck.ThaiWords().collect(Context(doc), 100)
+	found = [(doc.text[item.navRange.Start : item.navRange.End], item.start) for item in items]
+	starts = [i for i in range(len(doc.text)) if doc.text.startswith("อนุญาติ", i)]
+	assert found == [("อนุญาติ", start) for start in starts] and len(starts) == 2
