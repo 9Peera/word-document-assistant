@@ -1,5 +1,5 @@
 # Word Document Assistant for NVDA
-# Thai word check in navigation mode (Z), using the offline word lists.
+# Word list check in navigation mode (Z): commonly misspelled words in any language, Thai word lists.
 # Copyright (C) 2026 Peera Pilarit
 # This file is covered by the GNU General Public License version 2.
 
@@ -33,6 +33,8 @@ def wordLists() -> thaidict.WordLists:
 	if _lists is None:
 		_lists = thaidict.WordLists(listsFolder(), config.conf[CONFIG_SECTION])
 		_lists.load()
+	else:
+		_lists.reloadIfChanged()
 	return _lists
 
 
@@ -73,11 +75,12 @@ class ThaiWords(ElementType):
 	id = "thaiWords"
 	vk = ord("Z")
 	slow = True
+	sawThai = False
 
 	@property
 	def label(self) -> str:
-		# Translators: Element type name.
-		return _("Thai word check")
+		# Translators: Element type name (Z): commonly misspelled words in any language and the Thai word list.
+		return _("Word list check")
 
 	@property
 	def columns(self) -> list[str]:
@@ -105,12 +108,16 @@ class ThaiWords(ElementType):
 		total = 0
 		checkUnknown = bool(conf("thaiCheckUnknown"))
 		budget = wordCom.budgetOf(ctx)
+		#: Whether the document has Thai text: only then are the Thai word list updates offered.
+		self.sawThai = False
 		# The text is read in large parts: reading it paragraph by paragraph takes minutes in a long document.
 		for part in wordCom.chunks(ctx, budget):
 			try:
 				text = wordCom.sameLengthText(part.Text)
 			except COM_ERRORS:
 				continue
+			if not self.sawThai and thaidict.isThai(text):
+				self.sawThai = True
 			for finding in dictionary.check(text, unknown=checkUnknown):
 				total += 1
 				if len(items) >= limit:
@@ -177,6 +184,17 @@ class ThaiWords(ElementType):
 	def edit(self, ctx, item):
 		item.navRange.Select()
 		return _("{word} selected, type to replace it").format(word=item.obj.word)
+
+	@staticmethod
+	def _editMyList() -> None:
+		if globalVars.appArgs.secure:
+			return
+		lists = wordLists()
+		lists.ensureMyFiles()
+		try:
+			os.startfile(lists.myMisspellingsFile)
+		except (OSError, AttributeError):
+			pass
 
 	def actions(self, ctx, item, anchor, host):
 		lists = wordLists()
@@ -262,8 +280,11 @@ class ThaiWords(ElementType):
 				actions.append(Action(_("Add {word} to my words").format(word=finding.word), addWord))
 			# Translators: Action that ignores a word until NVDA restarts.
 			actions.append(Action(_("Ignore {word}").format(word=finding.word), ignore))
-			# Translators: Action that opens the Royal Institute dictionary website.
-			actions.append(Action(_("Look up in the Royal Institute dictionary website"), lookUp))
+			if thaidict.isThai(finding.word):
+				# Translators: Action that opens the Royal Institute dictionary website.
+				actions.append(Action(_("Look up in the Royal Institute dictionary website"), lookUp))
+		# Translators: Action that opens the user's own list of commonly misspelled words in Notepad.
+		actions.append(Action(_("Edit my list of commonly misspelled words"), self._editMyList))
 		# Translators: Action that checks for and downloads newer word lists.
 		actions.append(Action(_("Update the Thai word lists now..."), host.updateWordLists))
 		return actions + super().actions(ctx, item, anchor, host)

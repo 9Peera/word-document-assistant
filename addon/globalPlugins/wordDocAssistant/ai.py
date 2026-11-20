@@ -21,7 +21,7 @@ import config
 import wx
 from logHandler import log
 
-from . import keyStore
+from . import keyStore, languages
 from .elements import CONFIG_SECTION
 
 addonHandler.initTranslation()
@@ -627,12 +627,10 @@ def _between(text: str, start: str, end: str) -> str:
 
 
 def _languageHint() -> str:
-	language = _conf()["aiLanguage"]
-	if language == "th":
-		return "The text is in Thai. Answer in Thai."
-	if language == "en":
-		return "The text is in English. Answer in English."
-	return "Answer in the same language as the text (Thai or English)."
+	language = languages.BY_CODE.get(str(_conf()["aiLanguage"]))
+	if language is not None:
+		return f"Answer in {language.englishName}."
+	return "Answer in the same language as the text."
 
 
 _RULES = (
@@ -644,9 +642,9 @@ _RULES = (
 def proofread(text: str) -> list[dict[str, str]]:
 	"""Return proposed corrections: dicts with original, suggestion and reason."""
 	system = (
-		"You are a careful proofreader for Thai and English documents. "
-		"Find spelling mistakes, wrong Thai spellings (for example confusing tone marks, "
-		"การันต์, ร/ล, ศ/ษ/ส), typing errors, wrong word choice and clear grammar errors. "
+		"You are a careful proofreader for documents in any language. "
+		"Find spelling mistakes, typing errors, wrong word choice, wrong accents or diacritics and clear "
+		"grammar errors. For Thai text also check tone marks, การันต์, ร/ล and ศ/ษ/ส. "
 		"Do not rewrite style. Each 'original' must be copied exactly from the text, "
 		"short (a word or phrase), and appear in the text. "
 		f"{_languageHint()} {_RULES} "
@@ -854,7 +852,7 @@ REWRITE_STYLES = ("official", "polite", "concise", "easy", "fix")
 def rewrite(text: str, style: str) -> str:
 	"""The text rewritten in a style. The meaning, names and numbers stay the same."""
 	tasks = {
-		"official": "Rewrite it in formal Thai government style (ภาษาราชการ) as used in official letters, or formal English if the text is English.",
+		"official": "Rewrite it in the formal style of official and government letters in the language of the text (for Thai: ภาษาราชการ).",
 		"polite": "Rewrite it to be more polite and respectful, keeping it professional.",
 		"concise": "Rewrite it shorter and clearer, removing repetition.",
 		"easy": "Rewrite it in plain, easy-to-read language with short sentences (Easy Read), for people with reading or learning difficulties.",
@@ -869,11 +867,12 @@ def rewrite(text: str, style: str) -> str:
 
 
 def translate(text: str, target: str) -> str:
-	"""The text translated to Thai (th) or English (en)."""
-	language = "Thai" if target == "th" else "English"
+	"""The text translated to a language from languages.LANGUAGES, by code."""
+	known = languages.BY_CODE.get(target)
+	language = known.englishName if known is not None else target
 	system = (
 		f"Translate the text from a Microsoft Word document into natural, correct {language}. Keep names, "
-		"numbers, dates and paragraph breaks. For Thai official text use the usual official terms. "
+		"numbers, dates and paragraph breaks. For official text use the usual official terms of that language. "
 		f"Return only the translation. {_RULES} {_TEXT_FORMAT}"
 	)
 	return _textAnswer(system, text[: MAX_TEXT * 3])
@@ -893,7 +892,8 @@ def checkConsistency(text: str) -> str:
 	"""Inconsistencies in the text, as a list."""
 	system = (
 		"Check a Microsoft Word document for inconsistencies only: the same word or name spelled in different "
-		"ways, Thai digits mixed with Arabic digits, Buddhist and Christian era years mixed, dates or amounts that "
+		"ways, local digits (such as Thai or Arabic-Indic digits) mixed with 0-9, years of different calendar eras "
+		"mixed (such as Buddhist and Christian era), dates or amounts that "
 		"contradict each other, inconsistent terms or abbreviations, and numbering that skips. "
 		"List each problem on its own line starting with '- ', quoting the text so it can be found. "
 		f"If there is nothing, say so in one line. {_languageHint()} {_RULES} {_TEXT_FORMAT}"

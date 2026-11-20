@@ -140,6 +140,7 @@ DEFAULT_CONFIG = {
 	"wordListLibreOffice": False,
 	"misspellingListUrl": "",
 	"collectSeconds": 10,
+	"documentLanguages": "",
 }
 
 

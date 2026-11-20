@@ -13,7 +13,7 @@ from typing import Any
 
 import addonHandler
 
-from . import ai, wordCom
+from . import ai, languages, wordCom
 from .elements import Action, ElementType, Host, Item, Section, conf
 from .wordCom import COM_ERRORS, WordContext, cleanText, flatText, undoRecord
 
@@ -23,9 +23,9 @@ addonHandler.initTranslation()
 WD_OUTLINE_BODY_TEXT = 10
 WD_WITHIN_TABLE = 12
 WD_UNDEFINED = 9999999
-LANG_THAI = 1054
-LANG_ENGLISH_US = 1033
-LANG_NO_PROOFING = 1024
+LANG_THAI = languages.LANG_THAI
+LANG_ENGLISH_US = languages.LANG_ENGLISH_US
+LANG_NO_PROOFING = languages.LANG_NO_PROOFING
 STYLE_HEADING1 = -2  # Heading n is -1 - n
 STYLE_NORMAL = -1
 INLINE_PICTURE_TYPES = {3, 4, 12, 13, 15}  # picture, linked picture, chart, chart (linked), SmartArt
@@ -39,8 +39,6 @@ SHAPE_PICTURE_TYPES = {
 	28,
 }  # chart, group, linked picture, picture, SmartArt, graphic, 3D model
 
-_THAI = re.compile(r"[฀-๿]")
-_LATIN = re.compile(r"[A-Za-z]")
 
 #: Link texts that do not say where the link goes.
 UNCLEAR_LINK_TEXTS = {
@@ -53,6 +51,14 @@ UNCLEAR_LINK_TEXTS = {
 	"read more",
 	"learn more",
 	"details",
+	"cliquez ici",
+	"ici",
+	"hier klicken",
+	"hier",
+	"haga clic aquí",
+	"aquí",
+	"clicca qui",
+	"qui",
 	"คลิก",
 	"คลิกที่นี่",
 	"คลิกที่นี่เลย",
@@ -66,34 +72,30 @@ UNCLEAR_LINK_TEXTS = {
 }
 
 
-def languageName(languageId: int) -> str:
-	names = {
-		# Translators: Name of a proofing language.
-		LANG_THAI: _("Thai"),
-		# Translators: Name of a proofing language.
-		LANG_ENGLISH_US: _("English (United States)"),
-		# Translators: Name of a proofing language.
-		2057: _("English (United Kingdom)"),
-		# Translators: Name of a proofing language.
-		LANG_NO_PROOFING: _("no proofing"),
-		# Translators: Name of a proofing language.
-		0: _("no language"),
-		# Translators: Name of the language of text that mixes several languages.
-		WD_UNDEFINED: _("mixed languages"),
-	}
-	# Translators: Name of a language Word reports by number.
-	return names.get(languageId, _("language {number}").format(number=languageId))
+languageName = languages.languageName
 
 
 def _latinLanguage(ctx: WordContext) -> int:
-	"""The language for Latin text: the Normal style's language unless that is Thai."""
+	"""The language for Latin-script text: the Normal style's language if it is a Latin-script one."""
 	try:
 		language = int(ctx.document.Styles.Item(STYLE_NORMAL).LanguageID)
-		if language not in (LANG_THAI, WD_UNDEFINED, 0, LANG_NO_PROOFING):
+		if language not in (WD_UNDEFINED, 0, LANG_NO_PROOFING) and not languages.isWrongLanguage(
+			"latin",
+			language,
+		):
 			return language
 	except (*COM_ERRORS, ValueError, TypeError):
 		pass
 	return LANG_ENGLISH_US
+
+
+def documentLanguages() -> list[int]:
+	"""The languages the user writes in (setting), first choice first."""
+	return languages.parseLanguageList(conf("documentLanguages"))
+
+
+def preferredLanguage(ctx: WordContext, scriptId: str) -> int | None:
+	return languages.preferredLanguage(scriptId, documentLanguages(), _latinLanguage(ctx))
 
 
 def _paragraphs(ctx: WordContext, limit: int):
@@ -421,14 +423,9 @@ class LanguageProblem:
 	paragraph: Any
 	text: str
 	languageId: int
-	kind: str  # "thai" Thai text not marked Thai, "latin" Latin text marked Thai, "mixed" some words wrong
-
-
-#: Word wildcard patterns for a run of Thai letters and a run of Latin letters.
-THAI_RUN = "[\u0e01-\u0e5b]@"
-LATIN_RUN = "[A-Za-z]@"
-#: Languages Thai text gets by mistake, for example when it is pasted from elsewhere.
-WRONG_THAI_LANGUAGES = (LANG_ENGLISH_US, 2057, 0)
+	kind: (
+		str  # id of the script whose text has a wrong language, or "mixed" for a paragraph of several scripts
+	)
 
 
 def _problemOf(paragraph: Any) -> LanguageProblem | None:
@@ -438,38 +435,58 @@ def _problemOf(paragraph: Any) -> LanguageProblem | None:
 		languageId = int(rangeObj.LanguageID)
 	except (*COM_ERRORS, ValueError, TypeError):
 		return None
-	hasThai = bool(_THAI.search(text))
-	hasLatin = bool(_LATIN.search(text))
-	if hasThai and hasLatin:
-		kind = "mixed"
-	elif hasThai:
-		kind = "thai"
-	elif hasLatin:
-		kind = "latin"
-	else:
+	scripts = languages.scriptsIn(text)
+	if not scripts:
 		return None
+	kind = "mixed" if len(scripts) > 1 else scripts[0]
 	return LanguageProblem(paragraph, text, languageId, kind)
 
 
-def findLanguageProblems(ctx: WordContext, limit: int) -> list[LanguageProblem]:
-	"""Paragraphs with Thai text not marked Thai, or Latin text marked Thai, in document order.
+def _scriptsInDocument(ctx: WordContext, budget: wordCom.Budget) -> list[str]:
+	"""The scripts the main text uses, read in large parts."""
+	found: set[str] = set()
+	for part in wordCom.chunks(ctx, budget):
+		try:
+			found.update(languages.scriptsIn(str(part.Text or "")))
+		except COM_ERRORS:
+			continue
+		if len(found) == len(languages.SCRIPTS):
+			break
+	return [script.id for script in languages.SCRIPTS if script.id in found]
 
+
+def findLanguageProblems(ctx: WordContext, limit: int) -> list[LanguageProblem]:
+	"""Paragraphs with text marked with the language of another script, in document order.
+
+	For example Thai text marked as English, Latin text marked as Thai or Russian text marked as German.
 	Word's own search finds the wrong text, so only those paragraphs are read: reading every paragraph
 	and asking for its language takes minutes in a long document.
 	"""
 	budget = wordCom.budgetOf(ctx)
 	content = ctx.document.Content
-	searches = [
-		(THAI_RUN, language) for language in dict.fromkeys((_latinLanguage(ctx), *WRONG_THAI_LANGUAGES))
+	scripts = _scriptsInDocument(ctx, budget)
+	latin = _latinLanguage(ctx)
+	preferred = documentLanguages()
+	# Text gets a wrong language from the text around it, the document default or the keyboard,
+	# so these are the languages searched for.
+	likely = [languages.preferredLanguage(script, preferred, latin) for script in scripts]
+	candidates = [
+		lcid
+		for lcid in dict.fromkeys(
+			[*likely, *preferred, latin, LANG_ENGLISH_US, languages.LANG_ENGLISH_UK, languages.LANG_NONE],
+		)
+		if lcid is not None
 	]
-	searches.append((LATIN_RUN, LANG_THAI))
+	searches = [
+		(script, lcid) for script in scripts for lcid in candidates if languages.isWrongLanguage(script, lcid)
+	]
 	found: dict[int, LanguageProblem] = {}
-	for pattern, language in searches:
+	for script, lcid in searches:
 		for paragraph in wordCom.findAll(
 			content,
-			pattern,
+			languages.wordWildcard(script),
 			wildcards=True,
-			languageId=language,
+			languageId=lcid,
 			budget=budget,
 			paragraphs=True,
 		):
@@ -490,21 +507,31 @@ def findLanguageProblems(ctx: WordContext, limit: int) -> list[LanguageProblem]:
 
 
 def fixParagraphLanguage(ctx: WordContext, paragraph: Any) -> int:
-	"""Mark Thai words as Thai and Latin words with the document's Latin language. Returns words changed."""
+	"""Give every word the language of its script, keeping correct languages. Returns words changed."""
 	latin = _latinLanguage(ctx)
+	preferred = documentLanguages()
 	changed = 0
 	for word in wordCom.iterate(paragraph.Range.Words):
-		text = str(word.Text or "")
-		wanted = LANG_THAI if _THAI.search(text) else latin if _LATIN.search(text) else None
-		if wanted is None:
+		script = languages.scriptOf(str(word.Text or ""))
+		if script is None:
 			continue
 		try:
-			if int(word.LanguageID) != wanted:
+			current = int(word.LanguageID)
+			if current != WD_UNDEFINED and not languages.isWrongLanguage(script, current):
+				continue
+			wanted = languages.preferredLanguage(script, preferred, latin)
+			if wanted is not None and wanted != current:
 				word.LanguageID = wanted
 				changed += 1
 		except (*COM_ERRORS, ValueError, TypeError):
 			continue
 	return changed
+
+
+def fixParagraphLabel() -> str:
+	# Translators: Action that gives every word in a paragraph the language of its script,
+	# for example Thai words Thai and English words English.
+	return _("Fix this paragraph (each word gets the language of its script)")
 
 
 class LanguageProblems(ElementType):
@@ -545,14 +572,13 @@ class LanguageProblems(ElementType):
 
 	@staticmethod
 	def _problemText(problem: LanguageProblem) -> str:
-		if problem.kind == "thai":
+		if problem.kind == "mixed":
 			# Translators: Language problem.
-			return _("Thai text not marked as Thai")
-		if problem.kind == "latin":
-			# Translators: Language problem.
-			return _("English text marked as Thai")
-		# Translators: Language problem.
-		return _("Some words marked with the wrong language")
+			return _("Some words marked with the wrong language")
+		# Translators: Language problem; {script} is a writing system, for example "Thai" or "Cyrillic".
+		return _("{script} text marked with a wrong language").format(
+			script=languages.scriptName(problem.kind),
+		)
 
 	def summary(self, ctx, item):
 		problem = item.obj
@@ -611,19 +637,16 @@ class LanguageProblems(ElementType):
 
 		actions = []
 		if item is not None:
-			actions += [
-				# Translators: Action that marks Thai words as Thai and English words as English in one paragraph.
-				Action(_("Fix this paragraph (Thai words Thai, English words English)"), fixOne),
-				# Translators: Action that marks a whole paragraph as Thai.
-				Action(_("Mark whole paragraph as Thai"), lambda: setLanguage(LANG_THAI)),
-				Action(
-					# Translators: Action that marks a whole paragraph as English.
-					_("Mark whole paragraph as {language}").format(
-						language=languageName(_latinLanguage(ctx)),
+			actions.append(Action(fixParagraphLabel(), fixOne))
+			wanted = [preferredLanguage(ctx, script) for script in languages.scriptsIn(item.obj.text)]
+			for lcid in dict.fromkeys(lcid for lcid in wanted if lcid is not None):
+				actions.append(
+					Action(
+						# Translators: Action that marks a whole paragraph with one language.
+						_("Mark whole paragraph as {language}").format(language=languageName(lcid)),
+						lambda lcid=lcid: setLanguage(lcid),
 					),
-					lambda: setLanguage(_latinLanguage(ctx)),
-				),
-			]
+				)
 		# Translators: Action that fixes every language problem in the document.
 		actions.append(Action(_("Fix all language problems in the document"), fixAll))
 		return actions + super().actions(ctx, item, anchor, host)
@@ -1034,7 +1057,7 @@ class AccessibilityIssues(ElementType):
 				host.modified()
 				host.speak(_("Language fixed for {count} words").format(count=changed))
 
-			return [Action(_("Fix this paragraph (Thai words Thai, English words English)"), fix)]
+			return [Action(fixParagraphLabel(), fix)]
 		return []
 
 

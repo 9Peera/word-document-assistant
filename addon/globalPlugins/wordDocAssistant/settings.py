@@ -12,7 +12,7 @@ import wx
 from gui import guiHelper, nvdaControls
 from gui.settingsDialogs import SettingsPanel
 
-from . import ai
+from . import ai, languages
 from .elements import CONFIG_SECTION
 
 addonHandler.initTranslation()
@@ -27,12 +27,17 @@ CONFIG_SPEC = {
 	"maxItems": "integer(default=1000, min=50, max=10000)",
 	# Longest time a search for items may take, so NVDA never waits a long time for Word.
 	"collectSeconds": "integer(default=10, min=3, max=120)",
+	# Languages the user writes in, as comma separated codes ("th,en"); the first of each script is used
+	# when the language check fixes text. Empty: Thai for Thai text, the Normal style's language for
+	# Latin-script text and the first known language of other scripts.
+	"documentLanguages": 'string(default="")',
 	"aiEnabled": "boolean(default=False)",
 	"aiProvider": 'option("gemini", "anthropic", "openaiApi", "openai", "ollama", default="gemini")',
 	"aiApiKey": 'string(default="")',
 	"aiUrl": 'string(default="")',
 	"aiModel": 'string(default="")',
-	"aiLanguage": 'option("auto", "th", "en", default="auto")',
+	# "auto" (answer in the language of the text) or a language code from languages.LANGUAGES.
+	"aiLanguage": 'string(default="auto")',
 	"aiConsent": "boolean(default=False)",
 	# The key of each service, so switching services does not lose a key.
 	"aiKeyGemini": 'string(default="")',
@@ -110,12 +115,26 @@ class WordDocAssistantPanel(SettingsPanel):
 			max=120,
 			initial=conf["collectSeconds"],
 		)
+		chosen = set(languages.parseLanguageList(conf["documentLanguages"]))
+		names = languages.languageNames()
+		self.documentLanguages = helper.addLabeledControl(
+			# Translators: Label of a list of check boxes in the settings panel. The language check (L)
+			# gives text of each writing system the first checked language of that system.
+			_("Languages I &write in (used when fixing text marked with a wrong language):"),
+			nvdaControls.CustomCheckListBox,
+			choices=[names[language.code] for language in languages.LANGUAGES],
+		)
+		self.documentLanguages.SetCheckedItems(
+			[index for index, language in enumerate(languages.LANGUAGES) if language.lcid in chosen],
+		)
+		if languages.LANGUAGES:
+			self.documentLanguages.SetSelection(0)
 		self._makeAiSettings(helper, conf)
 		self._makeWordListSettings(helper, conf)
 
 	def _makeWordListSettings(self, helper: guiHelper.BoxSizerHelper, conf) -> None:
-		# Translators: Group of Thai word check settings in the settings panel.
-		groupSizer = wx.StaticBoxSizer(wx.VERTICAL, self, label=_("Thai word check (Z)"))
+		# Translators: Group of word list check settings in the settings panel.
+		groupSizer = wx.StaticBoxSizer(wx.VERTICAL, self, label=_("Word list check (Z)"))
 		box = groupSizer.GetStaticBox()
 		group = guiHelper.BoxSizerHelper(box, sizer=groupSizer)
 		helper.addItem(group)
@@ -123,7 +142,7 @@ class WordDocAssistantPanel(SettingsPanel):
 			# Translators: Check box in the Thai word check settings.
 			wx.CheckBox(
 				box,
-				label=_("Also report words that are not in the word list (names may be reported)"),
+				label=_("Thai: also report words that are not in the Thai word list (names may be reported)"),
 			),
 		)
 		self.thaiUnknown.SetValue(conf["thaiCheckUnknown"])
@@ -242,15 +261,17 @@ class WordDocAssistantPanel(SettingsPanel):
 			wx.TextCtrl,
 			value=conf["aiModel"],
 		)
-		self._languageIds = ["auto", "th", "en"]
+		self._languageIds = ["auto", *(language.code for language in languages.LANGUAGES)]
+		names = languages.languageNames()
 		self.aiLanguage = group.addLabeledControl(
-			# Translators: Label of the document language choice for AI.
-			_("Document &language:"),
+			# Translators: Label of the choice of the language AI answers in.
+			_("AI answers in &language:"),
 			wx.Choice,
-			# Translators: Choices for the document language used by AI.
-			choices=[_("Automatic"), _("Thai"), _("English")],
+			# Translators: Choice: AI answers in the language of the text.
+			choices=[_("Same as the text")] + [names[code] for code in self._languageIds[1:]],
 		)
-		self.aiLanguage.SetSelection(self._languageIds.index(conf["aiLanguage"]))
+		current = conf["aiLanguage"]
+		self.aiLanguage.SetSelection(self._languageIds.index(current) if current in self._languageIds else 0)
 		# Translators: Button that tests the AI connection.
 		testButton = group.addItem(wx.Button(box, label=_("&Test connection")))
 		testButton.Bind(wx.EVT_BUTTON, self._onTest)
@@ -302,6 +323,10 @@ class WordDocAssistantPanel(SettingsPanel):
 		conf["contextLength"] = self.contextLength.GetValue()
 		conf["maxItems"] = self.maxItems.GetValue()
 		conf["collectSeconds"] = self.collectSeconds.GetValue()
+		checked = set(self.documentLanguages.GetCheckedItems())
+		conf["documentLanguages"] = ",".join(
+			language.code for index, language in enumerate(languages.LANGUAGES) if index in checked
+		)
 		self._saveAi()
 		self._saveWordLists()
 		from . import thaicheck

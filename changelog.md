@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0
+
+Support for documents in any language, following the NVDA Add-on Store review.
+
+* Documentation: a "Language support" section at the start of both readmes and the Store description says what works with any language and which extras are for Thai users. New sections on translating the add-on and on working with other Office add-ons.
+* Language check (L): finds text marked with the language of another writing system for Latin, Thai, Lao, Khmer, Burmese, Arabic, Hebrew, Cyrillic, Greek, Devanagari, Bengali, Gurmukhi, Gujarati, Tamil, Telugu, Kannada, Malayalam, Sinhala, Georgian, Armenian and Ethiopic. Fixing gives each word the language of its script. New setting "Languages I write in" chooses the language for each script (for example Ukrainian or Persian).
+* Numbers and dates (Y, was Thai tools): change 0-9 to and from Thai, Lao, Khmer, Burmese, Arabic-Indic, Persian, Devanagari, Bengali, Gurmukhi, Gujarati, Tamil, Telugu, Kannada and Malayalam digits. The menu only offers what the text needs. Buddhist era years stay for Thai.
+* Word list check (Z, was Thai word check): commonly misspelled words in any language. A starter English list is bundled next to the Thai one; whole words only for languages written with spaces, and capitalised forms are found. New action to edit my own list, which is reloaded as soon as it changes. The Thai word list part and its update question only appear for documents with Thai.
+* AI: answers in the language of the text, or in a language chosen in the settings (more than 50). Translation to NVDA's language, English or any other language. Proofreading, formal rewriting and the consistency check are no longer limited to Thai and English.
+* Formats (J): new APA 7, MLA 9 and Harvard formats, with italic headings where the style asks for them and the paper size kept. Thai fonts and Thai justification are only used when the text has Thai, so fonts for Arabic, Hebrew or Hindi are not replaced.
+* More unclear link texts in French, German, Spanish and Italian.
+
 ## 1.0.2
 
 * Long documents no longer freeze NVDA. Every search for items stops at a time limit (setting "Longest search time in seconds", 10 by default) and reports how many it found so far.

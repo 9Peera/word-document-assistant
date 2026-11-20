@@ -34,11 +34,12 @@ Real testing needs Windows with NVDA and Word. Say clearly when something was on
 | `elements.py` | Base `ElementType`, `Item`, `Action`, `Host` protocol; spelling, grammar, comments, notes, revisions |
 | `structure.py` | Headings, tables, links, bookmarks, fields, cross-references, citations |
 | `a11y.py` | Accessibility checker, pictures and alternative text, language problems |
-| `thaidict.py` / `thaicheck.py` / `wordListUpdates.py` | Offline Thai word check, word lists, update checks |
+| `languages.py` | Languages, scripts and digit systems shared by L, Y, Z, AI and formats |
+| `thaidict.py` / `thaicheck.py` / `wordListUpdates.py` | Word list check (Z): misspelling lists for any language, Thai word lists, update checks |
 | `ai.py` | AI providers (Gemini, Anthropic Claude, OpenAI, OpenAI-compatible, Ollama), model choice, retries, all AI tasks |
 | `keyStore.py` / `keySetup.py` | API keys encrypted with Windows DPAPI; guided key setup dialog |
 | `presets.py` / `formatDialog.py` | Document format presets and AI formatting |
-| `tools.py` | Thai digit and era tools, result and compare dialogs |
+| `tools.py` | Number tools (digits of many scripts, Thai era), result and compare dialogs |
 | `dialogs.py`, `settings.py`, `sounds.py`, `wordCom.py` | Shared dialogs, settings panel and config spec, earcons, COM helpers |
 | `data/` | Bundled word lists (PyThaiNLP CC0) and the misspelling list; see `data/README.md` for licences |
 
@@ -47,8 +48,8 @@ Tests live in `tests/`: `nvdaStubs.py` stands in for NVDA modules, `fakeword.py`
 ## Keys (keep this table in sync with the help text in `__init__.py` and both readmes)
 
 - `NVDA+Shift+F8` toggles navigation mode (only captured in Word). `NVDA+Control+Shift+F8` opens AI setup.
-- Element letters (Shift = previous): S spelling, G grammar, C comments, F footnotes, E endnotes, R revisions, O headings, U tables, M pictures, K links, X cross-references, I citations, B bookmarks, D fields, L language, A accessibility, Z Thai word check.
-- Command letters: T track changes (Shift+T toggles), N note at caret, P position, Q summary, W AI proofread, J AI formatting, V AI tools, Y Thai tools, H help.
+- Element letters (Shift = previous): S spelling, G grammar, C comments, F footnotes, E endnotes, R revisions, O headings, U tables, M pictures, K links, X cross-references, I citations, B bookmarks, D fields, L language, A accessibility, Z word list check.
+- Command letters: T track changes (Shift+T toggles), N note at caret, P position, Q summary, W AI proofread, J AI formatting, V AI tools, Y numbers and dates, H help.
 - In the mode: arrows move and change type, Home/End, Space list, Applications/Shift+F10 actions, Ctrl+C / Ctrl+Shift+C copy, Enter leaves ready to edit, Escape leaves, Backspace returns to the start.
 - All 26 letters are now used in the mode. A new type or command needs a key with a modifier, a key outside the mode, or a design change agreed with the owner.
 
@@ -73,6 +74,7 @@ Tests live in `tests/`: `nvdaStubs.py` stands in for NVDA modules, `fakeword.py`
 ## Status and next ideas
 
 - Performance in long documents (the owner reported NVDA freezing): every call into Word crosses processes and comtypes dynamic dispatch adds type-info calls, so never walk every paragraph or call `Item(n)` in a loop. Use `wordCom.iterate` (enumerator), `wordCom.chunks` (text in ~20,000-character parts), `wordCom.findAll` (Word's Find, also by style or language) and check `wordCom.budgetOf(ctx).over()` in loops; `getItems` sets the budget from the `collectSeconds` setting and reports when it stopped early. Arrow keys never collect slow types.
+- Languages: `languages.py` holds the language table (code, LCID, script, English name), scripts with letter ranges (used both as regex classes and Word wildcards), and digit systems. L, Y, Z, AI and formats use it. Thai-only parts are the Thai word list (unknown words), Buddhist era, Thai official presets and Thai fonts/justification (only applied when the text has Thai). Keep the readme "Language support" table in sync when this changes.
 - Headings are collected with Find by heading style (built-in Heading 1-9 plus custom styles with an outline level), with GoTo only as a time-limited fallback. Do not go back to GoTo heading by heading: it made Word stop responding in long documents.
-- Current version: 1.0.2 (1.0.0 first public release; 1.0.1 fast headings; 1.0.2 long documents no longer freeze NVDA). Add-on Store stable channel. Everything is unit tested with the fake Word only; testing with real Word/NVDA (test matrix above) is the top open task.
+- Current version: 1.1.0 (1.0.0 first public release; 1.0.1 fast headings; 1.0.2 long documents no longer freeze NVDA; 1.1.0 any-language support after the Store reviewer asked to state Thai-only features and widen them). Add-on Store stable channel. Everything is unit tested with the fake Word only; testing with real Word/NVDA (test matrix above) is the top open task.
 - Ideas the owner has agreed are worth doing: ask the Royal Institute for permission to use their data; an organization misspelling list hosted on GitHub (supported via the `misspellingListUrl` setting); word-frequency ranking of suggestions (TNC frequency list, CC0); AI filtering of names in unknown words; checking while typing; a preset editor.

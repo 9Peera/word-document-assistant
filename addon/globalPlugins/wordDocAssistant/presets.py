@@ -142,6 +142,7 @@ class RoleFormat:
 	bold: bool | None = None
 	size: float | None = None  # Thai size in points; Latin text is scaled to match
 	keepWithNext: bool | None = None
+	italic: bool | None = None
 
 
 @dataclass
@@ -158,6 +159,10 @@ class Preset:
 	bodyAlign: int = ALIGN_THAI
 	margins: tuple[float, float, float, float] = (2.5, 2.0, 3.0, 2.0)  # top, bottom, left, right in cm
 	roles: dict[str, RoleFormat] = field(default_factory=dict)
+	#: Paper size to set, or None to keep the document's paper (Letter in the United States, A4 elsewhere).
+	paper: int | None = PAPER_A4
+	#: "thai" for formats of Thai official documents, "general" for formats used in any language.
+	group: str = "general"
 
 	@property
 	def roleIds(self) -> list[str]:
@@ -191,6 +196,7 @@ def presets() -> list[Preset]:
 	return [
 		Preset(
 			id="officialLetter",
+			group="thai",
 			# Translators: Name of a document format.
 			name=_("Thai official letter (หนังสือภายนอก)"),
 			# Translators: Description of a document format.
@@ -207,6 +213,7 @@ def presets() -> list[Preset]:
 		),
 		Preset(
 			id="memo",
+			group="thai",
 			# Translators: Name of a document format.
 			name=_("Internal memo (บันทึกข้อความ)"),
 			# Translators: Description of a document format.
@@ -229,6 +236,7 @@ def presets() -> list[Preset]:
 		),
 		Preset(
 			id="announcement",
+			group="thai",
 			# Translators: Name of a document format.
 			name=_("Announcement or order (ประกาศ / คำสั่ง)"),
 			# Translators: Description of a document format.
@@ -405,6 +413,7 @@ def presets() -> list[Preset]:
 		),
 		Preset(
 			id="minutes",
+			group="thai",
 			# Translators: Name of a document format.
 			name=_("Meeting minutes (รายงานการประชุม)"),
 			# Translators: Description of a document format.
@@ -458,6 +467,138 @@ def presets() -> list[Preset]:
 				"empty": RoleFormat(),
 			},
 		),
+		*_styleGuidePresets(thai),
+	]
+
+
+def _styleGuidePresets(thai: str) -> list[Preset]:
+	"""Formats of common academic style guides, used in many languages and countries."""
+	inch = 2.54
+	return [
+		Preset(
+			id="apa",
+			# Translators: Name of a document format (a style guide for academic papers).
+			name=_("APA 7th edition paper"),
+			# Translators: Description of a document format.
+			description=_(
+				"Times New Roman 12 pt, double spacing, 2.54 cm (1 inch) margins, first lines indented "
+				"1.27 cm, text aligned left. Bold centred title, level 1 headings bold and centred, level 2 "
+				"bold, level 3 bold italic, references with a hanging indent. Keeps the paper size.",
+			),
+			fontThai=thai,
+			fontLatin="Times New Roman",
+			sizeThai=16,
+			sizeLatin=12,
+			lineSpacing=2.0,
+			spaceAfter=0,
+			bodyAlign=ALIGN_LEFT,
+			margins=(inch, inch, inch, inch),
+			paper=None,
+			roles={
+				"title": RoleFormat(style=STYLE_TITLE, align=ALIGN_CENTER, bold=True, size=16, before=0),
+				"subtitle": RoleFormat(align=ALIGN_CENTER, leftCm=0, firstLineCm=0),
+				"abstract": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
+				"keywords": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=1.27),
+				"heading1": RoleFormat(
+					style=STYLE_HEADING1,
+					align=ALIGN_CENTER,
+					bold=True,
+					size=16,
+					before=0,
+				),
+				"heading2": RoleFormat(style=STYLE_HEADING2, align=ALIGN_LEFT, bold=True, size=16, before=0),
+				"heading3": RoleFormat(
+					style=STYLE_HEADING3,
+					align=ALIGN_LEFT,
+					bold=True,
+					italic=True,
+					size=16,
+					before=0,
+				),
+				"body": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=1.27),
+				"list": RoleFormat(style=STYLE_LIST_PARAGRAPH, align=ALIGN_LEFT, leftCm=1.27),
+				"quote": RoleFormat(style=STYLE_QUOTE, align=ALIGN_LEFT, leftCm=1.27, firstLineCm=0),
+				"caption": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0, bold=True),
+				"bibliography": RoleFormat(align=ALIGN_LEFT, leftCm=1.27, firstLineCm=-1.27),
+				"empty": RoleFormat(),
+			},
+		),
+		Preset(
+			id="mla",
+			# Translators: Name of a document format (a style guide for academic papers).
+			name=_("MLA 9th edition paper"),
+			# Translators: Description of a document format.
+			description=_(
+				"Times New Roman 12 pt, double spacing, 2.54 cm (1 inch) margins, first lines indented "
+				"1.27 cm, text aligned left. Name, teacher, course and date at the top left, centred title "
+				"in plain text, Works Cited entries with a hanging indent. Keeps the paper size.",
+			),
+			fontThai=thai,
+			fontLatin="Times New Roman",
+			sizeThai=16,
+			sizeLatin=12,
+			lineSpacing=2.0,
+			spaceAfter=0,
+			bodyAlign=ALIGN_LEFT,
+			margins=(inch, inch, inch, inch),
+			paper=None,
+			roles={
+				"meta": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
+				"sender": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
+				"date": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
+				"title": RoleFormat(style=STYLE_TITLE, align=ALIGN_CENTER, bold=False, size=16, before=0),
+				"heading1": RoleFormat(style=STYLE_HEADING1, align=ALIGN_LEFT, bold=True, size=16, before=0),
+				"heading2": RoleFormat(
+					style=STYLE_HEADING2,
+					align=ALIGN_LEFT,
+					bold=False,
+					italic=True,
+					size=16,
+					before=0,
+				),
+				"body": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=1.27),
+				"list": RoleFormat(style=STYLE_LIST_PARAGRAPH, align=ALIGN_LEFT, leftCm=1.27),
+				"quote": RoleFormat(style=STYLE_QUOTE, align=ALIGN_LEFT, leftCm=1.27, firstLineCm=0),
+				"caption": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
+				"bibliography": RoleFormat(align=ALIGN_LEFT, leftCm=1.27, firstLineCm=-1.27),
+				"empty": RoleFormat(),
+			},
+		),
+		Preset(
+			id="harvard",
+			# Translators: Name of a document format (a referencing style for academic papers).
+			name=_("Harvard style paper"),
+			# Translators: Description of a document format.
+			description=_(
+				"Times New Roman 12 pt, 1.5 line spacing, 2.54 cm margins, space between paragraphs instead "
+				"of indents, bold headings, centred captions, reference list in alphabetical order without "
+				"indent. Keeps the paper size.",
+			),
+			fontThai=thai,
+			fontLatin="Times New Roman",
+			sizeThai=16,
+			sizeLatin=12,
+			lineSpacing=1.5,
+			spaceAfter=8,
+			bodyAlign=ALIGN_LEFT,
+			margins=(inch, inch, inch, inch),
+			paper=None,
+			roles={
+				"title": RoleFormat(style=STYLE_TITLE, align=ALIGN_CENTER, bold=True, size=21, after=12),
+				"subtitle": RoleFormat(style=STYLE_SUBTITLE, align=ALIGN_CENTER, size=16, after=12),
+				"abstract": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
+				"keywords": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
+				"heading1": RoleFormat(style=STYLE_HEADING1, bold=True, size=19, before=12, after=6),
+				"heading2": RoleFormat(style=STYLE_HEADING2, bold=True, size=17, before=12, after=6),
+				"heading3": RoleFormat(style=STYLE_HEADING3, bold=True, size=16, before=6, after=6),
+				"body": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0),
+				"list": RoleFormat(style=STYLE_LIST_PARAGRAPH, align=ALIGN_LEFT, leftCm=1.27),
+				"quote": RoleFormat(style=STYLE_QUOTE, align=ALIGN_LEFT, leftCm=1.27, firstLineCm=0),
+				"caption": RoleFormat(align=ALIGN_CENTER, leftCm=0, firstLineCm=0, before=4, after=8),
+				"bibliography": RoleFormat(align=ALIGN_LEFT, leftCm=0, firstLineCm=0, after=6),
+				"empty": RoleFormat(),
+			},
+		),
 	]
 
 
@@ -475,6 +616,26 @@ class ApplyOptions:
 	removeEmpty: bool = True
 
 
+def _withoutThai(preset: Preset) -> Preset:
+	"""A copy of the preset for a document without Thai text."""
+
+	def align(value: int | None) -> int | None:
+		return ALIGN_JUSTIFY if value == ALIGN_THAI else value
+
+	roles = {
+		roleId: RoleFormat(**{**role.__dict__, "align": align(role.align)})
+		for roleId, role in preset.roles.items()
+	}
+	return Preset(
+		**{
+			**preset.__dict__,
+			"bodyAlign": align(preset.bodyAlign) or ALIGN_LEFT,
+			"roles": roles,
+			"fontThai": "",
+		},
+	)
+
+
 def _availableFont(ctx: WordContext, wanted: str, fallbacks: tuple[str, ...]) -> str:
 	"""The wanted font if installed, otherwise the first installed fallback."""
 	try:
@@ -488,10 +649,15 @@ def _availableFont(ctx: WordContext, wanted: str, fallbacks: tuple[str, ...]) ->
 	return wanted
 
 
-def _setFont(font: Any, latin: str, thai: str, latinSize: float, thaiSize: float) -> None:
+def _setFont(font: Any, latin: str, thai: str | None, latinSize: float, thaiSize: float) -> None:
+	"""Set the fonts. thai is None for documents without Thai text: then the complex-script font
+	(used for Arabic, Hebrew, Hindi and other scripts) is left as it is, at the Latin size."""
 	font.Name = latin
-	font.NameBi = thai
 	font.Size = latinSize
+	if thai is None:
+		font.SizeBi = latinSize
+		return
+	font.NameBi = thai
 	font.SizeBi = thaiSize
 
 
@@ -536,15 +702,26 @@ def apply(
 	roles: list[str],
 	options: ApplyOptions,
 	wholeDocument: bool,
+	hasThai: bool = True,
 ) -> dict[str, int]:
-	"""Format the paragraphs. Returns counts of what was done. One undo step."""
+	"""Format the paragraphs. Returns counts of what was done. One undo step.
+
+	hasThai: the text has Thai, so the Thai fonts and Thai justification are used. Without Thai the
+	complex-script font is kept (it may be set for Arabic, Hebrew or Hindi) and text is justified normally.
+	"""
+	if not hasThai:
+		preset = _withoutThai(preset)
 	app = ctx.application
-	fontThai = _availableFont(
-		ctx,
-		preset.fontThai,
-		("TH SarabunIT๙", "TH Sarabun New", "TH SarabunPSK", "Leelawadee UI", "Tahoma"),
+	fontThai = (
+		_availableFont(
+			ctx,
+			preset.fontThai,
+			("TH SarabunIT๙", "TH Sarabun New", "TH SarabunPSK", "Leelawadee UI", "Tahoma"),
+		)
+		if preset.fontThai
+		else None
 	)
-	fontLatin = _availableFont(ctx, preset.fontLatin, (fontThai, "Calibri", "Arial"))
+	fontLatin = _availableFont(ctx, preset.fontLatin, tuple(f for f in (fontThai, "Calibri", "Arial") if f))
 	counts = {"formatted": 0, "removed": 0}
 	try:
 		app.ScreenUpdating = False
@@ -567,10 +744,11 @@ def _applyAll(ctx, preset, paragraphs, roles, options, wholeDocument, fontThai, 
 	with undoRecord(ctx, _("Format document: {name}").format(name=preset.name)):
 		if options.pageSetup and wholeDocument:
 			setup = doc.PageSetup
-			try:
-				setup.PaperSize = PAPER_A4
-			except COM_ERRORS:
-				pass
+			if preset.paper is not None:
+				try:
+					setup.PaperSize = preset.paper
+				except COM_ERRORS:
+					pass
 			top, bottom, left, right = preset.margins
 			setup.TopMargin = top * CM
 			setup.BottomMargin = bottom * CM
@@ -599,6 +777,9 @@ def _applyAll(ctx, preset, paragraphs, roles, options, wholeDocument, fontThai, 
 					if role.bold is not None:
 						style.Font.Bold = role.bold
 						style.Font.BoldBi = role.bold
+					if role.italic is not None:
+						style.Font.Italic = role.italic
+						style.Font.ItalicBi = role.italic
 				except COM_ERRORS:
 					continue
 		toRemove = []
@@ -660,6 +841,10 @@ def _formatParagraph(paragraph: Any, preset: Preset, role: RoleFormat, options: 
 	if role.bold is not None:
 		font.Bold = role.bold
 		font.BoldBi = role.bold
+	if role.italic is not None:
+		font.Italic = role.italic
+		font.ItalicBi = role.italic
 	if role.size is not None and options.fonts:
-		font.SizeBi = role.size
-		font.Size = _latinSize(preset, role.size)
+		latinSize = _latinSize(preset, role.size)
+		font.SizeBi = role.size if preset.fontThai else latinSize
+		font.Size = latinSize

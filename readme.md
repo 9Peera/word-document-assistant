@@ -7,6 +7,22 @@
 Word Document Assistant lets you move through, read and manage review items in Microsoft Word without leaving the document:
 spelling errors, grammar issues, comments, footnotes, endnotes and tracked changes.
 
+## Language support
+
+The add-on works with Word documents in any language, and its interface can be translated.
+
+| Works with any language | Extras for Thai users |
+|---|---|
+| Navigation mode, item lists and actions | Thai word list check: words not in the Thai word list (part of Z) |
+| Spelling and grammar (S, G) with Word's own checker for the document's language | Buddhist era (พ.ศ.) and Christian era (ค.ศ.) years (part of Y) |
+| Comments, notes, tracked changes, headings, tables, links, fields, cross-references, citations | Thai official document formats: official letter, memo, announcement, meeting minutes (part of J) |
+| Accessibility checker (A) and language check (L) for many writing systems | Thai justification and Thai fonts when the text has Thai |
+| Digits of many scripts (Y) and lists of commonly misspelled words in any language (Z) | |
+| AI proofreading, summaries, rewriting and translation into more than 50 languages | |
+| Formats such as APA, MLA, Harvard, report, article, letters and an accessible format (J) | |
+
+The interface is in English and Thai. To translate it into your language, see "Translating the add-on" at the end.
+
 ## Navigation mode
 
 Press NVDA+Shift+F8 in a Word document to enter navigation mode. You hear a rising sound and the current element type.
@@ -35,9 +51,9 @@ Press the letter to move to the next item of that type. Add Shift to move to the
 | I | Citations |
 | B | Bookmarks |
 | D | Fields |
-| L | Text marked with the wrong language |
+| L | Text marked with the language of another writing system |
 | A | Accessibility problems |
-| Z | Thai word check with the offline word lists |
+| Z | Word list check: commonly misspelled words in any language, and for Thai words not in the word list |
 
 ### Keys inside the mode
 
@@ -57,7 +73,7 @@ Press the letter to move to the next item of that type. Add Shift to move to the
 | W | AI check of the current paragraph. Shift+W checks the text that was selected before the mode started |
 | J | Format the document with AI |
 | V | AI tools: summarize, rewrite, translate, summarize comments, check consistency |
-| Y | Thai tools: Thai and Arabic digits, Buddhist and Christian era years |
+| Y | Numbers and dates: digits of many scripts, Buddhist and Christian era years for Thai |
 | H | Help |
 
 ### Leaving the mode
@@ -71,7 +87,7 @@ Press the letter to move to the next item of that type. Add Shift to move to the
 
 Letters and digits that have no command are not typed into the document while the mode is on; you hear an error sound instead.
 
-The mode reads keys by their position, so it works the same with the Thai and English keyboard layouts.
+The mode reads keys by their position, so it works the same with any keyboard layout, for example Thai, Russian or Arabic.
 
 ## The item list
 
@@ -148,10 +164,17 @@ Press A in navigation mode to move through accessibility problems; Space lists t
 | Link text such as "click here" | Change the link text |
 | Document has no title | Set the title (the first heading is suggested) |
 | Long document without headings | Format the document with AI |
-| Text marked with the wrong language | Mark Thai words as Thai and English words as English |
+| Text marked with the wrong language | Give every word the language of its writing system |
 
 M lists every picture with its alternative text. AI reads the picture itself (PNG, JPEG, GIF, BMP, TIFF; drawings such as EMF must be saved as a picture first) together with the nearby text, and you edit the description before it is saved.
-L lists paragraphs whose language is wrong, which stops Thai spell checking and makes NVDA use the wrong voice; one action fixes the whole document.
+
+### Language check (L)
+
+Word stores a language on every piece of text. NVDA speaks text with the voice of that language, and Word checks its spelling with that language's dictionary. Text copied from elsewhere often keeps the wrong language: Thai text marked as English, Russian text marked as German, English text marked as Arabic.
+
+L finds paragraphs where text of one writing system is marked with the language of another writing system, or with no language. It knows Latin, Thai, Lao, Khmer, Burmese, Arabic (Arabic, Persian, Urdu), Hebrew, Cyrillic, Greek, Devanagari, Bengali, Gurmukhi, Gujarati, Tamil, Telugu, Kannada, Malayalam, Sinhala, Georgian, Armenian and Ethiopic. Chinese, Japanese and Korean are not checked, because Word marks their language reliably by itself. A language the add-on does not know is never reported, so unusual but correct choices stay.
+
+The actions fix one paragraph, mark a whole paragraph with one language, or fix the whole document. When fixing, each word gets the language of its writing system: in the settings, check the languages you write in (for example Ukrainian rather than Russian for Cyrillic text, or Persian rather than Arabic). Without a choice, Thai text becomes Thai, Latin-script text gets the language of the Normal style, and other scripts get their main language.
 
 ## Document structure
 
@@ -170,30 +193,35 @@ L lists paragraphs whose language is wrong, which stops Thai spell checking and 
 Press V in navigation mode. Summaries and the consistency check use the text selected before NVDA+Shift+F8, or the whole document. Rewriting and translation use the selected text or the current paragraph.
 
 * Summaries: short, section by section, or key points with dates and actions requested.
-* Rewrite in official Thai style, more politely, shorter and clearer, or in easy-to-read language; or correct spelling and grammar only.
-* Translate to English or to Thai.
+* Rewrite in the formal official style of the text's language, more politely, shorter and clearer, or in easy-to-read language; or correct spelling and grammar only.
+* Translate to NVDA's language, to English, or to any of more than 50 other languages.
 * Summarize all comments, with the requests that are still open.
-* Check consistency: spellings, Thai and Arabic digits, era years, dates and numbering.
+* Check consistency: spellings, local digits mixed with 0-9, years of different eras, dates and numbering.
+
+AI answers in the language of the text. To always get answers in one language, choose it in the settings ("AI answers in language").
 
 Rewrites and translations open next to the original. You can edit the new text, then replace the original, insert the new text after it (translations), copy it, or close without changes.
 
-## Thai tools
+## Numbers and dates
 
-Press Y in navigation mode, for the selected text or the whole document:
+Press Y in navigation mode, for the selected text or the whole document. The menu only offers what the text needs and says how many digits will change:
 
-* Arabic digits to Thai digits, and back. The menu says how many digits will change.
-* Years written with ค.ศ. to พ.ศ. (adds 543), and back. Only years written with the era are changed, so other numbers stay as they are.
+* Digits of another script to 0-9: Thai, Lao, Khmer, Burmese, Arabic-Indic, Persian and Urdu, Devanagari, Bengali, Gurmukhi, Gujarati, Tamil, Telugu, Kannada and Malayalam digits.
+* 0-9 to the digits of a script the text is written in (for example Thai digits for Thai text, Arabic-Indic digits for Arabic text), or to any other digits with "0-9 to other digits".
+* For Thai: years written with ค.ศ. to พ.ศ. (adds 543), and back. Only years written with the era are changed, so other numbers stay as they are.
 
 Each tool is one undo step.
 
-## Thai word check (offline)
+## Word list check (offline)
 
-Press Z in navigation mode. It works without AI or internet, with open word lists:
+Press Z in navigation mode. It works without AI or internet:
 
-* **Commonly misspelled words** such as อนุญาติ, อีเมล์ or นะค่ะ, with the right form. The add-on comes with a starter list of about 65 words, written for it from well known Royal Institute spellings.
-* **Words not in the word list**, with suggestions one letter or mark away, or the complete word when it was typed only partly (คอมพิวเตอ: คอมพิวเตอร์). Names after นาย, นาง, คุณ, ดร. and similar are not reported. This part can be turned off in the settings.
+* **Commonly misspelled words in any language**, with the right form: a starter English list (recieve, seperate, definately...) and a Thai list (อนุญาติ, อีเมล์, นะค่ะ...) written for the add-on, your own list, and an organization list. For languages written with spaces only whole words match, and a word at the start of a sentence is found too. Use the action "Edit my list of commonly misspelled words" to add pairs for your language: wrong form, Tab, right form, Tab, optional note.
+* **For Thai: words not in the Thai word list**, with suggestions one letter or mark away, or the complete word when it was typed only partly (คอมพิวเตอ: คอมพิวเตอร์). Thai is written without spaces between words and Word's own Thai checking is weak, which is why this part exists for Thai. Names after นาย, นาง, คุณ, ดร. and similar are not reported. This part can be turned off in the settings.
 
-Actions: replace with a suggestion, replace every occurrence, type a replacement, add the word to my words, ignore it until NVDA restarts, look it up on the Royal Institute dictionary website (the word is copied for you), and update the word lists.
+Spelling of other languages is checked by Word itself (S), with the dictionary of the document's language.
+
+Actions: replace with a suggestion, replace every occurrence, type a replacement, add the word to my words, ignore it until NVDA restarts, edit my list, look up a Thai word on the Royal Institute dictionary website (the word is copied for you), and update the word lists.
 
 ### Word lists
 
@@ -201,7 +229,7 @@ Actions: replace with a suggestion, replace every occurrence, type a replacement
 |---|---|---|
 | PyThaiNLP Thai word list (62,000 words) | CC0 1.0 | Included in the add-on; newer versions are downloaded |
 | LibreOffice Thai dictionary (NECTEC LEXiTRON, 50,000 words) | LGPL | Downloaded when turned on in the settings |
-| Commonly misspelled words of the add-on | GPL v2 | Included |
+| Commonly misspelled English and Thai words of the add-on | GPL v2 | Included |
 | My words, my misspellings | Yours | Files in the NVDA configuration folder; open them from the settings |
 | Organization list of commonly misspelled words | Yours | Downloaded from the address set in the settings, for example a file on your own web site or GitHub |
 
@@ -226,6 +254,9 @@ Press J in navigation mode.
 
 | Format | Used for |
 |---|---|
+| APA 7th edition paper | Papers in APA style: double spacing, bold headings by level, references with a hanging indent |
+| MLA 9th edition paper | Papers in MLA style: heading block at the top left, plain centred title, Works Cited |
+| Harvard style paper | Papers with Harvard referencing: 1.5 line spacing, space between paragraphs |
 | Thai official letter | หนังสือภายนอก: ที่, ส่วนราชการ, วันที่, เรื่อง, เรียน, อ้างถึง, สิ่งที่ส่งมาด้วย, body, closing, signature, contact |
 | Internal memo | บันทึกข้อความ |
 | Announcement or order | ประกาศ, คำสั่ง |
@@ -238,6 +269,7 @@ Press J in navigation mode.
 | Easy to read and accessible | Left aligned, larger text, real headings, no empty lines |
 
 Lists keep their numbering and paragraphs inside tables are not re-indented.
+Thai fonts and Thai justification are only used when the text has Thai; in other documents the font for Arabic, Hebrew, Hindi and other scripts is left as it is. The APA, MLA and Harvard formats keep your paper size (Letter or A4).
 The official measurements follow common practice; check them against your organization's rules. They can be changed in presets.py.
 
 ## Privacy
@@ -245,7 +277,7 @@ The official measurements follow common practice; check them against your organi
 The add-on only uses the internet in these cases:
 
 * **AI features, only when you turn AI on.** The text you check, rewrite, translate or summarize, and pictures you ask to describe, are sent to the AI service you chose (Google Gemini, Anthropic Claude, OpenAI, an OpenAI compatible service, or Ollama, which stays on your computer). You are asked before text is first sent to an online service. Free tiers may use the content to improve the service.
-* **Thai word lists.** Only if you allow it, once a week the add-on asks GitHub (and the organization address, if you set one) whether a newer word list exists; this sends no document text. You are asked once, the first time you use the Thai word check (Z). Lists are only downloaded when you agree, or automatically if you turned that on. Turn the weekly check off in the settings.
+* **Thai word lists.** Only if you allow it, once a week the add-on asks GitHub (and the organization address, if you set one) whether a newer word list exists; this sends no document text. You are asked once, the first time the word list check (Z) runs on a document with Thai text. Lists are only downloaded when you agree, or automatically if you turned that on. Turn the weekly check off in the settings.
 * **Links you open** and the Royal Institute dictionary website, only when you choose them.
 
 Your API keys are stored in the NVDA configuration, encrypted for your Windows user account. The add-on collects no usage data.
@@ -260,7 +292,9 @@ NVDA menu, Preferences, Settings, Word Document Assistant:
 * Speak the text around misspelled words, and how many characters on each side
 * Maximum items collected for each type (for very long documents)
 * Longest search time in seconds (default 10). In a very long document a search stops at this limit and reports how many items it found so far, so NVDA never waits a long time for Word
-* AI suggestions: on or off, service, API key, service address, model, document language, and a connection test
+* Languages I write in: used by the language check (L) to choose the language of each writing system
+* AI suggestions: on or off, service, API key, service address, model, the language AI answers in (the language of the text, or a fixed language), and a connection test
+* Word list check: for Thai also report words not in the word list, weekly check for new Thai word lists, the LibreOffice Thai dictionary, and an organization list of commonly misspelled words
 
 The NVDA+Shift+F8 command can be changed in Input Gestures, category Word Document Assistant.
 
@@ -269,3 +303,14 @@ The NVDA+Shift+F8 command can be changed in Input Gestures, category Word Docume
 * Navigation covers the main text of the document.
 * In recent Microsoft 365 builds, some grammar suggestions are only shown by the Editor pane and are not reported to add-ons.
 * Documents opened in Protected View must have editing enabled first.
+
+## Translating the add-on
+
+The interface and this documentation can be translated into any language.
+
+* Every release on GitHub has the file `wordDocAssistant.pot` with all the messages. Translate it with Poedit or any gettext editor and send the `.po` file (and a translated readme if you like) as a GitHub issue or pull request at https://github.com/9Peera/word-document-assistant.
+* Keep the `{placeholders}` and the `&` shortcut letters, and test that the shortcut letters of each dialog are different.
+
+## Working with other add-ons
+
+Word Document Assistant only acts while its navigation mode is on, and its command keys are NVDA+Shift+F8 and NVDA+Control+Shift+F8, so it can be used next to other add-ons for Microsoft Office. Authors of other Office add-ons are welcome to reuse ideas or code (GPL v2), for example the accessibility checker or the time-limited collection of items in long documents.

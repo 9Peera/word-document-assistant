@@ -1,9 +1,13 @@
 # Word Document Assistant for NVDA
-# Offline Thai word check: open word lists, commonly misspelled words, updates.
+# Offline word list check: commonly misspelled words in any language, plus Thai word lists and updates.
 # Copyright (C) 2026 Peera Pilarit
 # This file is covered by the GNU General Public License version 2.
 
-"""Thai word check that works without AI or internet.
+"""Word list check that works without AI or internet.
+
+Lists of commonly misspelled words work for any language: a bundled English and Thai list, the user's
+own list and an organization's list. Thai also gets a full word list, because Thai is written without
+spaces between words and Word's own Thai checking is weak.
 
 Word lists come from sources that allow reuse (see data/README.md). Updates are only
 looked for and downloaded from the addresses in SOURCES, or from an address the
@@ -31,6 +35,13 @@ addonHandler.initTranslation()
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 BUNDLED_WORDS = os.path.join(DATA_DIR, "words_th.txt")
 BUNDLED_MISSPELLINGS = os.path.join(DATA_DIR, "misspellings_th.tsv")
+#: Bundled lists of commonly misspelled words, one file per language: misspellings_<language>.tsv.
+BUNDLED_MISSPELLING_FILES = sorted(
+	os.path.join(DATA_DIR, name)
+	for name in (os.listdir(DATA_DIR) if os.path.isdir(DATA_DIR) else [])
+	if name.startswith("misspellings_") and name.endswith(".tsv")
+)
+_THAI_LETTER = re.compile("[\u0e01-\u0e4e]")
 MAX_WORD = 30
 TIMEOUT = 20
 CHECK_INTERVAL = 7 * 24 * 3600
@@ -145,12 +156,23 @@ class Dictionary:
 		for wrong, (right, note) in self.misspellings.items():
 			if wrong in self.ignored:
 				continue
-			position = text.find(wrong)
-			while position >= 0:
-				end = position + len(wrong)
-				if not self._insideLongerWord(text, position, end):
-					found.append(Finding(position, end, wrong, "misspelled", [right], note))
-				position = text.find(wrong, end)
+			thai = bool(_THAI_LETTER.search(wrong))
+			forms = [(wrong, right)]
+			if not thai and wrong[:1].islower():
+				# Also at the start of a sentence: "Recieve" is corrected to "Receive".
+				forms.append((wrong[:1].upper() + wrong[1:], right[:1].upper() + right[1:]))
+			for form, fix in forms:
+				position = text.find(form)
+				while position >= 0:
+					end = position + len(form)
+					if thai:
+						inside = self._insideLongerWord(text, position, end)
+					else:
+						# Words written with spaces only match whole words: not "wich" inside "sandwich".
+						inside = _partOfWord(text, position, end)
+					if not inside:
+						found.append(Finding(position, end, form, "misspelled", [fix], note))
+					position = text.find(form, end)
 		return found
 
 	def _insideLongerWord(self, text: str, start: int, end: int) -> bool:
@@ -320,6 +342,14 @@ def readWords(path: str, kind: str) -> set[str]:
 	return words
 
 
+def _partOfWord(text: str, start: int, end: int) -> bool:
+	return (start > 0 and text[start - 1].isalnum()) or (end < len(text) and text[end].isalnum())
+
+
+def isThai(word: str) -> bool:
+	return bool(_THAI_LETTER.search(word))
+
+
 def readMisspellings(path: str) -> dict[str, tuple[str, str]]:
 	pairs: dict[str, tuple[str, str]] = {}
 	try:
@@ -399,7 +429,7 @@ class WordLists:
 
 	def load(self) -> None:
 		wordFiles: list[tuple[str, str]] = []
-		misspellingFiles = [BUNDLED_MISSPELLINGS]
+		misspellingFiles = list(BUNDLED_MISSPELLING_FILES) or [BUNDLED_MISSPELLINGS]
 		for source in self.enabledSources():
 			downloaded = self._sourceFile(source)
 			if source.kind == "misspellings":
@@ -415,6 +445,21 @@ class WordLists:
 		dictionary.ignored = self.dictionary.ignored
 		with self._lock:
 			self.dictionary = dictionary
+			self._loadedStamp = self._myFilesStamp()
+
+	def _myFilesStamp(self) -> tuple[float, ...]:
+		stamps = []
+		for path in (self.myWordsFile, self.myMisspellingsFile):
+			try:
+				stamps.append(os.path.getmtime(path))
+			except OSError:
+				stamps.append(0.0)
+		return tuple(stamps)
+
+	def reloadIfChanged(self) -> None:
+		"""Load again when the user edited their own lists, for example in Notepad."""
+		if self._myFilesStamp() != getattr(self, "_loadedStamp", None):
+			self.load()
 
 	def addMyWord(self, word: str) -> None:
 		os.makedirs(self.folder, exist_ok=True)

@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from typing import Any
 
 import addonHandler
@@ -28,6 +29,7 @@ from . import (
 	elements,
 	formatDialog,
 	keySetup,
+	languages,
 	presets,
 	registry,
 	settings,
@@ -91,6 +93,20 @@ CMD_AI_TOOLS = ord("V")
 CMD_THAI_TOOLS = ord("Y")
 
 
+def _nvdaLanguageCode() -> str | None:
+	"""The code in languages.LANGUAGES of NVDA's interface language, if it is one of them."""
+	try:
+		import languageHandler
+
+		language = str(languageHandler.getLanguage()).replace("_", "-")
+	except Exception:
+		return None
+	for code in (language, language.split("-")[0]):
+		if code in languages.BY_CODE:
+			return code
+	return None
+
+
 def _helpText() -> str:
 	# Translators: Help shown with H in navigation mode. Keep the key names in the translation.
 	return _("""Word Document Assistant: navigation mode keys
@@ -112,9 +128,9 @@ X  cross-references
 I  citations
 B  bookmarks
 D  fields
-L  text marked with the wrong language
+L  text marked with the language of another writing system (any script: Thai, Arabic, Cyrillic, Latin...)
 A  accessibility problems
-Z  Thai word check with the offline word lists (commonly misspelled words and words not in the list)
+Z  word list check: commonly misspelled words in any language, and for Thai words not in the word list
 
 Inside the mode:
 Down arrow / Up arrow  next or previous item of the current type
@@ -131,9 +147,9 @@ N  read the footnote or endnote at the caret
 P  report page, section, line and heading
 Q  document summary
 W  AI check of the current paragraph, Shift+W AI check of the text selected before the mode started
-J  format the document with AI (official letter, memo, letter, report, article and more)
-V  AI tools: summarize, rewrite, translate, summarize comments, check consistency
-Y  Thai tools: Thai and Arabic digits, Buddhist and Christian era years
+J  format the document with AI (APA, MLA, Harvard, report, letter, Thai official formats and more)
+V  AI tools: summarize, rewrite, translate into many languages, summarize comments, check consistency
+Y  Numbers and dates: digits of Thai, Arabic, Persian, Devanagari and other scripts, Thai era years
 H  this help
 
 Anywhere: NVDA+Control+Shift+F8 sets up or updates the AI service and API key
@@ -388,7 +404,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Translators: Reported while a slow list, such as spelling errors, is collected.
 				ui.message(_("Collecting {kind}...").format(kind=kind.label))
 			self._collect(kind, conf("collectSeconds"))
-			if kind.id == "thaiWords":
+			if kind.id == "thaiWords" and getattr(kind, "sawThai", False):
 				wordListUpdates.announcePending()
 				wx.CallAfter(wordListUpdates.askOnce)
 		return self._items[kind.id]
@@ -982,11 +998,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 		# Translators: Reported while the document is being formatted.
 		ui.message(_("Formatting..."))
-		core.callLater(300, self._aiFormatApply, preset, options, paragraphs, roles, wholeDocument)
+		hasThai = any("thai" in languages.scriptsIn(text) for text in texts)
+		core.callLater(300, self._aiFormatApply, preset, options, paragraphs, roles, wholeDocument, hasThai)
 
-	def _aiFormatApply(self, preset, options, paragraphs, roles, wholeDocument: bool) -> None:
+	def _aiFormatApply(
+		self,
+		preset,
+		options,
+		paragraphs,
+		roles,
+		wholeDocument: bool,
+		hasThai: bool = True,
+	) -> None:
 		try:
-			counts = presets.apply(self.ctx, preset, paragraphs, roles, options, wholeDocument)
+			counts = presets.apply(self.ctx, preset, paragraphs, roles, options, wholeDocument, hasThai)
 		except COM_ERRORS:
 			log.debugWarning("Formatting failed", exc_info=True)
 			self.modified()
@@ -1064,7 +1089,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Translators: AI tool.
 			(_("Key points, dates and actions"), lambda: self._aiResult("keyPoints")),
 			# Translators: AI tool.
-			(_("Rewrite in official Thai style"), lambda: self._aiRewrite("official")),
+			(_("Rewrite in formal official style"), lambda: self._aiRewrite("official")),
 			# Translators: AI tool.
 			(_("Rewrite more politely"), lambda: self._aiRewrite("polite")),
 			# Translators: AI tool.
@@ -1073,10 +1098,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			(_("Rewrite in easy-to-read language"), lambda: self._aiRewrite("easy")),
 			# Translators: AI tool.
 			(_("Correct spelling and grammar only"), lambda: self._aiRewrite("fix")),
-			# Translators: AI tool.
-			(_("Translate to English"), lambda: self._aiTranslate("en")),
-			# Translators: AI tool.
-			(_("Translate to Thai"), lambda: self._aiTranslate("th")),
+			*self._translateTools(),
 			# Translators: AI tool.
 			(_("Summarize all comments"), self._aiComments),
 			# Translators: AI tool.
@@ -1090,6 +1112,35 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 		if index is not None:
 			tools_[index][1]()
+
+	def _translateTools(self) -> list[tuple[str, Callable[[], None]]]:
+		"""Translate to the NVDA language and to English, then any other language."""
+		names = languages.languageNames()
+		targets = list(dict.fromkeys(code for code in (_nvdaLanguageCode(), "en") if code))
+		result: list[tuple[str, Callable[[], None]]] = [
+			# Translators: AI tool; {language} is a language name.
+			(
+				_("Translate to {language}").format(language=names[code]),
+				lambda code=code: self._aiTranslate(code),
+			)
+			for code in targets
+		]
+		# Translators: AI tool that asks which language to translate to.
+		result.append((_("Translate to another language..."), self._aiTranslateChoose))
+		return result
+
+	def _aiTranslateChoose(self) -> None:
+		names = languages.languageNames()
+		codes = [language.code for language in languages.LANGUAGES]
+		index = self.choose(
+			# Translators: Title of the list of languages to translate to.
+			_("Translate"),
+			# Translators: Label of the list of languages to translate to.
+			_("Translate to:"),
+			[names[code] for code in codes],
+		)
+		if index is not None:
+			self._aiTranslate(codes[index])
 
 	def _readTool(self, wholeDocumentDefault: bool):
 		try:
@@ -1194,9 +1245,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self._aiFailed,
 		)
 
-	# Thai tools (Y) -------------------------------------------------------------------------------
+	# Number and date tools (Y) ---------------------------------------------------------------------
 
 	def _thaiToolsMenu(self) -> None:
+		"""Digits of many scripts and Thai era years."""
 		if not self.hasContext:
 			return
 		try:
@@ -1205,34 +1257,71 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except COM_ERRORS:
 			self._aiFailed(_("Word did not respond, please try again"))
 			return
-		thai, arabic = tools.countDigits(text)
-		options = [
-			# Translators: Thai tool; {count} is how many digits will change.
-			(
-				_("Arabic digits to Thai digits ({count})").format(count=arabic),
-				lambda: self._digits(rangeObj, True),
-			),
-			# Translators: Thai tool; {count} is how many digits will change.
-			(
-				_("Thai digits to Arabic digits ({count})").format(count=thai),
-				lambda: self._digits(rangeObj, False),
-			),
-			# Translators: Thai tool.
-			(_("Christian era years (ค.ศ.) to Buddhist era (พ.ศ.)"), lambda: self._era(rangeObj, True)),
-			# Translators: Thai tool.
-			(_("Buddhist era years (พ.ศ.) to Christian era (ค.ศ.)"), lambda: self._era(rangeObj, False)),
-		]
-		# Translators: Title and label of the Thai tools menu; {where} is what the tools work on.
+		counts = tools.countDigits(text)
+		names = languages.digitSystemNames()
+		western = counts.get("western", 0)
+		options: list[tuple[str, Callable[[], None]]] = []
+		for system in languages.DIGIT_SYSTEMS:
+			if system.id in counts:
+				options.append(
+					(
+						# Translators: Number tool; {digits} is a set of digits, for example "Thai digits".
+						_("{digits} to 0-9 ({count})").format(
+							digits=names[system.id],
+							count=counts[system.id],
+						),
+						lambda system=system.id: self._digits(rangeObj, system, "western"),
+					),
+				)
+		scripts = set(languages.scriptsIn(text))
+		for system in languages.DIGIT_SYSTEMS:
+			if system.script in scripts and western:
+				options.append(
+					(
+						# Translators: Number tool; {digits} is a set of digits, for example "Thai digits".
+						_("0-9 to {digits} ({count})").format(digits=names[system.id], count=western),
+						lambda system=system.id: self._digits(rangeObj, "western", system),
+					),
+				)
+		if western:
+			# Translators: Number tool that asks which digits to use.
+			options.append((_("0-9 to other digits..."), lambda: self._digitsChoose(rangeObj)))
+		if "thai" in scripts or tools.eraReplacements(text, True) or tools.eraReplacements(text, False):
+			options += [
+				# Translators: Number tool for Thai text.
+				(_("Christian era years (ค.ศ.) to Buddhist era (พ.ศ.)"), lambda: self._era(rangeObj, True)),
+				# Translators: Number tool for Thai text.
+				(_("Buddhist era years (พ.ศ.) to Christian era (ค.ศ.)"), lambda: self._era(rangeObj, False)),
+			]
+		if not options:
+			sounds.play(sounds.ERROR)
+			# Translators: Reported when the number tools find no digits or years to change.
+			self.speak(_("No digits or era years in the {where}").format(where=where))
+			return
+		# Translators: Title and label of the number and date tools menu; {where} is what the tools work on.
 		index = self.choose(
-			_("Thai tools"),
+			_("Numbers and dates"),
 			_("Tool, works on the {where}:").format(where=where),
 			[o[0] for o in options],
 		)
 		if index is not None:
 			self._runSafely(options[index][1])
 
-	def _digits(self, rangeObj, toThai: bool) -> None:
-		changed = tools.convertDigits(self.ctx, rangeObj, toThai)
+	def _digitsChoose(self, rangeObj) -> None:
+		names = languages.digitSystemNames()
+		systems = [system.id for system in languages.DIGIT_SYSTEMS]
+		index = self.choose(
+			# Translators: Title of the list of digit sets.
+			_("Numbers and dates"),
+			# Translators: Label of the list of digit sets to change 0-9 into.
+			_("Change 0-9 to:"),
+			[names[system] for system in systems],
+		)
+		if index is not None:
+			self._runSafely(lambda: self._digits(rangeObj, "western", systems[index]))
+
+	def _digits(self, rangeObj, source: str, target: str) -> None:
+		changed = tools.convertDigits(self.ctx, rangeObj, source, target)
 		self.modified()
 		# Translators: Reported after digits were changed; {count} is a number.
 		self.speak(_("{count} digits changed").format(count=changed) if changed else _("Nothing to change"))

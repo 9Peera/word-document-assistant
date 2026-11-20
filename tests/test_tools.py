@@ -5,9 +5,9 @@ from wordDocAssistant import tools
 def test_digit_conversion_both_ways():
 	doc = Doc(["ปี 2569 วันที่ 13"])
 	ctx = Context(doc)
-	assert tools.convertDigits(ctx, doc.Content, toThai=True) == 6
+	assert tools.convertDigits(ctx, doc.Content, "western", "thai") == 6
 	assert "๒๕๖๙" in doc.text and "๑๓" in doc.text
-	assert tools.convertDigits(ctx, doc.Content, toThai=False) == 6
+	assert tools.convertDigits(ctx, doc.Content, "thai", "western") == 6
 	assert "2569" in doc.text
 	assert ctx.application.undo == ["Change digits", "Change digits"]
 
@@ -39,4 +39,4 @@ def test_replace_keeps_the_paragraph_mark_and_insert_after_adds_a_paragraph():
 
 
 def test_count_digits():
-	assert tools.countDigits("12 ๓๔๕") == (3, 2)
+	assert tools.countDigits("12 ๓๔๕ ٣") == {"western": 2, "thai": 3, "arabicIndic": 1}

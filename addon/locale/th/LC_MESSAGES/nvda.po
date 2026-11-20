@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version:  wordDocAssistant\n"
+"Project-Id-Version: wordDocAssistant\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-10 12:00+0700\n"
+"POT-Creation-Date: 2026-11-21 06:58+0700\n"
 "PO-Revision-Date: 2026-11-01 15:40+0700\n"
 "Last-Translator: Peera Pilarit\n"
 "Language-Team: Thai\n"
@@ -40,10 +40,11 @@ msgid ""
 "I  citations\n"
 "B  bookmarks\n"
 "D  fields\n"
-"L  text marked with the wrong language\n"
+"L  text marked with the language of another writing system (any script: "
+"Thai, Arabic, Cyrillic, Latin...)\n"
 "A  accessibility problems\n"
-"Z  Thai word check with the offline word lists (commonly misspelled words "
-"and words not in the list)\n"
+"Z  word list check: commonly misspelled words in any language, and for Thai "
+"words not in the word list\n"
 "\n"
 "Inside the mode:\n"
 "Down arrow / Up arrow  next or previous item of the current type\n"
@@ -62,11 +63,12 @@ msgid ""
 "Q  document summary\n"
 "W  AI check of the current paragraph, Shift+W AI check of the text selected "
 "before the mode started\n"
-"J  format the document with AI (official letter, memo, letter, report, "
-"article and more)\n"
-"V  AI tools: summarize, rewrite, translate, summarize comments, check "
-"consistency\n"
-"Y  Thai tools: Thai and Arabic digits, Buddhist and Christian era years\n"
+"J  format the document with AI (APA, MLA, Harvard, report, letter, Thai "
+"official formats and more)\n"
+"V  AI tools: summarize, rewrite, translate into many languages, summarize "
+"comments, check consistency\n"
+"Y  Numbers and dates: digits of Thai, Arabic, Persian, Devanagari and other "
+"scripts, Thai era years\n"
 "H  this help\n"
 "\n"
 "Anywhere: NVDA+Control+Shift+F8 sets up or updates the AI service and API "
@@ -98,9 +100,10 @@ msgstr ""
 "I  การอ้างอิง (citation)\n"
 "B  บุ๊กมาร์ก\n"
 "D  ฟิลด์\n"
-"L  ข้อความที่กำหนดภาษาผิด\n"
+"L  ข้อความที่กำหนดเป็นภาษาของระบบตัวอักษรอื่น (ทุกระบบตัวอักษร: ไทย อาหรับ ซีริลลิก "
+"ละติน...)\n"
 "A  ปัญหาการเข้าถึงได้\n"
-"Z  ตรวจคำภาษาไทยด้วยรายการคำแบบออฟไลน์ (คำที่มักเขียนผิดและคำที่ไม่มีในรายการคำ)\n"
+"Z  ตรวจคำด้วยรายการคำ: คำที่มักเขียนผิดของทุกภาษา และคำที่ไม่มีในรายการคำภาษาไทย\n"
 "\n"
 "ภายในโหมด:\n"
 "ลูกศรลง / ลูกศรขึ้น  รายการถัดไปหรือก่อนหน้าของชนิดปัจจุบัน\n"
@@ -117,9 +120,11 @@ msgstr ""
 "P  รายงานหน้า ส่วน (section) บรรทัด และหัวเรื่อง\n"
 "Q  สรุปเอกสาร\n"
 "W  ให้ AI ตรวจย่อหน้าปัจจุบัน, Shift+W ให้ AI ตรวจข้อความที่เลือกไว้ก่อนเข้าโหมด\n"
-"J  จัดรูปแบบเอกสารด้วย AI (หนังสือราชการ บันทึกข้อความ จดหมาย รายงาน บทความ และอื่นๆ)\n"
-"V  เครื่องมือ AI: สรุป เรียบเรียงใหม่ แปล สรุปข้อคิดเห็น ตรวจความสอดคล้อง\n"
-"Y  เครื่องมือภาษาไทย: เลขไทยและเลขอารบิก ปี พ.ศ. และ ค.ศ.\n"
+"J  จัดรูปแบบเอกสารด้วย AI (APA, MLA, Harvard รายงาน จดหมาย รูปแบบราชการไทย "
+"และอื่นๆ)\n"
+"V  เครื่องมือ AI: สรุป เรียบเรียงใหม่ แปลได้หลายภาษา สรุปข้อคิดเห็น ตรวจความสอดคล้อง\n"
+"Y  ตัวเลขและวันที่: ตัวเลขไทย อาหรับ เปอร์เซีย เทวนาครี และระบบตัวอักษรอื่น ปี พ.ศ. และ ค."
+"ศ.\n"
 "H  ความช่วยเหลือนี้\n"
 "\n"
 "ใช้ได้ทุกที่: NVDA+Control+Shift+F8 ตั้งค่าหรืออัปเดตบริการ AI และ API key\n"
@@ -404,8 +409,8 @@ msgid "Key points, dates and actions"
 msgstr "ประเด็นสำคัญ วันที่ และสิ่งที่ต้องดำเนินการ"
 
 #. Translators: AI tool.
-msgid "Rewrite in official Thai style"
-msgstr "เรียบเรียงใหม่เป็นภาษาราชการ"
+msgid "Rewrite in formal official style"
+msgstr "เรียบเรียงใหม่เป็นภาษาทางการแบบหนังสือราชการ"
 
 #. Translators: AI tool.
 msgid "Rewrite more politely"
@@ -424,14 +429,6 @@ msgid "Correct spelling and grammar only"
 msgstr "แก้เฉพาะคำผิดและไวยากรณ์"
 
 #. Translators: AI tool.
-msgid "Translate to English"
-msgstr "แปลเป็นภาษาอังกฤษ"
-
-#. Translators: AI tool.
-msgid "Translate to Thai"
-msgstr "แปลเป็นภาษาไทย"
-
-#. Translators: AI tool.
 msgid "Summarize all comments"
 msgstr "สรุปข้อคิดเห็นทั้งหมด"
 
@@ -444,6 +441,22 @@ msgstr "เครื่องมือ AI"
 
 msgid "Tool (summaries use the selected text, or the whole document):"
 msgstr "เครื่องมือ (การสรุปใช้ข้อความที่เลือก หรือทั้งเอกสาร):"
+
+#, python-brace-format
+msgid "Translate to {language}"
+msgstr "แปลเป็นภาษา{language}"
+
+#. Translators: AI tool that asks which language to translate to.
+msgid "Translate to another language..."
+msgstr "แปลเป็นภาษาอื่น..."
+
+#. Translators: Title of the list of languages to translate to.
+msgid "Translate"
+msgstr "แปล"
+
+#. Translators: Label of the list of languages to translate to.
+msgid "Translate to:"
+msgstr "แปลเป็น:"
 
 #. Translators: Title of the summary dialog; {where} is what was summarized.
 #, python-brace-format
@@ -473,28 +486,44 @@ msgstr "สรุปข้อคิดเห็น"
 msgid "Consistency of the {where}"
 msgstr "ความสอดคล้องของ{where}"
 
+#. Translators: Number tool; {digits} is a set of digits, for example "Thai digits".
 #, python-brace-format
-msgid "Arabic digits to Thai digits ({count})"
-msgstr "เลขอารบิกเป็นเลขไทย ({count})"
+msgid "{digits} to 0-9 ({count})"
+msgstr "{digits}เป็น 0-9 ({count})"
 
+#. Translators: Number tool; {digits} is a set of digits, for example "Thai digits".
 #, python-brace-format
-msgid "Thai digits to Arabic digits ({count})"
-msgstr "เลขไทยเป็นเลขอารบิก ({count})"
+msgid "0-9 to {digits} ({count})"
+msgstr "0-9 เป็น{digits} ({count})"
 
-#. Translators: Thai tool.
+#. Translators: Number tool that asks which digits to use.
+msgid "0-9 to other digits..."
+msgstr "0-9 เป็นตัวเลขแบบอื่น..."
+
+#. Translators: Number tool for Thai text.
 msgid "Christian era years (ค.ศ.) to Buddhist era (พ.ศ.)"
 msgstr "ปี ค.ศ. เป็น พ.ศ."
 
-#. Translators: Thai tool.
+#. Translators: Number tool for Thai text.
 msgid "Buddhist era years (พ.ศ.) to Christian era (ค.ศ.)"
 msgstr "ปี พ.ศ. เป็น ค.ศ."
 
-msgid "Thai tools"
-msgstr "เครื่องมือภาษาไทย"
+#. Translators: Reported when the number tools find no digits or years to change.
+#, python-brace-format
+msgid "No digits or era years in the {where}"
+msgstr "ไม่มีตัวเลขหรือปีศักราชใน{where}"
+
+#. Translators: Title of the list of digit sets.
+msgid "Numbers and dates"
+msgstr "ตัวเลขและวันที่"
 
 #, python-brace-format
 msgid "Tool, works on the {where}:"
 msgstr "เครื่องมือ ใช้กับ{where}:"
+
+#. Translators: Label of the list of digit sets to change 0-9 into.
+msgid "Change 0-9 to:"
+msgstr "เปลี่ยน 0-9 เป็น:"
 
 #. Translators: Reported after digits were changed; {count} is a number.
 #, python-brace-format
@@ -508,35 +537,6 @@ msgstr "ไม่มีสิ่งที่ต้องเปลี่ยน"
 #, python-brace-format
 msgid "{count} years changed"
 msgstr "เปลี่ยนปีแล้ว {count} รายการ"
-
-#. Translators: Name of a proofing language.
-msgid "Thai"
-msgstr "ไทย"
-
-#. Translators: Name of a proofing language.
-msgid "English (United States)"
-msgstr "อังกฤษ (สหรัฐอเมริกา)"
-
-#. Translators: Name of a proofing language.
-msgid "English (United Kingdom)"
-msgstr "อังกฤษ (สหราชอาณาจักร)"
-
-#. Translators: Name of a proofing language.
-msgid "no proofing"
-msgstr "ไม่ตรวจการสะกด"
-
-#. Translators: Name of a proofing language.
-msgid "no language"
-msgstr "ไม่กำหนดภาษา"
-
-#. Translators: Name of the language of text that mixes several languages.
-msgid "mixed languages"
-msgstr "หลายภาษา"
-
-#. Translators: Name of a language Word reports by number.
-#, python-brace-format
-msgid "language {number}"
-msgstr "ภาษารหัส {number}"
 
 #. Translators: Reported when the add-on cannot read the picture.
 msgid "Cannot read this picture from the document"
@@ -630,6 +630,11 @@ msgstr "ข้อความใกล้เคียง"
 msgid "no alternative text"
 msgstr "ไม่มีข้อความแสดงแทน"
 
+#. Translators: Action that gives every word in a paragraph the language of its script,
+#. for example Thai words Thai and English words English.
+msgid "Fix this paragraph (each word gets the language of its script)"
+msgstr "แก้ย่อหน้านี้ (แต่ละคำได้ภาษาตามระบบตัวอักษรของคำ)"
+
 #. Translators: Element type name.
 msgid "Language problems"
 msgstr "ปัญหาการกำหนดภาษา"
@@ -655,16 +660,13 @@ msgid "Text"
 msgstr "ข้อความ"
 
 #. Translators: Language problem.
-msgid "Thai text not marked as Thai"
-msgstr "ข้อความไทยไม่ได้กำหนดเป็นภาษาไทย"
-
-#. Translators: Language problem.
-msgid "English text marked as Thai"
-msgstr "ข้อความอังกฤษกำหนดเป็นภาษาไทย"
-
-#. Translators: Language problem.
 msgid "Some words marked with the wrong language"
 msgstr "บางคำกำหนดภาษาผิด"
+
+#. Translators: Language problem; {script} is a writing system, for example "Thai" or "Cyrillic".
+#, python-brace-format
+msgid "{script} text marked with a wrong language"
+msgstr "ข้อความ{script}ที่กำหนดภาษาผิด"
 
 #. Translators: Name of the undo step for fixing the language of text.
 msgid "Fix language"
@@ -684,15 +686,7 @@ msgstr "แก้ภาษาแล้ว {paragraphs} ย่อหน้า {co
 msgid "Paragraph marked as {language}"
 msgstr "กำหนดย่อหน้าเป็น{language}แล้ว"
 
-#. Translators: Action that marks Thai words as Thai and English words as English in one paragraph.
-msgid "Fix this paragraph (Thai words Thai, English words English)"
-msgstr "แก้ย่อหน้านี้ (คำไทยเป็นไทย คำอังกฤษเป็นอังกฤษ)"
-
-#. Translators: Action that marks a whole paragraph as Thai.
-msgid "Mark whole paragraph as Thai"
-msgstr "กำหนดทั้งย่อหน้าเป็นภาษาไทย"
-
-#. Translators: Action that marks a whole paragraph as English.
+#. Translators: Action that marks a whole paragraph with one language.
 #, python-brace-format
 msgid "Mark whole paragraph as {language}"
 msgstr "กำหนดทั้งย่อหน้าเป็น{language}"
@@ -1760,6 +1754,342 @@ msgstr "พบ {count} โมเดล เลือก {model} ไว้ เป�
 msgid "AI settings saved"
 msgstr "บันทึกการตั้งค่า AI แล้ว"
 
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Thai"
+msgstr "ไทย"
+
+#. Translators: Name of a language.
+msgid "English (United States)"
+msgstr "อังกฤษ (สหรัฐอเมริกา)"
+
+#. Translators: Name of a language.
+msgid "English (United Kingdom)"
+msgstr "อังกฤษ (สหราชอาณาจักร)"
+
+#. Translators: Name of a language.
+msgid "French"
+msgstr "ฝรั่งเศส"
+
+#. Translators: Name of a language.
+msgid "German"
+msgstr "เยอรมัน"
+
+#. Translators: Name of a language.
+msgid "Spanish"
+msgstr "สเปน"
+
+#. Translators: Name of a language.
+msgid "Italian"
+msgstr "อิตาลี"
+
+#. Translators: Name of a language.
+msgid "Portuguese (Brazil)"
+msgstr "โปรตุเกส (บราซิล)"
+
+#. Translators: Name of a language.
+msgid "Portuguese (Portugal)"
+msgstr "โปรตุเกส (โปรตุเกส)"
+
+#. Translators: Name of a language.
+msgid "Dutch"
+msgstr "ดัตช์"
+
+#. Translators: Name of a language.
+msgid "Swedish"
+msgstr "สวีเดน"
+
+#. Translators: Name of a language.
+msgid "Danish"
+msgstr "เดนมาร์ก"
+
+#. Translators: Name of a language.
+msgid "Norwegian"
+msgstr "นอร์เวย์"
+
+#. Translators: Name of a language.
+msgid "Finnish"
+msgstr "ฟินแลนด์"
+
+#. Translators: Name of a language.
+msgid "Polish"
+msgstr "โปแลนด์"
+
+#. Translators: Name of a language.
+msgid "Czech"
+msgstr "เช็ก"
+
+#. Translators: Name of a language.
+msgid "Slovak"
+msgstr "สโลวัก"
+
+#. Translators: Name of a language.
+msgid "Hungarian"
+msgstr "ฮังการี"
+
+#. Translators: Name of a language.
+msgid "Romanian"
+msgstr "โรมาเนีย"
+
+#. Translators: Name of a language.
+msgid "Croatian"
+msgstr "โครเอเชีย"
+
+#. Translators: Name of a language.
+msgid "Slovenian"
+msgstr "สโลวีเนีย"
+
+#. Translators: Name of a language.
+msgid "Turkish"
+msgstr "ตุรกี"
+
+#. Translators: Name of a language.
+msgid "Vietnamese"
+msgstr "เวียดนาม"
+
+#. Translators: Name of a language.
+msgid "Indonesian"
+msgstr "อินโดนีเซีย"
+
+#. Translators: Name of a language.
+msgid "Malay"
+msgstr "มลายู"
+
+#. Translators: Name of a language.
+msgid "Filipino"
+msgstr "ฟิลิปปินส์"
+
+#. Translators: Name of a language.
+msgid "Russian"
+msgstr "รัสเซีย"
+
+#. Translators: Name of a language.
+msgid "Ukrainian"
+msgstr "ยูเครน"
+
+#. Translators: Name of a language.
+msgid "Bulgarian"
+msgstr "บัลแกเรีย"
+
+#. Translators: Name of a language.
+msgid "Serbian (Cyrillic)"
+msgstr "เซอร์เบีย (ซีริลลิก)"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Greek"
+msgstr "กรีก"
+
+#. Translators: Name of a language.
+msgid "Arabic"
+msgstr "อาหรับ"
+
+#. Translators: Name of a language.
+msgid "Persian"
+msgstr "เปอร์เซีย"
+
+#. Translators: Name of a language.
+msgid "Urdu"
+msgstr "อูรดู"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Hebrew"
+msgstr "ฮีบรู"
+
+#. Translators: Name of a language.
+msgid "Hindi"
+msgstr "ฮินดี"
+
+#. Translators: Name of a language.
+msgid "Marathi"
+msgstr "มราฐี"
+
+#. Translators: Name of a language.
+msgid "Nepali"
+msgstr "เนปาล"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Bengali"
+msgstr "เบงกาลี"
+
+#. Translators: Name of a language.
+msgid "Punjabi"
+msgstr "ปัญจาบ"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Gujarati"
+msgstr "คุชราต"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Tamil"
+msgstr "ทมิฬ"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Telugu"
+msgstr "เตลูกู"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Kannada"
+msgstr "กันนาดา"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Malayalam"
+msgstr "มลยาฬัม"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Sinhala"
+msgstr "สิงหล"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Lao"
+msgstr "ลาว"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Khmer"
+msgstr "เขมร"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Burmese"
+msgstr "พม่า"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Georgian"
+msgstr "จอร์เจีย"
+
+#. Translators: Name of a language.
+#. Translators: Name of a writing system (script).
+msgid "Armenian"
+msgstr "อาร์เมเนีย"
+
+#. Translators: Name of a language.
+msgid "Amharic"
+msgstr "อัมฮารา"
+
+#. Translators: Name of a language.
+msgid "Chinese (Simplified)"
+msgstr "จีน (ตัวย่อ)"
+
+#. Translators: Name of a language.
+msgid "Chinese (Traditional)"
+msgstr "จีน (ตัวเต็ม)"
+
+#. Translators: Name of a language.
+msgid "Japanese"
+msgstr "ญี่ปุ่น"
+
+#. Translators: Name of a language.
+msgid "Korean"
+msgstr "เกาหลี"
+
+#. Translators: Name of a proofing language.
+msgid "no proofing"
+msgstr "ไม่ตรวจการสะกด"
+
+#. Translators: Name of a proofing language.
+msgid "no language"
+msgstr "ไม่กำหนดภาษา"
+
+#. Translators: Name of the language of text that mixes several languages.
+msgid "mixed languages"
+msgstr "หลายภาษา"
+
+#. Translators: Name of a language Word reports by number.
+#, python-brace-format
+msgid "language {number}"
+msgstr "ภาษารหัส {number}"
+
+#. Translators: Name of a writing system (script).
+msgid "Latin-script"
+msgstr "อักษรละติน"
+
+#. Translators: Name of a writing system (script).
+msgid "Arabic-script"
+msgstr "อักษรอาหรับ"
+
+#. Translators: Name of a writing system (script).
+msgid "Cyrillic"
+msgstr "อักษรซีริลลิก"
+
+#. Translators: Name of a writing system (script).
+msgid "Devanagari"
+msgstr "อักษรเทวนาครี"
+
+#. Translators: Name of a writing system (script).
+msgid "Gurmukhi"
+msgstr "อักษรกูรมุขี"
+
+#. Translators: Name of a writing system (script).
+msgid "Ethiopic"
+msgstr "อักษรเอธิโอเปีย"
+
+#. Translators: Name of a set of digits.
+msgid "Thai digits"
+msgstr "เลขไทย"
+
+#. Translators: Name of a set of digits.
+msgid "Lao digits"
+msgstr "เลขลาว"
+
+#. Translators: Name of a set of digits.
+msgid "Khmer digits"
+msgstr "เลขเขมร"
+
+#. Translators: Name of a set of digits.
+msgid "Burmese digits"
+msgstr "เลขพม่า"
+
+#. Translators: Name of a set of digits.
+msgid "Arabic-Indic digits"
+msgstr "เลขอารบิก-อินดิก"
+
+#. Translators: Name of a set of digits.
+msgid "Persian and Urdu digits"
+msgstr "เลขเปอร์เซียและอูรดู"
+
+#. Translators: Name of a set of digits.
+msgid "Devanagari digits"
+msgstr "เลขเทวนาครี"
+
+#. Translators: Name of a set of digits.
+msgid "Bengali digits"
+msgstr "เลขเบงกาลี"
+
+#. Translators: Name of a set of digits.
+msgid "Gurmukhi digits"
+msgstr "เลขกูรมุขี"
+
+#. Translators: Name of a set of digits.
+msgid "Gujarati digits"
+msgstr "เลขคุชราต"
+
+#. Translators: Name of a set of digits.
+msgid "Tamil digits"
+msgstr "เลขทมิฬ"
+
+#. Translators: Name of a set of digits.
+msgid "Telugu digits"
+msgstr "เลขเตลูกู"
+
+#. Translators: Name of a set of digits.
+msgid "Kannada digits"
+msgstr "เลขกันนาดา"
+
+#. Translators: Name of a set of digits.
+msgid "Malayalam digits"
+msgstr "เลขมลยาฬัม"
+
 #. Translators: Role of a paragraph when formatting a document.
 msgid "Title"
 msgstr "ชื่อเรื่องหลัก"
@@ -1978,6 +2308,47 @@ msgstr ""
 "ระยะบรรทัด 1.5 เว้นระยะระหว่างย่อหน้าแทนบรรทัดว่าง ตัวอักษรใหญ่ขึ้น "
 "เหมาะกับผู้ใช้โปรแกรมอ่านหน้าจอและผู้มีสายตาเลือนราง"
 
+#. Translators: Name of a document format (a style guide for academic papers).
+msgid "APA 7th edition paper"
+msgstr "บทความแบบ APA ฉบับที่ 7"
+
+msgid ""
+"Times New Roman 12 pt, double spacing, 2.54 cm (1 inch) margins, first lines "
+"indented 1.27 cm, text aligned left. Bold centred title, level 1 headings "
+"bold and centred, level 2 bold, level 3 bold italic, references with a "
+"hanging indent. Keeps the paper size."
+msgstr ""
+"Times New Roman 12 พอยต์ ระยะบรรทัดคู่ ระยะขอบ 2.54 ซม. (1 นิ้ว) บรรทัดแรกเยื้อง 1.27 "
+"ซม. ข้อความชิดซ้าย ชื่อเรื่องตัวหนากลางหน้า หัวเรื่องระดับ 1 ตัวหนากลางหน้า ระดับ 2 ตัวหนา "
+"ระดับ 3 ตัวหนาเอียง รายการอ้างอิงแบบเยื้องแขวน คงขนาดกระดาษเดิม"
+
+#. Translators: Name of a document format (a style guide for academic papers).
+msgid "MLA 9th edition paper"
+msgstr "บทความแบบ MLA ฉบับที่ 9"
+
+msgid ""
+"Times New Roman 12 pt, double spacing, 2.54 cm (1 inch) margins, first lines "
+"indented 1.27 cm, text aligned left. Name, teacher, course and date at the "
+"top left, centred title in plain text, Works Cited entries with a hanging "
+"indent. Keeps the paper size."
+msgstr ""
+"Times New Roman 12 พอยต์ ระยะบรรทัดคู่ ระยะขอบ 2.54 ซม. (1 นิ้ว) บรรทัดแรกเยื้อง 1.27 "
+"ซม. ข้อความชิดซ้าย ชื่อ ผู้สอน รายวิชา และวันที่ชิดซ้ายด้านบน ชื่อเรื่องตัวธรรมดากลางหน้า รายการ "
+"Works Cited แบบเยื้องแขวน คงขนาดกระดาษเดิม"
+
+#. Translators: Name of a document format (a referencing style for academic papers).
+msgid "Harvard style paper"
+msgstr "บทความแบบ Harvard"
+
+msgid ""
+"Times New Roman 12 pt, 1.5 line spacing, 2.54 cm margins, space between "
+"paragraphs instead of indents, bold headings, centred captions, reference "
+"list in alphabetical order without indent. Keeps the paper size."
+msgstr ""
+"Times New Roman 12 พอยต์ ระยะบรรทัด 1.5 ระยะขอบ 2.54 ซม. "
+"เว้นระยะระหว่างย่อหน้าแทนการเยื้อง หัวเรื่องตัวหนา คำบรรยายกลางหน้า "
+"รายการอ้างอิงเรียงตามตัวอักษรโดยไม่เยื้อง คงขนาดกระดาษเดิม"
+
 #. Translators: Name of the undo step for formatting a document.
 #, python-brace-format
 msgid "Format document: {name}"
@@ -2015,12 +2386,20 @@ msgstr "จำนวนรายการสูงสุดที่รวบร
 msgid "&Longest search time in seconds:"
 msgstr "เวลาค้นหา&นานที่สุด (วินาที):"
 
-#. Translators: Group of Thai word check settings in the settings panel.
-msgid "Thai word check (Z)"
-msgstr "ตรวจคำภาษาไทย (Z)"
+#. Translators: Label of a list of check boxes in the settings panel. The language check (L)
+#. gives text of each writing system the first checked language of that system.
+msgid ""
+"Languages I &write in (used when fixing text marked with a wrong language):"
+msgstr "ภาษาที่ฉันใช้&เขียน (ใช้เมื่อแก้ข้อความที่กำหนดภาษาผิด):"
 
-msgid "Also report words that are not in the word list (names may be reported)"
-msgstr "รายงานคำที่ไม่มีในรายการคำด้วย (อาจรายงานชื่อเฉพาะ)"
+#. Translators: Group of word list check settings in the settings panel.
+msgid "Word list check (Z)"
+msgstr "ตรวจคำด้วยรายการคำ (Z)"
+
+msgid ""
+"Thai: also report words that are not in the Thai word list (names may be "
+"reported)"
+msgstr "ภาษาไทย: รายงานคำที่ไม่มีในรายการคำภาษาไทยด้วย (อาจรายงานชื่อคน)"
 
 #. Translators: Check box in the Thai word check settings.
 msgid "Check for new word lists once a week and tell me"
@@ -2071,16 +2450,13 @@ msgstr ""
 "ข้อความที่ตรวจจะถูกส่งไปยังบริการนั้น และบริการแบบฟรีอาจนำไปใช้ปรับปรุงผลิตภัณฑ์ "
 "สำหรับเอกสารลับให้ใช้ Ollama ในเครื่องนี้"
 
-#. Translators: Label of the document language choice for AI.
-msgid "Document &language:"
-msgstr "ภาษาของเอกสาร(&L):"
+#. Translators: Label of the choice of the language AI answers in.
+msgid "AI answers in &language:"
+msgstr "AI ตอบเป็น&ภาษา:"
 
-#. Translators: Choices for the document language used by AI.
-msgid "Automatic"
-msgstr "อัตโนมัติ"
-
-msgid "English"
-msgstr "อังกฤษ"
+#. Translators: Choice: AI answers in the language of the text.
+msgid "Same as the text"
+msgstr "ภาษาเดียวกับข้อความ"
 
 #. Translators: Button that opens the guided AI key setup.
 msgid "Get or &update the API key..."
@@ -2582,9 +2958,9 @@ msgstr "แทรกหรืออัปเดตบรรณานุกรม
 msgid "Change citation style..."
 msgstr "เปลี่ยนรูปแบบการอ้างอิง..."
 
-#. Translators: Element type name.
-msgid "Thai word check"
-msgstr "ตรวจคำภาษาไทย"
+#. Translators: Element type name (Z): commonly misspelled words in any language and the Thai word list.
+msgid "Word list check"
+msgstr "ตรวจคำด้วยรายการคำ"
 
 #. Translators: Section label in the Thai word check details.
 msgid "Note"
@@ -2646,6 +3022,10 @@ msgstr "ข้าม {word}"
 #. Translators: Action that opens the Royal Institute dictionary website.
 msgid "Look up in the Royal Institute dictionary website"
 msgstr "ค้นในเว็บไซต์พจนานุกรมราชบัณฑิตยสถาน"
+
+#. Translators: Action that opens the user's own list of commonly misspelled words in Notepad.
+msgid "Edit my list of commonly misspelled words"
+msgstr "แก้ไขรายการคำที่มักเขียนผิดของฉัน"
 
 #. Translators: Action that checks for and downloads newer word lists.
 msgid "Update the Thai word lists now..."
@@ -2882,14 +3262,21 @@ msgstr ""
 #. Translators: Long description to be shown for this add-on on add-on information from add-on store
 msgid ""
 "Read, manage and format Microsoft Word documents from the keyboard with "
-"NVDA. Works with Microsoft 365, Office 2021 and Office 2019.\n"
+"NVDA. Works with Microsoft 365, Office 2021 and Office 2019, in any document "
+"language.\n"
+"Language support: navigation, comments, notes, tracked changes, structure, "
+"the accessibility checker and the AI tools work with documents in any "
+"language; spelling and grammar use Word's own checker for the document's "
+"language. A few extras are made for Thai users: the Thai word list check, "
+"Buddhist era years and the Thai official document formats.\n"
 "Main features:\n"
 "- Document navigation mode (NVDA+Shift+F8): move to spelling errors (S), "
 "grammar issues (G), comments (C), footnotes (F), endnotes (E), tracked "
 "changes (R), headings (O), tables (U), pictures (M), links (K), cross-"
 "references (X), citations (I), bookmarks (B), fields (D), language problems "
-"(L) and accessibility problems (A); Shift with the letter moves back, arrow "
-"keys move and change the type, Home and End go to the first and last item.\n"
+"(L), accessibility problems (A) and the word list check (Z); Shift with the "
+"letter moves back, arrow keys move and change the type, Home and End go to "
+"the first and last item.\n"
 "- When you leave the mode the caret stays at the last item, ready to edit; "
 "Enter leaves and lets you type straight away, Backspace returns to where you "
 "started.\n"
@@ -2900,45 +3287,59 @@ msgid ""
 "endnotes, accept and reject tracked changes one by one, by author or all.\n"
 "- Track Changes status and toggle (T, Shift+T), note at the caret (N), page, "
 "section and heading (P), document summary (Q).\n"
+"- Language check (L): text marked with the language of another writing "
+"system (Thai, Lao, Khmer, Burmese, Arabic, Hebrew, Cyrillic, Greek, "
+"Devanagari, Bengali, Tamil and more, or Latin-script text marked with one of "
+"those), which makes screen readers speak it with the wrong voice; fix a "
+"paragraph or the whole document.\n"
 "- Accessibility checker (A): pictures without alternative text, tables "
 "without header rows, skipped heading levels, empty paragraphs used for "
 "spacing, unclear link text, missing title and wrong language, each with a "
-"fix. AI writes alternative text for pictures and tables in Thai or English "
-"for you to check.\n"
+"fix. AI writes alternative text for pictures and tables for you to check.\n"
 "- Structure: promote and demote headings, header rows and alternative text "
 "of tables, edit and check links, add bookmarks, update fields, insert cross-"
 "references, citations and the bibliography.\n"
-"- Optional AI suggestions: proofread a paragraph or the selection (W), "
-"suggestions for a misspelled word, drafts of comment replies. AI tools (V): "
-"summaries, rewriting in official, polite, concise or easy-to-read style, "
-"Thai and English translation, comment summary and consistency check, always "
-"shown next to the original before anything changes.\n"
-"- Thai tools (Y): Thai and Arabic digits, Buddhist and Christian era years.\n"
-"- Offline Thai word check (Z): commonly misspelled words with the right "
-"form, and words not in open word lists (PyThaiNLP CC0, optional LibreOffice "
-"NECTEC dictionary), with suggestions, my words, an organization list, and an "
-"optional weekly check for new word lists.\n"
-"- Format the document with AI (J): Thai official letter, memo, announcement "
-"or order, meeting minutes, business and general letters, report, article, "
-"academic paper and an accessible easy-to-read format. AI only decides the "
-"role of each paragraph; the words are not changed, you check a preview and "
-"Control+Z undoes it.\n"
+"- Optional AI suggestions in the language of the document: proofread a "
+"paragraph or the selection (W), suggestions for a misspelled word, drafts of "
+"comment replies. AI tools (V): summaries, rewriting in formal, polite, "
+"concise or easy-to-read style, translation into more than 50 languages, "
+"comment summary and consistency check, always shown next to the original "
+"before anything changes.\n"
+"- Numbers and dates (Y): change 0-9 to and from Thai, Lao, Khmer, Burmese, "
+"Arabic-Indic, Persian, Devanagari, Bengali, Tamil and other digits; Buddhist "
+"and Christian era years for Thai.\n"
+"- Word list check (Z): commonly misspelled words in any language from a "
+"bundled English and Thai list, your own list and an organization list; for "
+"Thai also words not in open word lists (PyThaiNLP CC0, optional LibreOffice "
+"NECTEC dictionary), with suggestions and an optional weekly check for new "
+"word lists.\n"
+"- Format the document with AI (J): APA 7, MLA 9 and Harvard papers, report, "
+"article, academic paper, business and general letters, an accessible easy-to-"
+"read format, and Thai official letter, memo, announcement and meeting "
+"minutes. AI only decides the role of each paragraph; the words are not "
+"changed, you check a preview and Control+Z undoes it.\n"
 "- AI services: Google Gemini (free tier), Anthropic Claude and OpenAI "
 "(paid), OpenAI compatible services, or Ollama on this computer for "
 "confidential documents. Guided API key setup (NVDA+Control+Shift+F8) with "
 "automatic model choice.\n"
-"- Every change is one Word undo step. API keys are encrypted for the Windows "
-"user. Keys work with Thai and English keyboard layouts. Thai and English "
-"interface."
+"- Every change is one Word undo step. Long documents are searched within a "
+"time limit so NVDA never freezes. API keys are encrypted for the Windows "
+"user. Keys work with any keyboard layout. English and Thai interface; "
+"translations are welcome."
 msgstr ""
 "อ่าน จัดการ และจัดรูปแบบเอกสาร Microsoft Word ด้วยแป้นพิมพ์ร่วมกับ NVDA ใช้ได้กับ "
-"Microsoft 365, Office 2021 และ Office 2019\n"
+"Microsoft 365, Office 2021 และ Office 2019 กับเอกสารทุกภาษา\n"
+"ภาษาที่รองรับ: การนำทาง ข้อคิดเห็น เชิงอรรถ การแก้ไขที่ติดตาม โครงสร้างเอกสาร "
+"ตัวตรวจการเข้าถึงได้ และเครื่องมือ AI ใช้ได้กับเอกสารทุกภาษา "
+"คำสะกดและไวยากรณ์ใช้ตัวตรวจของ Word ตามภาษาของเอกสาร "
+"มีส่วนเพิ่มเติมบางส่วนสำหรับผู้ใช้ภาษาไทย ได้แก่ การตรวจคำด้วยรายการคำภาษาไทย ปี พ.ศ. "
+"และรูปแบบเอกสารราชการไทย\n"
 "ความสามารถหลัก:\n"
 "- โหมดนำทางเอกสาร (NVDA+Shift+F8): ไปยังคำสะกดผิด (S) ปัญหาไวยากรณ์ (G) ข้อคิดเห็น "
 "(C) เชิงอรรถ (F) endnote (E) การแก้ไขที่ติดตาม (R) หัวเรื่อง (O) ตาราง (U) รูปภาพ (M) "
 "ลิงก์ (K) การอ้างอิงโยง (X) การอ้างอิง (I) บุ๊กมาร์ก (B) ฟิลด์ (D) ปัญหาการกำหนดภาษา (L) "
-"และปัญหาการเข้าถึงได้ (A) กด Shift พร้อมตัวอักษรเพื่อย้อนกลับ ใช้ลูกศรเพื่อเลื่อนและเปลี่ยนชนิด "
-"Home และ End ไปยังรายการแรกและรายการสุดท้าย\n"
+"ปัญหาการเข้าถึงได้ (A) และการตรวจคำด้วยรายการคำ (Z) กด Shift พร้อมตัวอักษรเพื่อย้อนกลับ "
+"ใช้ลูกศรเพื่อเลื่อนและเปลี่ยนชนิด Home และ End ไปยังรายการแรกและรายการสุดท้าย\n"
 "- เมื่อออกจากโหมด เคอร์เซอร์อยู่ที่รายการล่าสุด พร้อมแก้ไขได้ทันที Enter "
 "ออกจากโหมดแล้วพิมพ์ได้เลย Backspace กลับไปตำแหน่งเดิม\n"
 "- หน้าต่างรายการ (Space) แยกรายละเอียดแต่ละส่วนเป็นช่อง ได้แก่ ผู้เขียน วันที่ สถานะ "
@@ -2948,41 +3349,331 @@ msgstr ""
 "ยอมรับและปฏิเสธการแก้ไขทีละรายการ ตามผู้เขียน หรือทั้งหมด\n"
 "- สถานะและการเปิดปิด Track Changes (T, Shift+T) อ่านเชิงอรรถที่เคอร์เซอร์ (N) หน้า "
 "ส่วน และหัวเรื่อง (P) สรุปเอกสาร (Q)\n"
+"- การตรวจภาษา (L): ข้อความที่กำหนดเป็นภาษาของระบบตัวอักษรอื่น (ไทย ลาว เขมร พม่า "
+"อาหรับ ฮีบรู ซีริลลิก กรีก เทวนาครี เบงกาลี ทมิฬ และอื่นๆ "
+"หรือข้อความอักษรละตินที่กำหนดเป็นภาษาเหล่านั้น) ซึ่งทำให้โปรแกรมอ่านจออ่านด้วยเสียงผิดภาษา "
+"แก้ได้ทีละย่อหน้าหรือทั้งเอกสาร\n"
 "- ตัวตรวจการเข้าถึงได้ (A): รูปภาพที่ไม่มีข้อความแสดงแทน ตารางที่ไม่มีแถวหัวตาราง "
 "หัวเรื่องข้ามระดับ ย่อหน้าว่างที่ใช้เว้นระยะ ข้อความลิงก์ที่ไม่ชัดเจน เอกสารไม่มีชื่อเรื่อง "
 "และการกำหนดภาษาผิด พร้อมคำสั่งแก้ไขแต่ละรายการ AI "
-"ช่วยเขียนข้อความแสดงแทนของรูปภาพและตารางเป็นภาษาไทยหรืออังกฤษให้ตรวจก่อนบันทึก\n"
+"ช่วยเขียนข้อความแสดงแทนของรูปภาพและตารางให้ตรวจก่อนบันทึก\n"
 "- โครงสร้างเอกสาร: เลื่อนระดับหัวเรื่อง กำหนดแถวหัวตารางและข้อความแสดงแทนของตาราง "
 "แก้ไขและตรวจลิงก์ เพิ่มบุ๊กมาร์ก อัปเดตฟิลด์ แทรกการอ้างอิงโยง การอ้างอิง และบรรณานุกรม\n"
-"- คำแนะนำจาก AI (เลือกเปิดใช้ได้): ตรวจย่อหน้าหรือข้อความที่เลือก (W) "
+"- คำแนะนำจาก AI ตามภาษาของเอกสาร (เลือกเปิดใช้ได้): ตรวจย่อหน้าหรือข้อความที่เลือก (W) "
 "แนะนำคำที่ถูกต้องสำหรับคำสะกดผิด ร่างคำตอบข้อคิดเห็น เครื่องมือ AI (V): สรุป "
-"เรียบเรียงใหม่เป็นภาษาราชการ สุภาพ กระชับ หรือภาษาง่าย แปลไทยและอังกฤษ สรุปข้อคิดเห็น "
-"และตรวจความสอดคล้อง โดยแสดงเทียบกับข้อความเดิมก่อนเปลี่ยนทุกครั้ง\n"
-"- เครื่องมือภาษาไทย (Y): เลขไทยและเลขอารบิก ปี พ.ศ. และ ค.ศ.\n"
-"- ตรวจคำภาษาไทยแบบออฟไลน์ (Z): คำที่มักเขียนผิดพร้อมคำที่ถูกต้อง "
-"และคำที่ไม่มีในรายการคำแบบเปิด (PyThaiNLP CC0 และพจนานุกรม NECTEC ของ LibreOffice "
-"ที่เลือกเพิ่มได้) พร้อมคำแนะนำ รายการคำของฉัน รายการขององค์กร "
+"เรียบเรียงใหม่เป็นภาษาทางการ สุภาพ กระชับ หรือภาษาง่าย แปลได้มากกว่า 50 ภาษา "
+"สรุปข้อคิดเห็น และตรวจความสอดคล้อง โดยแสดงเทียบกับข้อความเดิมก่อนเปลี่ยนทุกครั้ง\n"
+"- ตัวเลขและวันที่ (Y): เปลี่ยน 0-9 กับตัวเลขไทย ลาว เขมร พม่า อารบิก-อินดิก เปอร์เซีย "
+"เทวนาครี เบงกาลี ทมิฬ และตัวเลขอื่น ไปมาได้ ปี พ.ศ. และ ค.ศ. สำหรับภาษาไทย\n"
+"- ตรวจคำด้วยรายการคำ (Z): คำที่มักเขียนผิดของทุกภาษา "
+"จากรายการภาษาอังกฤษและภาษาไทยที่มีมาให้ รายการของฉัน และรายการขององค์กร "
+"สำหรับภาษาไทยตรวจคำที่ไม่มีในรายการคำแบบเปิดด้วย (PyThaiNLP CC0 และพจนานุกรม NECTEC "
+"ของ LibreOffice ที่เลือกเพิ่มได้) พร้อมคำแนะนำ "
 "และเลือกให้ตรวจหารายการคำรุ่นใหม่ทุกสัปดาห์ได้\n"
-"- จัดรูปแบบเอกสารด้วย AI (J): หนังสือราชการภายนอก บันทึกข้อความ ประกาศ / คำสั่ง "
-"รายงานการประชุม จดหมายทางการและจดหมายทั่วไป รายงาน บทความ บทความวิชาการ "
-"และเอกสารอ่านง่ายเข้าถึงได้ AI ระบุเพียงหน้าที่ของแต่ละย่อหน้า ถ้อยคำไม่ถูกเปลี่ยน "
-"ตรวจตัวอย่างได้ก่อน และกด Control+Z เพื่อย้อนกลับ\n"
+"- จัดรูปแบบเอกสารด้วย AI (J): บทความแบบ APA 7, MLA 9 และ Harvard รายงาน บทความ "
+"บทความวิชาการ จดหมายทางการและจดหมายทั่วไป เอกสารอ่านง่ายเข้าถึงได้ "
+"และหนังสือราชการภายนอก บันทึกข้อความ ประกาศ รายงานการประชุม AI "
+"ระบุเพียงหน้าที่ของแต่ละย่อหน้า ถ้อยคำไม่ถูกเปลี่ยน ตรวจตัวอย่างได้ก่อน และกด Control+Z "
+"เพื่อย้อนกลับ\n"
 "- บริการ AI: Google Gemini (ใช้ฟรีได้) Anthropic Claude และ OpenAI (เสียเงิน) "
 "บริการที่รองรับรูปแบบ OpenAI หรือ Ollama ในเครื่องสำหรับเอกสารลับ มีหน้าตั้งค่า API key "
 "แบบนำทีละขั้น (NVDA+Control+Shift+F8) และเลือกโมเดลอัตโนมัติ\n"
-"- การเปลี่ยนแปลงแต่ละครั้งเป็นการเลิกทำหนึ่งขั้นของ Word API key เข้ารหัสไว้สำหรับผู้ใช้ "
-"Windows คีย์ใช้ได้ทั้งแป้นพิมพ์ไทยและอังกฤษ หน้าจอภาษาไทยและอังกฤษ"
+"- การเปลี่ยนแปลงแต่ละครั้งเป็นการเลิกทำหนึ่งขั้นของ Word ค้นหาในเอกสารยาวภายในเวลาที่กำหนด "
+"NVDA จึงไม่ค้าง API key เข้ารหัสไว้สำหรับผู้ใช้ Windows คีย์ใช้ได้กับแป้นพิมพ์ทุกภาษา "
+"หน้าจอภาษาอังกฤษและภาษาไทย ยินดีรับคำแปลภาษาอื่น"
 
 #. Brief changelog for this version
 #. Translators: what's new content for the add-on version to be shown in the add-on store
 msgid ""
-"Much faster in long documents, and NVDA no longer freezes: spelling, grammar "
-"and the Thai word check read the document in large parts, language problems, "
-"empty paragraphs and headings are found with Word's own search, and every "
-"search stops at a time limit (10 seconds by default, in the settings) with "
-"what it found so far. Moving between types with the arrow keys no longer "
-"searches the whole document."
-msgstr "เร็วขึ้นมากในเอกสารยาว และ NVDA ไม่ค้างอีก: คำสะกดผิด ไวยากรณ์ และการตรวจคำภาษาไทยอ่านเอกสารเป็นส่วนใหญ่ ๆ ปัญหาการกำหนดภาษา ย่อหน้าว่าง และหัวเรื่องใช้การค้นหาของ Word เอง และทุกการค้นหาหยุดเมื่อครบเวลาที่กำหนด (ค่าเริ่มต้น 10 วินาที ปรับได้ในการตั้งค่า) พร้อมรายการที่พบแล้ว การเปลี่ยนชนิดด้วยลูกศรไม่ค้นทั้งเอกสารอีกต่อไป"
+"Support for documents in any language, following the Add-on Store review. "
+"The language check (L) now covers Thai, Lao, Khmer, Burmese, Arabic, Hebrew, "
+"Cyrillic, Greek, Devanagari, Bengali, Tamil and other writing systems, with "
+"a setting for the languages you write in. Numbers and dates (Y) changes "
+"digits of many scripts. The word list check (Z) finds commonly misspelled "
+"words in any language, with a bundled English list and your own list. AI "
+"answers and translates in more than 50 languages. New APA 7, MLA 9 and "
+"Harvard formats. The documentation now says which extras are for Thai users."
+msgstr ""
+"รองรับเอกสารทุกภาษาตามข้อเสนอแนะจากการตรวจของ Add-on Store การตรวจภาษา (L) "
+"ครอบคลุมไทย ลาว เขมร พม่า อาหรับ ฮีบรู ซีริลลิก กรีก เทวนาครี เบงกาลี ทมิฬ "
+"และระบบตัวอักษรอื่น พร้อมการตั้งค่าภาษาที่ใช้เขียน ตัวเลขและวันที่ (Y) "
+"เปลี่ยนตัวเลขของหลายระบบตัวอักษร การตรวจคำด้วยรายการคำ (Z) พบคำที่มักเขียนผิดของทุกภาษา "
+"พร้อมรายการภาษาอังกฤษและรายการของฉัน AI ตอบและแปลได้มากกว่า 50 ภาษา เพิ่มรูปแบบ APA "
+"7, MLA 9 และ Harvard และเอกสารระบุชัดว่าส่วนใดเป็นส่วนเพิ่มเติมสำหรับผู้ใช้ภาษาไทย"
+
+#~ msgid ""
+#~ "Word Document Assistant: navigation mode keys\n"
+#~ "\n"
+#~ "Enter and leave the mode: NVDA+Shift+F8\n"
+#~ "\n"
+#~ "Move to an element type (Shift with the letter moves to the previous "
+#~ "one):\n"
+#~ "S  spelling errors\n"
+#~ "G  grammar issues\n"
+#~ "C  comments\n"
+#~ "F  footnotes\n"
+#~ "E  endnotes\n"
+#~ "R  revisions (tracked changes)\n"
+#~ "O  headings\n"
+#~ "U  tables\n"
+#~ "M  pictures and their alternative text\n"
+#~ "K  links\n"
+#~ "X  cross-references\n"
+#~ "I  citations\n"
+#~ "B  bookmarks\n"
+#~ "D  fields\n"
+#~ "L  text marked with the wrong language\n"
+#~ "A  accessibility problems\n"
+#~ "Z  Thai word check with the offline word lists (commonly misspelled words "
+#~ "and words not in the list)\n"
+#~ "\n"
+#~ "Inside the mode:\n"
+#~ "Down arrow / Up arrow  next or previous item of the current type\n"
+#~ "Left arrow / Right arrow  change the element type\n"
+#~ "Home / End  first or last item\n"
+#~ "Space  list of all items of the current type, with separate details and "
+#~ "copy buttons\n"
+#~ "Applications or Shift+F10  actions for the current item\n"
+#~ "Control+C  copy the text of the current item\n"
+#~ "Control+Shift+C  copy all details of the current item\n"
+#~ "\n"
+#~ "Commands:\n"
+#~ "T  report Track Changes status, Shift+T turns Track Changes on or off\n"
+#~ "N  read the footnote or endnote at the caret\n"
+#~ "P  report page, section, line and heading\n"
+#~ "Q  document summary\n"
+#~ "W  AI check of the current paragraph, Shift+W AI check of the text "
+#~ "selected before the mode started\n"
+#~ "J  format the document with AI (official letter, memo, letter, report, "
+#~ "article and more)\n"
+#~ "V  AI tools: summarize, rewrite, translate, summarize comments, check "
+#~ "consistency\n"
+#~ "Y  Thai tools: Thai and Arabic digits, Buddhist and Christian era years\n"
+#~ "H  this help\n"
+#~ "\n"
+#~ "Anywhere: NVDA+Control+Shift+F8 sets up or updates the AI service and API "
+#~ "key\n"
+#~ "\n"
+#~ "Leaving the mode:\n"
+#~ "Enter  leave the mode at the current item, ready to edit\n"
+#~ "Escape  leave the mode, the caret stays at the current item\n"
+#~ "Backspace  go back to where the caret was when the mode started, and "
+#~ "leave the mode\n"
+#~ "Any other key leaves the mode and does its normal job in Word."
+#~ msgstr ""
+#~ "ผู้ช่วยเอกสาร Word: คีย์ในโหมดนำทาง\n"
+#~ "\n"
+#~ "เข้าและออกจากโหมด: NVDA+Shift+F8\n"
+#~ "\n"
+#~ "ไปยังชนิดองค์ประกอบ (กด Shift พร้อมตัวอักษรเพื่อย้อนไปรายการก่อนหน้า):\n"
+#~ "S  คำสะกดผิด\n"
+#~ "G  ปัญหาไวยากรณ์\n"
+#~ "C  ข้อคิดเห็น\n"
+#~ "F  เชิงอรรถ\n"
+#~ "E  อ้างอิงท้ายเรื่อง (endnote)\n"
+#~ "R  การแก้ไขที่ติดตาม (Track Changes)\n"
+#~ "O  หัวเรื่อง\n"
+#~ "U  ตาราง\n"
+#~ "M  รูปภาพและข้อความแสดงแทน\n"
+#~ "K  ลิงก์\n"
+#~ "X  การอ้างอิงโยง\n"
+#~ "I  การอ้างอิง (citation)\n"
+#~ "B  บุ๊กมาร์ก\n"
+#~ "D  ฟิลด์\n"
+#~ "L  ข้อความที่กำหนดภาษาผิด\n"
+#~ "A  ปัญหาการเข้าถึงได้\n"
+#~ "Z  ตรวจคำภาษาไทยด้วยรายการคำแบบออฟไลน์ (คำที่มักเขียนผิดและคำที่ไม่มีในรายการคำ)\n"
+#~ "\n"
+#~ "ภายในโหมด:\n"
+#~ "ลูกศรลง / ลูกศรขึ้น  รายการถัดไปหรือก่อนหน้าของชนิดปัจจุบัน\n"
+#~ "ลูกศรซ้าย / ลูกศรขวา  เปลี่ยนชนิดองค์ประกอบ\n"
+#~ "Home / End  รายการแรกหรือรายการสุดท้าย\n"
+#~ "Space  รายการทั้งหมดของชนิดปัจจุบัน แยกรายละเอียดแต่ละส่วนและมีปุ่มคัดลอก\n"
+#~ "Applications หรือ Shift+F10  คำสั่งของรายการปัจจุบัน\n"
+#~ "Control+C  คัดลอกข้อความของรายการปัจจุบัน\n"
+#~ "Control+Shift+C  คัดลอกรายละเอียดทั้งหมดของรายการปัจจุบัน\n"
+#~ "\n"
+#~ "คำสั่ง:\n"
+#~ "T  รายงานสถานะ Track Changes, Shift+T เปิดหรือปิด Track Changes\n"
+#~ "N  อ่านเชิงอรรถหรือ endnote ที่เคอร์เซอร์\n"
+#~ "P  รายงานหน้า ส่วน (section) บรรทัด และหัวเรื่อง\n"
+#~ "Q  สรุปเอกสาร\n"
+#~ "W  ให้ AI ตรวจย่อหน้าปัจจุบัน, Shift+W ให้ AI ตรวจข้อความที่เลือกไว้ก่อนเข้าโหมด\n"
+#~ "J  จัดรูปแบบเอกสารด้วย AI (หนังสือราชการ บันทึกข้อความ จดหมาย รายงาน บทความ "
+#~ "และอื่นๆ)\n"
+#~ "V  เครื่องมือ AI: สรุป เรียบเรียงใหม่ แปล สรุปข้อคิดเห็น ตรวจความสอดคล้อง\n"
+#~ "Y  เครื่องมือภาษาไทย: เลขไทยและเลขอารบิก ปี พ.ศ. และ ค.ศ.\n"
+#~ "H  ความช่วยเหลือนี้\n"
+#~ "\n"
+#~ "ใช้ได้ทุกที่: NVDA+Control+Shift+F8 ตั้งค่าหรืออัปเดตบริการ AI และ API key\n"
+#~ "\n"
+#~ "การออกจากโหมด:\n"
+#~ "Enter  ออกจากโหมดที่รายการปัจจุบัน พร้อมแก้ไขได้ทันที\n"
+#~ "Escape  ออกจากโหมด เคอร์เซอร์อยู่ที่รายการปัจจุบัน\n"
+#~ "Backspace  กลับไปตำแหน่งเดิมก่อนเข้าโหมด แล้วออกจากโหมด\n"
+#~ "คีย์อื่นๆ จะออกจากโหมดและทำงานตามปกติของ Word"
+
+#~ msgid "Rewrite in official Thai style"
+#~ msgstr "เรียบเรียงใหม่เป็นภาษาราชการ"
+
+#~ msgid "Translate to English"
+#~ msgstr "แปลเป็นภาษาอังกฤษ"
+
+#~ msgid "Translate to Thai"
+#~ msgstr "แปลเป็นภาษาไทย"
+
+#, python-brace-format
+#~ msgid "Arabic digits to Thai digits ({count})"
+#~ msgstr "เลขอารบิกเป็นเลขไทย ({count})"
+
+#, python-brace-format
+#~ msgid "Thai digits to Arabic digits ({count})"
+#~ msgstr "เลขไทยเป็นเลขอารบิก ({count})"
+
+#~ msgid "Thai tools"
+#~ msgstr "เครื่องมือภาษาไทย"
+
+#~ msgid "Thai text not marked as Thai"
+#~ msgstr "ข้อความไทยไม่ได้กำหนดเป็นภาษาไทย"
+
+#~ msgid "English text marked as Thai"
+#~ msgstr "ข้อความอังกฤษกำหนดเป็นภาษาไทย"
+
+#~ msgid "Fix this paragraph (Thai words Thai, English words English)"
+#~ msgstr "แก้ย่อหน้านี้ (คำไทยเป็นไทย คำอังกฤษเป็นอังกฤษ)"
+
+#~ msgid "Mark whole paragraph as Thai"
+#~ msgstr "กำหนดทั้งย่อหน้าเป็นภาษาไทย"
+
+#~ msgid "Thai word check (Z)"
+#~ msgstr "ตรวจคำภาษาไทย (Z)"
+
+#~ msgid ""
+#~ "Also report words that are not in the word list (names may be reported)"
+#~ msgstr "รายงานคำที่ไม่มีในรายการคำด้วย (อาจรายงานชื่อเฉพาะ)"
+
+#~ msgid "Document &language:"
+#~ msgstr "ภาษาของเอกสาร(&L):"
+
+#~ msgid "Automatic"
+#~ msgstr "อัตโนมัติ"
+
+#~ msgid "English"
+#~ msgstr "อังกฤษ"
+
+#~ msgid "Thai word check"
+#~ msgstr "ตรวจคำภาษาไทย"
+
+#~ msgid ""
+#~ "Read, manage and format Microsoft Word documents from the keyboard with "
+#~ "NVDA. Works with Microsoft 365, Office 2021 and Office 2019.\n"
+#~ "Main features:\n"
+#~ "- Document navigation mode (NVDA+Shift+F8): move to spelling errors (S), "
+#~ "grammar issues (G), comments (C), footnotes (F), endnotes (E), tracked "
+#~ "changes (R), headings (O), tables (U), pictures (M), links (K), cross-"
+#~ "references (X), citations (I), bookmarks (B), fields (D), language "
+#~ "problems (L) and accessibility problems (A); Shift with the letter moves "
+#~ "back, arrow keys move and change the type, Home and End go to the first "
+#~ "and last item.\n"
+#~ "- When you leave the mode the caret stays at the last item, ready to "
+#~ "edit; Enter leaves and lets you type straight away, Backspace returns to "
+#~ "where you started.\n"
+#~ "- Item lists (Space) with each detail in its own field: author, date, "
+#~ "status, commented text, comment and replies; copy the text or all "
+#~ "details.\n"
+#~ "- Actions (Applications key): replace misspelled words, reply to, edit, "
+#~ "resolve and delete comments, insert, edit, delete and convert footnotes "
+#~ "and endnotes, accept and reject tracked changes one by one, by author or "
+#~ "all.\n"
+#~ "- Track Changes status and toggle (T, Shift+T), note at the caret (N), "
+#~ "page, section and heading (P), document summary (Q).\n"
+#~ "- Accessibility checker (A): pictures without alternative text, tables "
+#~ "without header rows, skipped heading levels, empty paragraphs used for "
+#~ "spacing, unclear link text, missing title and wrong language, each with a "
+#~ "fix. AI writes alternative text for pictures and tables in Thai or "
+#~ "English for you to check.\n"
+#~ "- Structure: promote and demote headings, header rows and alternative "
+#~ "text of tables, edit and check links, add bookmarks, update fields, "
+#~ "insert cross-references, citations and the bibliography.\n"
+#~ "- Optional AI suggestions: proofread a paragraph or the selection (W), "
+#~ "suggestions for a misspelled word, drafts of comment replies. AI tools "
+#~ "(V): summaries, rewriting in official, polite, concise or easy-to-read "
+#~ "style, Thai and English translation, comment summary and consistency "
+#~ "check, always shown next to the original before anything changes.\n"
+#~ "- Thai tools (Y): Thai and Arabic digits, Buddhist and Christian era "
+#~ "years.\n"
+#~ "- Offline Thai word check (Z): commonly misspelled words with the right "
+#~ "form, and words not in open word lists (PyThaiNLP CC0, optional "
+#~ "LibreOffice NECTEC dictionary), with suggestions, my words, an "
+#~ "organization list, and an optional weekly check for new word lists.\n"
+#~ "- Format the document with AI (J): Thai official letter, memo, "
+#~ "announcement or order, meeting minutes, business and general letters, "
+#~ "report, article, academic paper and an accessible easy-to-read format. AI "
+#~ "only decides the role of each paragraph; the words are not changed, you "
+#~ "check a preview and Control+Z undoes it.\n"
+#~ "- AI services: Google Gemini (free tier), Anthropic Claude and OpenAI "
+#~ "(paid), OpenAI compatible services, or Ollama on this computer for "
+#~ "confidential documents. Guided API key setup (NVDA+Control+Shift+F8) with "
+#~ "automatic model choice.\n"
+#~ "- Every change is one Word undo step. API keys are encrypted for the "
+#~ "Windows user. Keys work with Thai and English keyboard layouts. Thai and "
+#~ "English interface."
+#~ msgstr ""
+#~ "อ่าน จัดการ และจัดรูปแบบเอกสาร Microsoft Word ด้วยแป้นพิมพ์ร่วมกับ NVDA ใช้ได้กับ "
+#~ "Microsoft 365, Office 2021 และ Office 2019\n"
+#~ "ความสามารถหลัก:\n"
+#~ "- โหมดนำทางเอกสาร (NVDA+Shift+F8): ไปยังคำสะกดผิด (S) ปัญหาไวยากรณ์ (G) "
+#~ "ข้อคิดเห็น (C) เชิงอรรถ (F) endnote (E) การแก้ไขที่ติดตาม (R) หัวเรื่อง (O) ตาราง "
+#~ "(U) รูปภาพ (M) ลิงก์ (K) การอ้างอิงโยง (X) การอ้างอิง (I) บุ๊กมาร์ก (B) ฟิลด์ (D) "
+#~ "ปัญหาการกำหนดภาษา (L) และปัญหาการเข้าถึงได้ (A) กด Shift พร้อมตัวอักษรเพื่อย้อนกลับ "
+#~ "ใช้ลูกศรเพื่อเลื่อนและเปลี่ยนชนิด Home และ End ไปยังรายการแรกและรายการสุดท้าย\n"
+#~ "- เมื่อออกจากโหมด เคอร์เซอร์อยู่ที่รายการล่าสุด พร้อมแก้ไขได้ทันที Enter "
+#~ "ออกจากโหมดแล้วพิมพ์ได้เลย Backspace กลับไปตำแหน่งเดิม\n"
+#~ "- หน้าต่างรายการ (Space) แยกรายละเอียดแต่ละส่วนเป็นช่อง ได้แก่ ผู้เขียน วันที่ สถานะ "
+#~ "ข้อความที่แสดงความคิดเห็น ข้อคิดเห็น และการตอบกลับ คัดลอกข้อความหรือรายละเอียดทั้งหมดได้\n"
+#~ "- เมนูคำสั่ง (ปุ่ม Applications): แทนที่คำสะกดผิด ตอบกลับ แก้ไข "
+#~ "ทำเครื่องหมายว่าแก้ไขแล้ว และลบข้อคิดเห็น แทรก แก้ไข ลบ และแปลงเชิงอรรถกับ endnote "
+#~ "ยอมรับและปฏิเสธการแก้ไขทีละรายการ ตามผู้เขียน หรือทั้งหมด\n"
+#~ "- สถานะและการเปิดปิด Track Changes (T, Shift+T) อ่านเชิงอรรถที่เคอร์เซอร์ (N) หน้า "
+#~ "ส่วน และหัวเรื่อง (P) สรุปเอกสาร (Q)\n"
+#~ "- ตัวตรวจการเข้าถึงได้ (A): รูปภาพที่ไม่มีข้อความแสดงแทน ตารางที่ไม่มีแถวหัวตาราง "
+#~ "หัวเรื่องข้ามระดับ ย่อหน้าว่างที่ใช้เว้นระยะ ข้อความลิงก์ที่ไม่ชัดเจน เอกสารไม่มีชื่อเรื่อง "
+#~ "และการกำหนดภาษาผิด พร้อมคำสั่งแก้ไขแต่ละรายการ AI "
+#~ "ช่วยเขียนข้อความแสดงแทนของรูปภาพและตารางเป็นภาษาไทยหรืออังกฤษให้ตรวจก่อนบันทึก\n"
+#~ "- โครงสร้างเอกสาร: เลื่อนระดับหัวเรื่อง กำหนดแถวหัวตารางและข้อความแสดงแทนของตาราง "
+#~ "แก้ไขและตรวจลิงก์ เพิ่มบุ๊กมาร์ก อัปเดตฟิลด์ แทรกการอ้างอิงโยง การอ้างอิง และบรรณานุกรม\n"
+#~ "- คำแนะนำจาก AI (เลือกเปิดใช้ได้): ตรวจย่อหน้าหรือข้อความที่เลือก (W) "
+#~ "แนะนำคำที่ถูกต้องสำหรับคำสะกดผิด ร่างคำตอบข้อคิดเห็น เครื่องมือ AI (V): สรุป "
+#~ "เรียบเรียงใหม่เป็นภาษาราชการ สุภาพ กระชับ หรือภาษาง่าย แปลไทยและอังกฤษ สรุปข้อคิดเห็น "
+#~ "และตรวจความสอดคล้อง โดยแสดงเทียบกับข้อความเดิมก่อนเปลี่ยนทุกครั้ง\n"
+#~ "- เครื่องมือภาษาไทย (Y): เลขไทยและเลขอารบิก ปี พ.ศ. และ ค.ศ.\n"
+#~ "- ตรวจคำภาษาไทยแบบออฟไลน์ (Z): คำที่มักเขียนผิดพร้อมคำที่ถูกต้อง "
+#~ "และคำที่ไม่มีในรายการคำแบบเปิด (PyThaiNLP CC0 และพจนานุกรม NECTEC ของ "
+#~ "LibreOffice ที่เลือกเพิ่มได้) พร้อมคำแนะนำ รายการคำของฉัน รายการขององค์กร "
+#~ "และเลือกให้ตรวจหารายการคำรุ่นใหม่ทุกสัปดาห์ได้\n"
+#~ "- จัดรูปแบบเอกสารด้วย AI (J): หนังสือราชการภายนอก บันทึกข้อความ ประกาศ / คำสั่ง "
+#~ "รายงานการประชุม จดหมายทางการและจดหมายทั่วไป รายงาน บทความ บทความวิชาการ "
+#~ "และเอกสารอ่านง่ายเข้าถึงได้ AI ระบุเพียงหน้าที่ของแต่ละย่อหน้า ถ้อยคำไม่ถูกเปลี่ยน "
+#~ "ตรวจตัวอย่างได้ก่อน และกด Control+Z เพื่อย้อนกลับ\n"
+#~ "- บริการ AI: Google Gemini (ใช้ฟรีได้) Anthropic Claude และ OpenAI (เสียเงิน) "
+#~ "บริการที่รองรับรูปแบบ OpenAI หรือ Ollama ในเครื่องสำหรับเอกสารลับ มีหน้าตั้งค่า API key "
+#~ "แบบนำทีละขั้น (NVDA+Control+Shift+F8) และเลือกโมเดลอัตโนมัติ\n"
+#~ "- การเปลี่ยนแปลงแต่ละครั้งเป็นการเลิกทำหนึ่งขั้นของ Word API key เข้ารหัสไว้สำหรับผู้ใช้ "
+#~ "Windows คีย์ใช้ได้ทั้งแป้นพิมพ์ไทยและอังกฤษ หน้าจอภาษาไทยและอังกฤษ"
+
+#~ msgid ""
+#~ "Much faster in long documents, and NVDA no longer freezes: spelling, "
+#~ "grammar and the Thai word check read the document in large parts, "
+#~ "language problems, empty paragraphs and headings are found with Word's "
+#~ "own search, and every search stops at a time limit (10 seconds by "
+#~ "default, in the settings) with what it found so far. Moving between types "
+#~ "with the arrow keys no longer searches the whole document."
+#~ msgstr ""
+#~ "เร็วขึ้นมากในเอกสารยาว และ NVDA ไม่ค้างอีก: คำสะกดผิด ไวยากรณ์ "
+#~ "และการตรวจคำภาษาไทยอ่านเอกสารเป็นส่วนใหญ่ ๆ ปัญหาการกำหนดภาษา ย่อหน้าว่าง "
+#~ "และหัวเรื่องใช้การค้นหาของ Word เอง และทุกการค้นหาหยุดเมื่อครบเวลาที่กำหนด (ค่าเริ่มต้น "
+#~ "10 วินาที ปรับได้ในการตั้งค่า) พร้อมรายการที่พบแล้ว "
+#~ "การเปลี่ยนชนิดด้วยลูกศรไม่ค้นทั้งเอกสารอีกต่อไป"
 
 #~ msgid ""
 #~ "Collecting headings is much faster in long documents, and Word no longer "

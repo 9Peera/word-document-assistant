@@ -1,5 +1,5 @@
 # Word Document Assistant for NVDA
-# Thai text tools and AI writing tools.
+# Number and date tools (digits of many scripts, Thai era years) and dialogs for the AI writing tools.
 # Copyright (C) 2026 Peera Pilarit
 # This file is covered by the GNU General Public License version 2.
 
@@ -12,6 +12,7 @@ import addonHandler
 import wx
 from gui import guiHelper
 
+from . import languages
 from .wordCom import COM_ERRORS, WordContext, cleanText, undoRecord
 
 addonHandler.initTranslation()
@@ -28,10 +29,9 @@ WD_FIND_STOP = 0
 _ERA_YEAR = re.compile(r"(ค\.\s?ศ\.|คศ\.?|พ\.\s?ศ\.|พศ\.?)(\s*)([0-9๐-๙]{4})")
 
 
-def countDigits(text: str) -> tuple[int, int]:
-	thai = sum(text.count(d) for d in THAI_DIGITS)
-	arabic = sum(text.count(d) for d in ARABIC_DIGITS)
-	return thai, arabic
+def countDigits(text: str) -> dict[str, int]:
+	"""Digits in the text by digit system ("western" for 0 to 9); only systems that occur."""
+	return languages.countDigitSystems(text)
 
 
 def _replaceAll(rangeObj: Any, find: str, replace: str) -> None:
@@ -41,16 +41,14 @@ def _replaceAll(rangeObj: Any, find: str, replace: str) -> None:
 	finder.Execute(find, True, False, False, False, False, True, WD_FIND_STOP, False, replace, WD_REPLACE_ALL)
 
 
-def convertDigits(ctx: WordContext, rangeObj: Any, toThai: bool) -> int:
-	"""Change every digit in the range. Returns the number of digits changed. One undo step."""
-	before = countDigits(str(rangeObj.Text or ""))
-	changed = before[1] if toThai else before[0]
-	if not changed:
+def convertDigits(ctx: WordContext, rangeObj: Any, source: str, target: str) -> int:
+	"""Change the digits of one system to another ("western" is 0 to 9). Returns how many. One undo step."""
+	changed = countDigits(str(rangeObj.Text or "")).get(source, 0)
+	if not changed or source == target:
 		return 0
-	source, target = (ARABIC_DIGITS, THAI_DIGITS) if toThai else (THAI_DIGITS, ARABIC_DIGITS)
 	# Translators: Name of the undo step for changing digits.
 	with undoRecord(ctx, _("Change digits")):
-		for old, new in zip(source, target, strict=True):
+		for old, new in zip(languages.digitsOf(source), languages.digitsOf(target), strict=True):
 			_replaceAll(rangeObj, old, new)
 	return changed
 
